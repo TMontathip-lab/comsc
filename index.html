@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>COM SC Scanner</title>
+
+<style>
+*{box-sizing:border-box}
+
+html,body{
+  margin:0;
+  min-height:100%;
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  background:#f4f7fb;
+  color:#0f172a;
+}
+
+body{
+  padding:
+    max(18px,env(safe-area-inset-top))
+    16px
+    max(24px,env(safe-area-inset-bottom));
+}
+
+.app{
+  max-width:600px;
+  margin:0 auto;
+}
+
+.header{
+  margin-bottom:16px;
+}
+
+.header h1{
+  margin:0;
+  font-size:26px;
+}
+
+.header p{
+  margin:6px 0 0;
+  color:#64748b;
+  line-height:1.5;
+}
+
+.card{
+  background:#fff;
+  border:1px solid #e2e8f0;
+  border-radius:24px;
+  padding:16px;
+  box-shadow:0 12px 32px rgba(15,23,42,.07);
+}
+
+.camera{
+  position:relative;
+  overflow:hidden;
+  width:100%;
+  aspect-ratio:3/4;
+  background:#020617;
+  border-radius:20px;
+}
+
+video{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  display:block;
+}
+
+.placeholder{
+  position:absolute;
+  inset:0;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  padding:30px;
+  color:#94a3b8;
+}
+
+.placeholder.hidden{
+  display:none;
+}
+
+.status{
+  margin-top:14px;
+  padding:13px 14px;
+  border-radius:16px;
+  background:#f1f5f9;
+  color:#475569;
+  line-height:1.5;
+}
+
+.status.success{
+  background:#ecfdf5;
+  color:#166534;
+}
+
+.status.error{
+  background:#fef2f2;
+  color:#b91c1c;
+}
+
+.buttons{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px;
+  margin-top:14px;
+}
+
+button{
+  min-height:52px;
+  border:0;
+  border-radius:16px;
+  font:inherit;
+  font-weight:700;
+  cursor:pointer;
+}
+
+.primary{
+  background:#66cc99;
+  color:#0f172a;
+}
+
+.secondary{
+  background:#eef2f7;
+  color:#334155;
+}
+
+button:disabled{
+  opacity:.45;
+}
+
+.info{
+  margin-top:16px;
+  background:#fff;
+  border:1px solid #e2e8f0;
+  border-radius:20px;
+  padding:15px;
+}
+
+.info h2{
+  margin:0 0 10px;
+  font-size:17px;
+}
+
+.row{
+  display:grid;
+  grid-template-columns:120px 1fr;
+  gap:8px;
+  padding:7px 0;
+  border-bottom:1px solid #edf2f7;
+  font-size:14px;
+}
+
+.row:last-child{
+  border-bottom:0;
+}
+
+.label{
+  color:#64748b;
+}
+
+.value{
+  word-break:break-word;
+}
+
+.error-box{
+  display:none;
+  margin-top:14px;
+  padding:14px;
+  border-radius:16px;
+  background:#fff7ed;
+  border:1px solid #fed7aa;
+  color:#9a3412;
+  font-size:13px;
+  line-height:1.6;
+}
+
+.error-box.show{
+  display:block;
+}
+
+@media(max-width:480px){
+  .buttons{
+    grid-template-columns:1fr;
+  }
+
+  .row{
+    grid-template-columns:100px 1fr;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<div class="app">
+
+  <div class="header">
+    <h1>COM SC Scanner</h1>
+    <p>
+      ทดสอบเปิดกล้องหลังบน iPhone
+      ยังไม่มีการตรวจข้อสอบและไม่บันทึกข้อมูลใด ๆ
+    </p>
+  </div>
+
+  <div class="card">
+
+    <div class="camera">
+
+      <video
+        id="video"
+        autoplay
+        muted
+        playsinline
+      ></video>
+
+      <div
+        id="placeholder"
+        class="placeholder"
+      >
+        กด “เปิดกล้องหลัง”
+      </div>
+
+    </div>
+
+    <div
+      id="status"
+      class="status"
+    >
+      ยังไม่ได้เปิดกล้อง
+    </div>
+
+    <div class="buttons">
+
+      <button
+        id="startBtn"
+        class="primary"
+        type="button"
+      >
+        เปิดกล้องหลัง
+      </button>
+
+      <button
+        id="stopBtn"
+        class="secondary"
+        type="button"
+        disabled
+      >
+        ปิดกล้อง
+      </button>
+
+    </div>
+
+    <div
+      id="errorBox"
+      class="error-box"
+    ></div>
+
+  </div>
+
+  <div class="info">
+
+    <h2>สถานะระบบ</h2>
+
+    <div class="row">
+      <div class="label">HTTPS</div>
+      <div id="secureValue" class="value"></div>
+    </div>
+
+    <div class="row">
+      <div class="label">Camera API</div>
+      <div id="mediaValue" class="value"></div>
+    </div>
+
+    <div class="row">
+      <div class="label">เว็บไซต์</div>
+      <div id="originValue" class="value"></div>
+    </div>
+
+    <div class="row">
+      <div class="label">กล้อง</div>
+      <div id="cameraValue" class="value">-</div>
+    </div>
+
+    <div class="row">
+      <div class="label">ความละเอียด</div>
+      <div id="resolutionValue" class="value">-</div>
+    </div>
+
+  </div>
+
+</div>
+
+<script>
+let stream=null;
+
+const video=document.getElementById('video');
+const startBtn=document.getElementById('startBtn');
+const stopBtn=document.getElementById('stopBtn');
+const placeholder=document.getElementById('placeholder');
+const statusBox=document.getElementById('status');
+const errorBox=document.getElementById('errorBox');
+
+function setStatus(text,type=''){
+  statusBox.textContent=text;
+  statusBox.className='status'+(type?' '+type:'');
+}
+
+function showError(error){
+  const name=error?.name||'Error';
+  const message=error?.message||String(error);
+
+  errorBox.innerHTML=
+    '<strong>'+escapeHtml(name)+'</strong><br>'+
+    escapeHtml(message);
+
+  errorBox.classList.add('show');
+}
+
+function clearError(){
+  errorBox.innerHTML='';
+  errorBox.classList.remove('show');
+}
+
+function escapeHtml(value){
+  return String(value??'')
+    .replace(/&/g,'&amp;')
+    .replace(/</g,'&lt;')
+    .replace(/>/g,'&gt;')
+    .replace(/"/g,'&quot;')
+    .replace(/'/g,'&#039;');
+}
+
+function stopCamera(){
+  if(stream){
+    stream.getTracks().forEach(track=>track.stop());
+  }
+
+  stream=null;
+  video.srcObject=null;
+
+  placeholder.classList.remove('hidden');
+
+  startBtn.disabled=false;
+  stopBtn.disabled=true;
+
+  document.getElementById('cameraValue').textContent='-';
+  document.getElementById('resolutionValue').textContent='-';
+
+  setStatus('ปิดกล้องแล้ว');
+}
+
+async function startCamera(){
+  clearError();
+
+  if(!window.isSecureContext){
+    setStatus('หน้าเว็บไม่ได้เปิดผ่าน HTTPS','error');
+    showError(new Error('ต้องเปิดผ่าน HTTPS'));
+    return;
+  }
+
+  if(!navigator.mediaDevices?.getUserMedia){
+    setStatus('เบราว์เซอร์ไม่รองรับ Camera API','error');
+    showError(new Error('ไม่พบ navigator.mediaDevices.getUserMedia'));
+    return;
+  }
+
+  if(stream){
+    stopCamera();
+  }
+
+  setStatus('กำลังขอสิทธิ์กล้อง...');
+  startBtn.disabled=true;
+
+  try{
+    try{
+      stream=await navigator.mediaDevices.getUserMedia({
+        audio:false,
+        video:{
+          facingMode:{ideal:'environment'},
+          width:{ideal:1920},
+          height:{ideal:1080}
+        }
+      });
+    }catch(firstError){
+      stream=await navigator.mediaDevices.getUserMedia({
+        audio:false,
+        video:true
+      });
+    }
+
+    video.srcObject=stream;
+    await video.play();
+
+    placeholder.classList.add('hidden');
+
+    stopBtn.disabled=false;
+
+    const track=stream.getVideoTracks()[0];
+    const settings=track.getSettings();
+
+    document.getElementById('cameraValue').textContent=
+      track.label||'Camera';
+
+    document.getElementById('resolutionValue').textContent=
+      (settings.width||video.videoWidth||'-')+
+      ' × '+
+      (settings.height||video.videoHeight||'-');
+
+    setStatus('เปิดกล้องสำเร็จ','success');
+
+  }catch(error){
+    stream=null;
+
+    startBtn.disabled=false;
+    stopBtn.disabled=true;
+
+    setStatus('เปิดกล้องไม่สำเร็จ','error');
+    showError(error);
+  }
+}
+
+startBtn.addEventListener('click',startCamera);
+stopBtn.addEventListener('click',stopCamera);
+
+document.getElementById('secureValue').textContent=
+  window.isSecureContext?'ผ่าน':'ไม่ผ่าน';
+
+document.getElementById('mediaValue').textContent=
+  navigator.mediaDevices?.getUserMedia?'รองรับ':'ไม่รองรับ';
+
+document.getElementById('originValue').textContent=
+  location.origin;
+
+window.addEventListener('pagehide',stopCamera);
+</script>
+
+</body>
+</html>
