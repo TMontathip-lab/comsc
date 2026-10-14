@@ -3,7 +3,7 @@
 <html lang="th">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#ffffff">
 <title>COM SC | Computer Smart Classroom</title>
 <link rel="preconnect" href="https://cdnjs.cloudflare.com">
@@ -11,568 +11,643 @@
 <link rel="stylesheet" href="./styles.css">
 <style>
 :root{
-  --blue:#146EF5;
-  --blue-soft:#EAF3FF;
-  --green:#66CC99;
-  --navy:#0B1F3A;
-  --text:#132238;
-  --muted:#718096;
-  --line:#E5EBF3;
-  --bg:#F5F8FC;
-  --sidebar:260px;
+--comsc-blue:#146EF5;
+--comsc-blue-soft:#EAF3FF;
+--comsc-green:#66CC99;
+--comsc-navy:#0B1F3A;
+--comsc-text:#132238;
+--comsc-muted:#718096;
+--comsc-line:#E5EBF3;
+--comsc-bg:#F5F8FC;
+--comsc-sidebar:260px
 }
 *{box-sizing:border-box}
+html{scroll-behavior:smooth}
 body{
-  margin:0;
-  background:var(--bg);
-  color:var(--text);
-  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans Thai",sans-serif;
+margin:0;
+min-height:100vh;
+background:var(--comsc-bg);
+color:var(--comsc-text);
+font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans Thai",sans-serif
 }
 button,input{font:inherit}
 button{cursor:pointer}
 button:disabled{opacity:.5;cursor:not-allowed}
 .app{min-height:100vh}
 .sidebar{
-  position:fixed;
-  inset:0 auto 0 0;
-  width:var(--sidebar);
-  background:#fff;
-  border-right:1px solid var(--line);
-  z-index:40;
-  display:flex;
-  flex-direction:column;
+position:fixed;
+inset:0 auto 0 0;
+width:var(--comsc-sidebar);
+background:#fff;
+border-right:1px solid var(--comsc-line);
+z-index:40;
+display:flex;
+flex-direction:column
 }
 .brand{
-  padding:22px 18px;
-  display:flex;
-  align-items:center;
-  gap:12px;
+padding:22px 18px;
+display:flex;
+align-items:center;
+gap:12px
 }
 .brand-logo{
-  width:48px;
-  height:48px;
-  border-radius:15px;
-  object-fit:contain;
+width:48px;
+height:48px;
+border-radius:15px;
+object-fit:contain
 }
 .brand-text strong{
-  display:block;
-  font-size:18px;
-  color:var(--navy);
+display:block;
+font-size:18px;
+color:var(--comsc-navy)
 }
 .brand-text span{
-  display:block;
-  margin-top:3px;
-  font-size:11px;
-  color:var(--muted);
+display:block;
+margin-top:3px;
+font-size:11px;
+color:var(--comsc-muted)
 }
-.side-scroll{padding:8px 12px;overflow:auto}
+.side-scroll{
+padding:8px 12px;
+overflow:auto
+}
 .nav-label{
-  padding:12px;
-  font-size:11px;
-  font-weight:700;
-  color:#94A3B8;
+padding:12px;
+font-size:11px;
+font-weight:700;
+color:#94A3B8
 }
 .nav-item{
-  display:flex;
-  align-items:center;
-  gap:12px;
-  width:100%;
-  min-height:48px;
-  padding:0 13px;
-  margin-bottom:4px;
-  border:0;
-  border-radius:15px;
-  background:transparent;
-  color:#52647A;
-  text-align:left;
+display:flex;
+align-items:center;
+gap:12px;
+width:100%;
+min-height:48px;
+padding:0 13px;
+margin-bottom:4px;
+border:0;
+border-radius:15px;
+background:transparent;
+color:#52647A;
+text-align:left
 }
 .nav-item i{
-  width:21px;
-  text-align:center;
+width:21px;
+text-align:center
 }
 .nav-item.active,.nav-item:hover{
-  background:var(--blue-soft);
-  color:var(--blue);
+background:var(--comsc-blue-soft);
+color:var(--comsc-blue)
 }
-.sidebar-footer{margin-top:auto;padding:16px}
+.sidebar-footer{
+margin-top:auto;
+padding:16px
+}
 .sidebar-profile{
-  padding:12px;
-  border-radius:16px;
-  background:#F8FAFD;
-  display:flex;
-  align-items:center;
-  gap:10px;
+padding:12px;
+border-radius:16px;
+background:#F8FAFD;
+display:flex;
+align-items:center;
+gap:10px
 }
 .avatar{
-  width:38px;
-  height:38px;
-  background:var(--blue);
-  border-radius:12px;
-  color:#fff;
-  display:grid;
-  place-items:center;
+width:38px;
+height:38px;
+background:var(--comsc-blue);
+border-radius:12px;
+color:#fff;
+display:grid;
+place-items:center
 }
-.profile-copy strong{display:block;font-size:13px}
-.profile-copy span{font-size:11px;color:var(--muted)}
+.profile-copy strong{
+display:block;
+font-size:13px
+}
+.profile-copy span{
+font-size:11px;
+color:var(--comsc-muted)
+}
 .main{
-  margin-left:var(--sidebar);
-  min-height:100vh;
+margin-left:var(--comsc-sidebar);
+min-height:100vh
 }
 .topbar{
-  height:88px;
-  padding:15px 28px;
-  background:#fff;
-  border-bottom:1px solid var(--line);
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:14px;
+height:88px;
+padding:15px 28px;
+background:#fff;
+border-bottom:1px solid var(--comsc-line);
+display:flex;
+align-items:center;
+justify-content:space-between;
+gap:14px
 }
-.page-title{font-size:23px;margin:0}
+.topbar-left{
+display:flex;
+align-items:center;
+gap:12px
+}
+.page-title{
+font-size:23px;
+margin:0;
+color:var(--comsc-navy)
+}
 .page-subtitle{
-  margin:4px 0 0;
-  font-size:12px;
-  color:var(--muted);
+margin:4px 0 0;
+font-size:12px;
+color:var(--comsc-muted)
 }
 .top-actions{display:flex;gap:8px}
 .icon-btn{
-  width:43px;
-  height:43px;
-  border:1px solid var(--line);
-  border-radius:13px;
-  background:#fff;
-  color:var(--text);
+width:43px;
+height:43px;
+border:1px solid var(--comsc-line);
+border-radius:13px;
+background:#fff;
+color:var(--comsc-text)
 }
 .content{
-  padding:26px;
-  max-width:1500px;
-  margin:auto;
+padding:26px;
+max-width:1500px;
+margin:auto
 }
-.view{display:none}
-.view.active{display:block}
+.view{display:none!important}
+.view.active{display:block!important}
 .hero{
-  background:linear-gradient(120deg,#1268E9,#428FFF);
-  border-radius:24px;
-  padding:28px;
-  color:#fff;
+background:linear-gradient(120deg,#1268E9,#428FFF);
+border-radius:24px;
+padding:28px;
+color:#fff
 }
 .hero-content{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:20px;
+display:flex;
+align-items:center;
+justify-content:space-between;
+gap:20px
 }
-.hero h2{font-size:27px;margin:0 0 10px}
+.hero h2{
+font-size:27px;
+margin:0 0 10px;
+color:#fff
+}
 .hero p{
-  font-size:14px;
-  line-height:1.8;
-  max-width:600px;
+font-size:14px;
+line-height:1.8;
+max-width:600px;
+color:#fff
 }
 .hero-logo{
-  width:105px;
-  height:105px;
-  object-fit:contain;
+width:105px;
+height:105px;
+object-fit:contain
 }
 .hero-meta{
-  display:flex;
-  flex-wrap:wrap;
-  gap:9px;
-  margin-top:17px;
+display:flex;
+flex-wrap:wrap;
+gap:9px;
+margin-top:17px
 }
 .hero-chip{
-  font-size:12px;
-  padding:8px 12px;
-  border-radius:20px;
-  background:#ffffff25;
+display:inline-flex;
+align-items:center;
+gap:7px;
+font-size:12px;
+padding:8px 12px;
+border-radius:20px;
+background:#ffffff25;
+color:#fff
 }
-.stats{
-  display:grid;
-  grid-template-columns:repeat(4,minmax(0,1fr));
-  gap:16px;
-  margin:20px 0;
+.dashboard-stats{
+display:grid;
+grid-template-columns:repeat(4,minmax(0,1fr));
+gap:16px;
+margin:20px 0
 }
-.stat-card,.card{
-  background:#fff;
-  border:1px solid var(--line);
-  border-radius:20px;
-  padding:20px;
-  box-shadow:0 8px 25px #142d4810;
+.dashboard-stat{
+min-height:145px;
+background:#fff!important;
+color:var(--comsc-text)!important;
+border:1px solid var(--comsc-line);
+border-radius:20px;
+padding:20px;
+box-shadow:0 8px 25px #142d4810
 }
-.stat-icon{
-  font-size:20px;
-  color:var(--blue);
-  margin-bottom:14px;
+.dashboard-stat .dashboard-stat-icon{
+font-size:22px;
+color:var(--comsc-blue)!important;
+margin-bottom:14px
 }
-.stat-value{font-size:30px;font-weight:800}
-.stat-label{
-  font-size:12px;
-  color:var(--muted);
-  margin-top:4px;
+.dashboard-stat .dashboard-stat-value{
+display:block;
+font-size:30px;
+font-weight:800;
+line-height:1.3;
+color:var(--comsc-navy)!important;
+opacity:1!important;
+-webkit-text-fill-color:var(--comsc-navy)!important
+}
+.dashboard-stat .dashboard-stat-label{
+display:block;
+font-size:12px;
+color:var(--comsc-muted)!important;
+margin-top:4px
 }
 .grid-main{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:16px;
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:16px
 }
-.card-head{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  margin-bottom:17px;
+.comsc-panel{
+background:#fff;
+border:1px solid var(--comsc-line);
+border-radius:20px;
+padding:20px;
+box-shadow:0 8px 25px #142d4810
 }
-.card-head h3{margin:0;font-size:17px}
-.card-head p{
-  color:var(--muted);
-  font-size:12px;
-  margin:4px 0;
+.comsc-panel-head{
+display:flex;
+align-items:center;
+justify-content:space-between;
+margin-bottom:17px
+}
+.comsc-panel-head h3{
+margin:0;
+font-size:17px;
+color:var(--comsc-navy)
+}
+.comsc-panel-head p{
+color:var(--comsc-muted);
+font-size:12px;
+margin:4px 0
 }
 .quick-grid{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:12px;
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:12px
 }
 .quick{
-  border:1px solid var(--line);
-  background:#F8FAFD;
-  border-radius:15px;
-  padding:17px 8px;
-  color:var(--text);
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  gap:10px;
+border:1px solid var(--comsc-line);
+background:#F8FAFD;
+border-radius:15px;
+padding:17px 8px;
+color:var(--comsc-text);
+display:flex;
+flex-direction:column;
+align-items:center;
+gap:10px
 }
-.quick i{font-size:22px;color:var(--blue)}
+.quick:hover{
+border-color:#bdd6ff;
+background:#F0F6FF
+}
+.quick i{
+font-size:22px;
+color:var(--comsc-blue)
+}
 .quick strong{font-size:12px}
-.schedule-item{
-  padding:14px 0;
-  border-bottom:1px solid var(--line);
-  display:flex;
-  gap:15px;
-}
-.schedule-period{min-width:90px}
-.schedule-period strong,.schedule-info strong{
-  display:block;
-  font-size:13px;
-}
-.schedule-period span,.schedule-info span{
-  font-size:12px;
-  color:var(--muted);
-}
 .module-header{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:12px;
-  margin-bottom:20px;
+display:flex;
+align-items:center;
+justify-content:space-between;
+gap:12px;
+margin-bottom:20px
 }
 .module-header h2{
-  margin:0 0 5px;
-  font-size:23px;
+margin:0 0 5px;
+font-size:23px;
+color:var(--comsc-navy)
 }
 .module-header p{
-  font-size:13px;
-  color:var(--muted);
-  margin:0;
+font-size:13px;
+color:var(--comsc-muted);
+margin:0
 }
 .primary-btn,.secondary-btn{
-  border:0;
-  border-radius:12px;
-  padding:11px 17px;
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-  gap:8px;
-  font-weight:600;
-  font-size:13px;
+border:0;
+border-radius:12px;
+padding:11px 17px;
+display:inline-flex;
+align-items:center;
+justify-content:center;
+gap:8px;
+font-weight:600;
+font-size:13px
 }
-.primary-btn{background:var(--blue);color:#fff}
-.secondary-btn{background:var(--blue-soft);color:var(--blue)}
-.module-placeholder,.loading-box,.empty-box,.error-box,.classroom-notice{
-  text-align:center;
-  padding:32px;
-  background:#fff;
-  border:1px solid var(--line);
-  border-radius:18px;
-  color:#52647A;
+.primary-btn{
+background:var(--comsc-blue);
+color:#fff
 }
-.module-placeholder i,.empty-box i{
-  display:block;
-  font-size:28px;
-  color:var(--blue);
-  margin-bottom:15px;
+.secondary-btn{
+background:var(--comsc-blue-soft);
+color:var(--comsc-blue)
+}
+.module-placeholder,.comsc-empty,.comsc-loading,.comsc-error,.classroom-notice{
+text-align:center;
+padding:32px;
+background:#fff;
+border:1px solid var(--comsc-line);
+border-radius:18px;
+color:#52647A;
+line-height:1.7
+}
+.module-placeholder i,.comsc-empty i{
+display:block;
+font-size:28px;
+color:var(--comsc-blue);
+margin-bottom:15px
 }
 .module-placeholder h3{margin:8px}
 .module-placeholder p{font-size:13px}
-.loading-box strong,.empty-box strong,.error-box strong{
-  display:block;
-  margin:10px 0;
+.comsc-error i{
+font-size:25px;
+color:#DC2626
 }
-.loading-box span,.empty-box span,.error-box span{
-  display:block;
-  font-size:12px;
-  color:var(--muted);
+.comsc-error strong{
+display:block;
+margin:8px 0;
+color:#B91C1C
+}
+.comsc-error p{
+font-size:13px;
+overflow-wrap:anywhere
+}
+.schedule-item{
+padding:14px 0;
+border-bottom:1px solid var(--comsc-line);
+display:flex;
+gap:15px
+}
+.schedule-period{min-width:90px}
+.schedule-period strong,.schedule-info strong{
+display:block;
+font-size:13px
+}
+.schedule-period span,.schedule-info span{
+font-size:12px;
+color:var(--comsc-muted)
 }
 .classroom-summary{
-  font-size:13px;
-  color:#64748B;
-  margin-bottom:17px;
+font-size:13px;
+color:#64748B;
+margin-bottom:17px
 }
 .classroom-grid{
-  display:grid;
-  grid-template-columns:repeat(3,minmax(0,1fr));
-  gap:16px;
+display:grid;
+grid-template-columns:repeat(3,minmax(0,1fr));
+gap:16px
 }
 .classroom-tile{
-  width:100%;
-  text-align:left;
-  background:#fff;
-  border:1px solid var(--line);
-  border-radius:20px;
-  padding:20px;
-  color:var(--text);
-  box-shadow:0 8px 25px #142d4810;
-  transition:transform .15s,border-color .15s;
+width:100%;
+text-align:left;
+background:#fff;
+border:1px solid var(--comsc-line);
+border-radius:20px;
+padding:20px;
+color:var(--comsc-text);
+box-shadow:0 8px 25px #142d4810;
+transition:transform .15s,border-color .15s
 }
 .classroom-tile:hover{
-  transform:translateY(-2px);
-  border-color:var(--blue);
+transform:translateY(-2px);
+border-color:var(--comsc-blue)
 }
 .classroom-tile-head{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
+display:flex;
+justify-content:space-between;
+align-items:center
 }
 .classroom-tile-icon{
-  width:49px;
-  height:49px;
-  display:grid;
-  place-items:center;
-  background:var(--blue-soft);
-  color:var(--blue);
-  border-radius:15px;
-  font-size:20px;
+width:49px;
+height:49px;
+display:grid;
+place-items:center;
+background:var(--comsc-blue-soft);
+color:var(--comsc-blue);
+border-radius:15px;
+font-size:20px
 }
 .classroom-tile h3{
-  font-size:20px;
-  margin:17px 0 6px;
+font-size:20px;
+margin:17px 0 6px;
+color:var(--comsc-navy)
 }
 .classroom-tile p{
-  font-size:13px;
-  color:var(--muted);
-  margin:0;
+font-size:13px;
+color:var(--comsc-muted);
+margin:0
 }
 .classroom-tile-foot{
-  display:flex;
-  justify-content:space-between;
-  margin-top:18px;
-  color:var(--blue);
-  font-size:13px;
-  font-weight:700;
+display:flex;
+justify-content:space-between;
+margin-top:18px;
+color:var(--comsc-blue);
+font-size:13px;
+font-weight:700
 }
 .classroom-roster{
-  margin-top:18px;
-  background:#fff;
-  border:1px solid var(--line);
-  border-radius:20px;
-  padding:22px;
+margin-top:18px;
+background:#fff;
+border:1px solid var(--comsc-line);
+border-radius:20px;
+padding:22px
 }
 .classroom-roster[hidden]{display:none!important}
 .classroom-roster-top{
-  display:flex;
-  align-items:end;
-  justify-content:space-between;
-  gap:14px;
-  flex-wrap:wrap;
+display:flex;
+align-items:end;
+justify-content:space-between;
+gap:14px;
+flex-wrap:wrap
 }
 .classroom-roster-top h3{
-  font-size:22px;
-  margin:16px 0 5px;
+font-size:22px;
+margin:16px 0 5px;
+color:var(--comsc-navy)
 }
 .classroom-roster-top p{
-  font-size:13px;
-  color:var(--muted);
-  margin:0;
+font-size:13px;
+color:var(--comsc-muted);
+margin:0
 }
 .classroom-roster-tools{
-  display:flex;
-  gap:8px;
-  flex-wrap:wrap;
+display:flex;
+gap:8px;
+flex-wrap:wrap
 }
 .classroom-roster-tools input{
-  padding:11px 13px;
-  border:1px solid var(--line);
-  border-radius:12px;
-  min-width:200px;
+padding:11px 13px;
+border:1px solid var(--comsc-line);
+border-radius:12px;
+min-width:200px
 }
 .roster-table-wrap{
-  overflow:auto;
-  margin-top:18px;
+overflow:auto;
+margin-top:18px
 }
 .roster-table{
-  border-collapse:collapse;
-  width:100%;
-  font-size:13px;
+border-collapse:collapse;
+width:100%;
+font-size:13px
 }
 .roster-table th,.roster-table td{
-  text-align:left;
-  padding:14px 12px;
-  border-bottom:1px solid var(--line);
+text-align:left;
+padding:14px 12px;
+border-bottom:1px solid var(--comsc-line)
 }
 .roster-table th{
-  background:#F8FAFD;
-  color:#52647A;
+background:#F8FAFD;
+color:#52647A;
+white-space:nowrap
 }
+.roster-table td{color:var(--comsc-text)}
 .roster-count{
-  font-size:12px;
-  color:var(--muted);
-  margin-top:12px;
+font-size:12px;
+color:var(--comsc-muted);
+margin-top:12px
 }
 .scanner-layout{
-  display:grid;
-  grid-template-columns:1.4fr 1fr;
-  gap:18px;
+display:grid;
+grid-template-columns:1.4fr 1fr;
+gap:18px
 }
 .camera-card,.scanner-side{
-  background:#fff;
-  padding:18px;
-  border-radius:20px;
-  border:1px solid var(--line);
+background:#fff;
+padding:18px;
+border-radius:20px;
+border:1px solid var(--comsc-line)
 }
 .camera-box{
-  position:relative;
-  aspect-ratio:16/10;
-  background:#101827;
-  border-radius:15px;
-  overflow:hidden;
-  display:flex;
-  align-items:center;
-  justify-content:center;
+position:relative;
+aspect-ratio:16/10;
+background:#101827;
+border-radius:15px;
+overflow:hidden;
+display:flex;
+align-items:center;
+justify-content:center
 }
 #camera-video{
-  width:100%;
-  height:100%;
-  object-fit:contain;
+width:100%;
+height:100%;
+object-fit:contain
 }
 .camera-placeholder{
-  position:absolute;
-  inset:0;
-  display:flex;
-  flex-direction:column;
-  justify-content:center;
-  align-items:center;
-  gap:10px;
-  color:#fff;
-  background:#101827;
+position:absolute;
+inset:0;
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+gap:10px;
+color:#fff;
+background:#101827
 }
 .camera-placeholder.hidden{display:none}
 .camera-status{
-  position:absolute;
-  bottom:12px;
-  left:12px;
-  background:#ffffffec;
-  padding:6px 11px;
-  border-radius:9px;
-  font-size:12px;
+position:absolute;
+bottom:12px;
+left:12px;
+background:#ffffffec;
+padding:6px 11px;
+border-radius:9px;
+font-size:12px
 }
 .camera-status.success{color:#087D4A}
 .camera-error{
-  display:none;
-  font-size:12px;
-  color:#DC2626;
-  margin-top:12px;
+display:none;
+font-size:12px;
+color:#DC2626;
+margin-top:12px
 }
 .camera-error.show{display:block}
 .scanner-side{
-  display:flex;
-  flex-direction:column;
-  gap:12px;
+display:flex;
+flex-direction:column;
+gap:12px
 }
 .scan-result{
-  padding:18px;
-  border-radius:15px;
-  background:#F5F8FC;
+padding:18px;
+border-radius:15px;
+background:#F5F8FC
 }
 .scan-result small,.scan-result span{
-  display:block;
-  color:var(--muted);
+display:block;
+color:var(--comsc-muted)
 }
 .scan-result strong{
-  display:block;
-  font-size:30px;
-  margin:8px 0;
+display:block;
+font-size:30px;
+margin:8px 0
 }
 .info-box{
-  padding:14px;
-  font-size:12px;
-  color:#64748B;
-  background:#F8FAFD;
-  border-radius:12px;
-  line-height:1.7;
+padding:14px;
+font-size:12px;
+color:#64748B;
+background:#F8FAFD;
+border-radius:12px;
+line-height:1.7
 }
-.bottom-nav{display:none}
-.mobile-menu{display:none}
-.backdrop{display:none}
+.bottom-nav,.mobile-menu,.backdrop{display:none}
 @media(max-width:1100px){
-  .stats{grid-template-columns:repeat(2,1fr)}
-  .classroom-grid{grid-template-columns:repeat(2,1fr)}
+.dashboard-stats{grid-template-columns:repeat(2,1fr)}
+.classroom-grid{grid-template-columns:repeat(2,1fr)}
 }
 @media(max-width:850px){
-  .sidebar{
-    transform:translateX(-100%);
-    transition:transform .2s;
-  }
-  .sidebar.open{transform:translateX(0)}
-  .main{margin-left:0}
-  .mobile-menu{display:block}
-  .backdrop.show{
-    display:block;
-    position:fixed;
-    inset:0;
-    background:#0007;
-    z-index:30;
-  }
-  .content{padding:18px 18px 105px}
-  .grid-main,.scanner-layout{grid-template-columns:1fr}
-  .bottom-nav{
-    position:fixed;
-    bottom:0;
-    left:0;
-    right:0;
-    display:flex;
-    background:#fff;
-    border-top:1px solid var(--line);
-    z-index:20;
-    padding:7px 4px max(9px,env(safe-area-inset-bottom));
-  }
-  .bottom-item{
-    flex:1;
-    border:0;
-    background:transparent;
-    color:#718096;
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    gap:4px;
-    font-size:10px;
-    padding:7px 0;
-  }
-  .bottom-item i{font-size:20px}
-  .bottom-item.active{color:var(--blue)}
+.sidebar{
+transform:translateX(-100%);
+transition:transform .2s
+}
+.sidebar.open{transform:translateX(0)}
+.main{margin-left:0}
+.mobile-menu{display:block}
+.backdrop.show{
+display:block;
+position:fixed;
+inset:0;
+background:#0007;
+z-index:30
+}
+.content{padding:18px 18px 105px}
+.grid-main,.scanner-layout{grid-template-columns:1fr}
+.bottom-nav{
+position:fixed;
+bottom:0;
+left:0;
+right:0;
+display:flex;
+background:#fff;
+border-top:1px solid var(--comsc-line);
+z-index:20;
+padding:7px 4px max(9px,env(safe-area-inset-bottom))
+}
+.bottom-item{
+flex:1;
+border:0;
+background:transparent;
+color:#718096;
+display:flex;
+flex-direction:column;
+align-items:center;
+gap:4px;
+font-size:10px;
+padding:7px 0
+}
+.bottom-item i{font-size:20px}
+.bottom-item.active{color:var(--comsc-blue)}
 }
 @media(max-width:600px){
-  .topbar{height:74px;padding:12px 15px}
-  .page-title{font-size:20px}
-  .hero{padding:20px}
-  .hero h2{font-size:21px}
-  .hero-logo{width:65px;height:65px}
-  .stats{gap:10px}
-  .stat-card{padding:15px}
-  .stat-value{font-size:26px}
-  .classroom-grid{grid-template-columns:1fr}
-  .classroom-roster{padding:14px}
-  .classroom-roster-tools{width:100%}
-  .classroom-roster-tools input{flex:1;min-width:0}
+.topbar{height:74px;padding:12px 15px}
+.page-title{font-size:20px}
+.hero{padding:20px}
+.hero h2{font-size:21px}
+.hero-logo{width:65px;height:65px}
+.dashboard-stats{gap:10px}
+.dashboard-stat{padding:15px}
+.dashboard-stat .dashboard-stat-value{font-size:26px}
+.classroom-grid{grid-template-columns:1fr}
+.classroom-roster{padding:14px}
+.classroom-roster-tools{width:100%}
+.classroom-roster-tools input{flex:1;min-width:0}
 }
 </style>
 </head>
@@ -612,7 +687,7 @@ button:disabled{opacity:.5;cursor:not-allowed}
 <div class="backdrop" id="backdrop" onclick="closeSidebar()"></div>
 <main class="main">
 <header class="topbar">
-<div style="display:flex;align-items:center;gap:12px">
+<div class="topbar-left">
 <button class="icon-btn mobile-menu" onclick="openSidebar()" aria-label="เมนู"><i class="fa-solid fa-bars"></i></button>
 <div>
 <h1 id="page-title" class="page-title">หน้าหลัก</h1>
@@ -632,38 +707,38 @@ button:disabled{opacity:.5;cursor:not-allowed}
 <h2>Computer Smart Classroom</h2>
 <p>จัดการห้องเรียน เช็กชื่อ คะแนน ตารางสอน ห้องปฏิบัติการ และตรวจข้อสอบได้จากที่เดียว</p>
 <div class="hero-meta">
-<span id="dashboard-semester" class="hero-chip">กำลังโหลดข้อมูล</span>
-<span id="dashboard-school" class="hero-chip">COM SC</span>
+<span id="dashboard-semester" class="hero-chip"><i class="fa-solid fa-calendar"></i> กำลังโหลดข้อมูล</span>
+<span id="dashboard-school" class="hero-chip"><i class="fa-solid fa-school"></i> COM SC</span>
 </div>
 </div>
 <img class="hero-logo" src="https://s.imgz.io/2026/08/31/Logo-384c5649d9c8e9035.png" alt="COM SC">
 </div>
 </div>
-<div class="stats">
-<div class="stat-card">
-<div class="stat-icon"><i class="fa-solid fa-door-open"></i></div>
-<div id="stat-classrooms" class="stat-value">—</div>
-<div class="stat-label">ห้องเรียน</div>
+<div class="dashboard-stats">
+<div class="dashboard-stat">
+<div class="dashboard-stat-icon"><i class="fa-solid fa-door-open"></i></div>
+<strong id="stat-classrooms" class="dashboard-stat-value">—</strong>
+<span class="dashboard-stat-label">ห้องเรียน</span>
 </div>
-<div class="stat-card">
-<div class="stat-icon"><i class="fa-solid fa-users"></i></div>
-<div id="stat-students" class="stat-value">—</div>
-<div class="stat-label">นักเรียน</div>
+<div class="dashboard-stat">
+<div class="dashboard-stat-icon"><i class="fa-solid fa-users"></i></div>
+<strong id="stat-students" class="dashboard-stat-value">—</strong>
+<span class="dashboard-stat-label">นักเรียน</span>
 </div>
-<div class="stat-card">
-<div class="stat-icon"><i class="fa-solid fa-book"></i></div>
-<div id="stat-courses" class="stat-value">—</div>
-<div class="stat-label">รายวิชาที่สอน</div>
+<div class="dashboard-stat">
+<div class="dashboard-stat-icon"><i class="fa-solid fa-book"></i></div>
+<strong id="stat-courses" class="dashboard-stat-value">—</strong>
+<span class="dashboard-stat-label">รายวิชาที่สอน</span>
 </div>
-<div class="stat-card">
-<div class="stat-icon"><i class="fa-solid fa-calendar-check"></i></div>
-<div id="stat-today" class="stat-value">—</div>
-<div class="stat-label">คาบเรียนวันนี้</div>
+<div class="dashboard-stat">
+<div class="dashboard-stat-icon"><i class="fa-solid fa-calendar-check"></i></div>
+<strong id="stat-today" class="dashboard-stat-value">—</strong>
+<span class="dashboard-stat-label">คาบเรียนวันนี้</span>
 </div>
 </div>
 <div class="grid-main">
-<div class="card">
-<div class="card-head">
+<div class="comsc-panel">
+<div class="comsc-panel-head">
 <div><h3>เมนูลัด</h3><p>เข้าถึงงานที่ใช้บ่อย</p></div>
 </div>
 <div class="quick-grid">
@@ -675,11 +750,16 @@ button:disabled{opacity:.5;cursor:not-allowed}
 <button class="quick" onclick="navigate('reports')"><i class="fa-solid fa-file-lines"></i><strong>รายงาน</strong></button>
 </div>
 </div>
-<div class="card">
-<div class="card-head">
-<div><h3 id="today-title">ตารางวันนี้</h3><p id="today-subtitle">กำลังโหลดข้อมูล</p></div>
+<div class="comsc-panel">
+<div class="comsc-panel-head">
+<div>
+<h3 id="today-title">ตารางวันนี้</h3>
+<p id="today-subtitle">ข้อมูลตารางสอนประจำวัน</p>
 </div>
-<div id="today-schedule" class="loading-box">กำลังโหลดข้อมูล</div>
+</div>
+<div id="today-schedule">
+<div class="comsc-loading">กำลังโหลดข้อมูล...</div>
+</div>
 </div>
 </div>
 </section>
@@ -690,7 +770,7 @@ button:disabled{opacity:.5;cursor:not-allowed}
 <p>กลุ่มนักเรียนชั้นประถมศึกษาปีที่ 1–6</p>
 </div>
 <button class="secondary-btn" onclick="loadCOMSCClassrooms(true)">
-<i class="fa-solid fa-rotate"></i>รีเฟรช
+<i class="fa-solid fa-rotate"></i> รีเฟรช
 </button>
 </div>
 <div id="classroom-summary" class="classroom-summary">เลือกเมนูเพื่อโหลดข้อมูลห้องเรียน</div>
@@ -701,7 +781,7 @@ button:disabled{opacity:.5;cursor:not-allowed}
 <div class="classroom-roster-top">
 <div>
 <button class="secondary-btn" onclick="closeCOMSCRoster()">
-<i class="fa-solid fa-arrow-left"></i>กลับไปห้องเรียน
+<i class="fa-solid fa-arrow-left"></i> กลับไปห้องเรียน
 </button>
 <h3 id="roster-title">รายชื่อนักเรียน</h3>
 <p id="roster-description"></p>
@@ -709,7 +789,7 @@ button:disabled{opacity:.5;cursor:not-allowed}
 <div class="classroom-roster-tools">
 <input id="roster-search" type="search" placeholder="ค้นหาชื่อ เลขที่ หรือรหัสนักเรียน" oninput="filterCOMSCRoster(this.value)">
 <button class="secondary-btn" onclick="reloadCOMSCRoster()">
-<i class="fa-solid fa-rotate"></i>รีเฟรช
+<i class="fa-solid fa-rotate"></i> รีเฟรช
 </button>
 </div>
 </div>
@@ -717,19 +797,42 @@ button:disabled{opacity:.5;cursor:not-allowed}
 </div>
 </section>
 <section id="view-schedule" class="view">
-<div class="module-header"><div><h2>ตารางสอน</h2><p>รายวิชาและตารางสอนแยกจากกลุ่มห้องเรียน</p></div></div>
-<div class="module-placeholder"><i class="fa-solid fa-calendar-days"></i><h3>ตารางสอน</h3><p>จะเชื่อมโมดูลตารางสอนในขั้นตอนถัดไป</p></div>
+<div class="module-header">
+<div><h2>ตารางสอน</h2><p>รายวิชาและตารางสอนแยกจากกลุ่มห้องเรียน</p></div>
+</div>
+<div class="module-placeholder">
+<i class="fa-solid fa-calendar-days"></i>
+<h3>ตารางสอน</h3>
+<p>จะเชื่อมโมดูลตารางสอนในขั้นตอนถัดไป</p>
+</div>
 </section>
 <section id="view-attendance" class="view">
-<div class="module-header"><div><h2>เช็กชื่อ</h2><p>บันทึกการมาเรียนของนักเรียน</p></div></div>
-<div class="module-placeholder"><i class="fa-solid fa-user-check"></i><h3>เช็กชื่อ</h3><p>จะเชื่อมระบบเช็กชื่อในขั้นตอนถัดไป</p></div>
+<div class="module-header">
+<div><h2>เช็กชื่อ</h2><p>บันทึกการมาเรียนของนักเรียน</p></div>
+</div>
+<div class="module-placeholder">
+<i class="fa-solid fa-user-check"></i>
+<h3>เช็กชื่อ</h3>
+<p>จะเชื่อมระบบเช็กชื่อในขั้นตอนถัดไป</p>
+</div>
 </section>
 <section id="view-scores" class="view">
-<div class="module-header"><div><h2>คะแนน</h2><p>บันทึกคะแนนกิจกรรมและการสอบ</p></div></div>
-<div class="module-placeholder"><i class="fa-solid fa-chart-column"></i><h3>คะแนน</h3><p>จะเชื่อมระบบคะแนนในขั้นตอนถัดไป</p></div>
+<div class="module-header">
+<div><h2>คะแนน</h2><p>บันทึกคะแนนกิจกรรมและการสอบ</p></div>
+</div>
+<div class="module-placeholder">
+<i class="fa-solid fa-chart-column"></i>
+<h3>คะแนน</h3>
+<p>จะเชื่อมระบบคะแนนในขั้นตอนถัดไป</p>
+</div>
 </section>
 <section id="view-scanner" class="view">
-<div class="module-header"><div><h2>ตรวจข้อสอบ</h2><p>เปิดกล้องเพื่อเตรียมสแกนกระดาษคำตอบ</p></div></div>
+<div class="module-header">
+<div>
+<h2>ตรวจข้อสอบ</h2>
+<p>เปิดกล้องเพื่อเตรียมสแกนกระดาษคำตอบ</p>
+</div>
+</div>
 <div class="scanner-layout">
 <div class="camera-card">
 <div class="camera-box">
@@ -744,30 +847,46 @@ button:disabled{opacity:.5;cursor:not-allowed}
 </div>
 <div class="scanner-side">
 <div class="scan-result">
-<small>คะแนนล่าสุด</small><strong>—</strong><span>ยังไม่มีผลการตรวจ</span>
+<small>คะแนนล่าสุด</small>
+<strong>—</strong>
+<span>ยังไม่มีผลการตรวจ</span>
 </div>
-<button id="camera-start" class="primary-btn" onclick="startCamera()">
-<i class="fa-solid fa-video"></i>เปิดกล้อง
-</button>
-<button id="camera-stop" class="secondary-btn" onclick="stopCamera()" disabled>
-<i class="fa-solid fa-video-slash"></i>ปิดกล้อง
-</button>
+<button id="camera-start" class="primary-btn" onclick="startCamera()"><i class="fa-solid fa-video"></i> เปิดกล้อง</button>
+<button id="camera-stop" class="secondary-btn" onclick="stopCamera()" disabled><i class="fa-solid fa-video-slash"></i> ปิดกล้อง</button>
 <div class="info-box">การเปิดกล้องพร้อมใช้งาน ส่วนการอ่านคำตอบและคำนวณคะแนนจะเชื่อมต่อในขั้นตอนถัดไป</div>
 <div id="camera-error" class="camera-error"></div>
 </div>
 </div>
 </section>
 <section id="view-lab" class="view">
-<div class="module-header"><div><h2>ห้องปฏิบัติการคอมพิวเตอร์</h2><p>บันทึกการใช้งานห้องคอมพิวเตอร์</p></div></div>
-<div class="module-placeholder"><i class="fa-solid fa-desktop"></i><h3>ห้องปฏิบัติการ</h3><p>จะเชื่อมข้อมูลในขั้นตอนถัดไป</p></div>
+<div class="module-header">
+<div><h2>ห้องปฏิบัติการคอมพิวเตอร์</h2><p>บันทึกการใช้งานห้องคอมพิวเตอร์</p></div>
+</div>
+<div class="module-placeholder">
+<i class="fa-solid fa-desktop"></i>
+<h3>ห้องปฏิบัติการ</h3>
+<p>จะเชื่อมข้อมูลในขั้นตอนถัดไป</p>
+</div>
 </section>
 <section id="view-reports" class="view">
-<div class="module-header"><div><h2>รายงาน</h2><p>สรุปข้อมูลสำหรับตรวจสอบและพิมพ์</p></div></div>
-<div class="module-placeholder"><i class="fa-solid fa-file-lines"></i><h3>รายงาน</h3><p>จะเชื่อมรายงานในขั้นตอนถัดไป</p></div>
+<div class="module-header">
+<div><h2>รายงาน</h2><p>สรุปข้อมูลสำหรับตรวจสอบและพิมพ์</p></div>
+</div>
+<div class="module-placeholder">
+<i class="fa-solid fa-file-lines"></i>
+<h3>รายงาน</h3>
+<p>จะเชื่อมรายงานในขั้นตอนถัดไป</p>
+</div>
 </section>
 <section id="view-settings" class="view">
-<div class="module-header"><div><h2>ตั้งค่า</h2><p>การตั้งค่าระบบ</p></div></div>
-<div class="module-placeholder"><i class="fa-solid fa-gear"></i><h3>ตั้งค่า</h3><p>ระบบยังคงใช้ Access Key ที่ตั้งค่าไว้เดิม</p></div>
+<div class="module-header">
+<div><h2>ตั้งค่า</h2><p>การตั้งค่าระบบ</p></div>
+</div>
+<div class="module-placeholder">
+<i class="fa-solid fa-gear"></i>
+<h3>ตั้งค่า</h3>
+<p>ระบบยังคงใช้ Access Key ที่ตั้งค่าไว้เดิม</p>
+</div>
 </section>
 </div>
 </main>
@@ -782,191 +901,227 @@ button:disabled{opacity:.5;cursor:not-allowed}
 <script>
 'use strict';
 const VIEW_META={
-  dashboard:{title:'หน้าหลัก',subtitle:'ภาพรวมการจัดการชั้นเรียน'},
-  classrooms:{title:'ห้องเรียน',subtitle:'ข้อมูลห้องเรียนและรายชื่อนักเรียน'},
-  schedule:{title:'ตารางสอน',subtitle:'รายวิชาและตารางประจำสัปดาห์'},
-  attendance:{title:'เช็กชื่อ',subtitle:'บันทึกการมาเรียน'},
-  scores:{title:'คะแนน',subtitle:'บันทึกและสรุปคะแนน'},
-  scanner:{title:'ตรวจข้อสอบ',subtitle:'เปิดกล้องและสแกนกระดาษคำตอบ'},
-  lab:{title:'ห้องปฏิบัติการคอมพิวเตอร์',subtitle:'บันทึกการใช้งานห้องปฏิบัติการ'},
-  reports:{title:'รายงาน',subtitle:'สรุปและพิมพ์รายงาน'},
-  settings:{title:'ตั้งค่า',subtitle:'การตั้งค่าระบบ'}
+dashboard:{title:'หน้าหลัก',subtitle:'ภาพรวมการจัดการชั้นเรียน'},
+classrooms:{title:'ห้องเรียน',subtitle:'ข้อมูลห้องเรียนและรายชื่อนักเรียน'},
+schedule:{title:'ตารางสอน',subtitle:'รายวิชาและตารางประจำสัปดาห์'},
+attendance:{title:'เช็กชื่อ',subtitle:'บันทึกการมาเรียน'},
+scores:{title:'คะแนน',subtitle:'บันทึกและสรุปคะแนน'},
+scanner:{title:'ตรวจข้อสอบ',subtitle:'เปิดกล้องและสแกนกระดาษคำตอบ'},
+lab:{title:'ห้องปฏิบัติการคอมพิวเตอร์',subtitle:'บันทึกการใช้งานห้องปฏิบัติการ'},
+reports:{title:'รายงาน',subtitle:'สรุปและพิมพ์รายงาน'},
+settings:{title:'ตั้งค่า',subtitle:'การตั้งค่าระบบ'}
 };
 let currentView='dashboard';
 let cameraStream=null;
 let dashboardLoaded=false;
 let dashboardLoading=false;
 function el(id){
-  return document.getElementById(id);
+return document.getElementById(id);
 }
 function setText(id,value){
-  const target=el(id);
-  if(target)target.textContent=value??'';
+const target=el(id);
+if(target)target.textContent=value??'';
 }
 function escapeHtml(value){
-  return String(value??'').replace(/[&<>"']/g,c=>({
-    '&':'&amp;',
-    '<':'&lt;',
-    '>':'&gt;',
-    '"':'&quot;',
-    "'":'&#39;'
-  }[c]));
+return String(value??'').replace(/[&<>"']/g,c=>({
+'&':'&amp;',
+'<':'&lt;',
+'>':'&gt;',
+'"':'&quot;',
+"'":'&#39;'
+}[c]));
 }
 function navigate(view){
-  if(!VIEW_META[view])return;
-  if(currentView==='scanner'&&view!=='scanner')stopCamera();
-  currentView=view;
-  document.querySelectorAll('.view').forEach(x=>{
-    x.classList.toggle('active',x.id==='view-'+view);
-  });
-  document.querySelectorAll('[data-view]').forEach(x=>{
-    x.classList.toggle('active',x.dataset.view===view);
-  });
-  setText('page-title',VIEW_META[view].title);
-  setText('page-subtitle',VIEW_META[view].subtitle);
-  closeSidebar();
-  if(view==='classrooms')loadCOMSCClassrooms();
-  if(view==='dashboard'&&!dashboardLoaded&&!dashboardLoading){
-    reloadDashboardApi().catch(console.error);
-  }
-  window.scrollTo({top:0,behavior:'smooth'});
+if(!VIEW_META[view])return;
+if(currentView==='scanner'&&view!=='scanner')stopCamera();
+currentView=view;
+document.querySelectorAll('.view').forEach(item=>{
+item.classList.toggle('active',item.id==='view-'+view);
+});
+document.querySelectorAll('[data-view]').forEach(item=>{
+item.classList.toggle('active',item.dataset.view===view);
+});
+setText('page-title',VIEW_META[view].title);
+setText('page-subtitle',VIEW_META[view].subtitle);
+closeSidebar();
+if(view==='classrooms'){
+window.loadCOMSCClassrooms().catch(console.error);
+}
+if(view==='dashboard'&&!dashboardLoaded&&!dashboardLoading){
+reloadDashboardApi().catch(console.error);
+}
+window.scrollTo({top:0,behavior:'smooth'});
 }
 function openSidebar(){
-  el('sidebar').classList.add('open');
-  el('backdrop').classList.add('show');
+el('sidebar')?.classList.add('open');
+el('backdrop')?.classList.add('show');
 }
 function closeSidebar(){
-  el('sidebar').classList.remove('open');
-  el('backdrop').classList.remove('show');
+el('sidebar')?.classList.remove('open');
+el('backdrop')?.classList.remove('show');
 }
 async function refreshCurrentView(){
-  const icon=el('refresh-button').querySelector('i');
-  icon.classList.add('fa-spin');
-  try{
-    if(currentView==='dashboard')await reloadDashboardApi();
-    else if(currentView==='classrooms')await loadCOMSCClassrooms(true);
-    else if(currentView==='scanner'){
-      setText('camera-status',cameraStream?'กล้องพร้อมสแกน':'ยังไม่ได้เปิดกล้อง');
-    }
-  }catch(error){
-    console.error(error);
-  }finally{
-    icon.classList.remove('fa-spin');
-  }
+const icon=el('refresh-button')?.querySelector('i');
+icon?.classList.add('fa-spin');
+try{
+if(currentView==='dashboard'){
+await reloadDashboardApi();
+}else if(currentView==='classrooms'){
+await window.loadCOMSCClassrooms(true);
+}else if(currentView==='scanner'){
+setText('camera-status',cameraStream?'กล้องพร้อมสแกน':'ยังไม่ได้เปิดกล้อง');
+}
+}catch(error){
+console.error('COM SC Refresh:',error);
+}finally{
+icon?.classList.remove('fa-spin');
+}
 }
 async function reloadDashboardApi(){
-  if(dashboardLoading)return;
-  dashboardLoading=true;
-  dashboardLoaded=false;
-  setText('today-schedule','กำลังโหลดข้อมูล...');
-  try{
-    if(typeof window.COMSC?.bootstrap!=='function'){
-      throw new Error('ยังไม่พบการเชื่อมต่อ Dashboard ใน app.js');
-    }
-    const data=await window.COMSC.bootstrap();
-    renderDashboard(data);
-    return data;
-  }catch(error){
-    renderDashboardError(error);
-    throw error;
-  }finally{
-    dashboardLoading=false;
-  }
+if(dashboardLoading)return;
+dashboardLoading=true;
+dashboardLoaded=false;
+setText('today-schedule','กำลังโหลดข้อมูล Dashboard...');
+try{
+if(typeof window.COMSC?.bootstrap!=='function'){
+throw new Error('ยังไม่พบการเชื่อมต่อ Dashboard ใน app.js');
 }
-function renderDashboard(data){
-  data=data?.data||data?.result||data||{};
-  const settings=data.settings||{};
-  const dashboard=data.dashboard||{};
-  const today=data.today||{};
-  setText('stat-classrooms',dashboard.classroomCount??0);
-  setText('stat-students',dashboard.studentCount??0);
-  setText('stat-courses',dashboard.courseCount??0);
-  setText('stat-today',dashboard.todayScheduleCount??0);
-  const semester=[
-    settings.semester?'ภาคเรียนที่ '+settings.semester:'',
-    settings.academicYear?'ปีการศึกษา '+settings.academicYear:''
-  ].filter(Boolean).join(' · ');
-  setText('dashboard-semester',semester||'ปีการศึกษาปัจจุบัน');
-  setText('dashboard-school',settings.schoolName||'COM SC');
-  setText('today-title',today.dayLabel?'ตารางวัน'+today.dayLabel:'ตารางวันนี้');
-  setText('today-subtitle',semester||'คาบเรียนประจำวัน');
-  renderTodaySchedule(Array.isArray(today.schedules)?today.schedules:[]);
-  dashboardLoaded=true;
+const data=await window.COMSC.bootstrap();
+renderDashboard(data);
+return data;
+}catch(error){
+renderDashboardError(error);
+throw error;
+}finally{
+dashboardLoading=false;
+}
+}
+function renderDashboard(input){
+const data=input?.data||input?.result||input||{};
+const settings=data.settings||{};
+const dashboard=data.dashboard||{};
+setText('stat-classrooms',dashboard.classroomCount??'—');
+setText('stat-students',dashboard.studentCount??'—');
+setText('stat-courses',dashboard.courseCount??'—');
+const todayData=data.today||null;
+const todayCount=todayData?.schedules?.length??dashboard.todayScheduleCount;
+setText('stat-today',todayCount??'—');
+const semester=[
+settings.semester?'ภาคเรียนที่ '+settings.semester:'',
+settings.academicYear?'ปีการศึกษา '+settings.academicYear:''
+].filter(Boolean).join(' · ');
+setText('dashboard-semester',semester||'ปีการศึกษาปัจจุบัน');
+setText('dashboard-school',settings.schoolName||'COM SC');
+if(todayData&&Array.isArray(todayData.schedules)){
+setText('today-title',todayData.dayLabel?'ตารางวัน'+todayData.dayLabel:'ตารางวันนี้');
+setText('today-subtitle',semester||'คาบเรียนประจำวัน');
+renderTodaySchedule(todayData.schedules);
+}else{
+setText('today-title','ตารางวันนี้');
+setText('today-subtitle','รอเชื่อมต่อข้อมูลตารางสอน');
+el('today-schedule').innerHTML=
+'<div class="comsc-empty">'+
+'<i class="fa-solid fa-calendar-days"></i>'+
+'<strong>ยังไม่ได้เชื่อมข้อมูลตารางสอนวันนี้</strong>'+
+'<p style="font-size:12px">ข้อมูล Bootstrap ปัจจุบันยังไม่มีรายการคาบเรียนประจำวัน</p>'+
+'</div>';
+}
+dashboardLoaded=true;
 }
 function renderTodaySchedule(items){
-  const box=el('today-schedule');
-  if(!items.length){
-    box.innerHTML='<div class="empty-box"><i class="fa-solid fa-calendar-check"></i><strong>ไม่มีคาบเรียนวันนี้</strong><span>ยังไม่มีรายการในตารางสอนวันนี้</span></div>';
-    return;
-  }
-  box.innerHTML=items.map(item=>{
-    const period=escapeHtml(item.periodNo?'คาบ '+item.periodNo:'คาบ');
-    const time=escapeHtml([item.startTime,item.endTime].filter(Boolean).join('–'));
-    const title=escapeHtml(item.title||'กิจกรรม');
-    const label=escapeHtml(item.classLabel||'');
-    return '<div class="schedule-item"><div class="schedule-period"><strong>'+period+'</strong><span>'+time+'</span></div><div class="schedule-info"><strong>'+title+'</strong><span>'+label+'</span></div></div>';
-  }).join('');
+const box=el('today-schedule');
+if(!box)return;
+if(!items.length){
+box.innerHTML=
+'<div class="comsc-empty">'+
+'<i class="fa-solid fa-calendar-check"></i>'+
+'<strong>ไม่มีรายการคาบเรียนวันนี้</strong>'+
+'</div>';
+return;
+}
+box.innerHTML=items.map(item=>{
+const period=escapeHtml(item.periodNo?'คาบ '+item.periodNo:'คาบ');
+const time=escapeHtml([item.startTime,item.endTime].filter(Boolean).join('–'));
+const title=escapeHtml(item.title||'กิจกรรม');
+const label=escapeHtml(item.classLabel||'');
+return '<div class="schedule-item">'+
+'<div class="schedule-period"><strong>'+period+'</strong><span>'+time+'</span></div>'+
+'<div class="schedule-info"><strong>'+title+'</strong><span>'+label+'</span></div>'+
+'</div>';
+}).join('');
 }
 function renderDashboardError(error){
-  el('today-schedule').innerHTML='<div class="error-box"><strong>ยังโหลดข้อมูลไม่ได้</strong><span>'+escapeHtml(error?.message||'กรุณาลองใหม่')+'</span><button class="secondary-btn" onclick="reloadDashboardApi().catch(console.error)">ลองอีกครั้ง</button></div>';
+const box=el('today-schedule');
+if(!box)return;
+box.innerHTML=
+'<div class="comsc-error">'+
+'<i class="fa-solid fa-circle-exclamation"></i>'+
+'<strong>ยังโหลด Dashboard ไม่สำเร็จ</strong>'+
+'<p>'+escapeHtml(error?.message||'กรุณาลองใหม่อีกครั้ง')+'</p>'+
+'<button class="secondary-btn" onclick="reloadDashboardApi().catch(console.error)">ลองอีกครั้ง</button>'+
+'</div>';
 }
 window.addEventListener('comsc:bootstrap',event=>{
-  dashboardLoading=false;
-  renderDashboard(event.detail||{});
+dashboardLoading=false;
+renderDashboard(event.detail||{});
 });
 window.addEventListener('comsc:error',event=>{
-  dashboardLoading=false;
-  dashboardLoaded=false;
-  renderDashboardError(new Error(event.detail?.message||'ไม่สามารถเชื่อมต่อระบบได้'));
+dashboardLoading=false;
+dashboardLoaded=false;
+renderDashboardError(new Error(event.detail?.message||'ไม่สามารถเชื่อมต่อระบบได้'));
 });
 async function startCamera(){
-  const errorBox=el('camera-error');
-  errorBox.classList.remove('show');
-  if(!navigator.mediaDevices?.getUserMedia){
-    errorBox.textContent='เบราว์เซอร์นี้ไม่รองรับการเปิดกล้อง';
-    errorBox.classList.add('show');
-    return;
-  }
-  stopCamera();
-  setText('camera-status','กำลังขอสิทธิ์กล้อง...');
-  el('camera-start').disabled=true;
-  try{
-    try{
-      cameraStream=await navigator.mediaDevices.getUserMedia({
-        audio:false,
-        video:{
-          facingMode:{ideal:'environment'},
-          width:{ideal:1920},
-          height:{ideal:1080}
-        }
-      });
-    }catch(firstError){
-      cameraStream=await navigator.mediaDevices.getUserMedia({audio:false,video:true});
-    }
-    el('camera-video').srcObject=cameraStream;
-    await el('camera-video').play();
-    el('camera-placeholder').classList.add('hidden');
-    el('camera-stop').disabled=false;
-    el('camera-status').classList.add('success');
-    setText('camera-status','กล้องพร้อมสแกน');
-  }catch(error){
-    stopCamera();
-    errorBox.textContent=(error?.name||'Error')+': '+(error?.message||String(error));
-    errorBox.classList.add('show');
-    setText('camera-status','เปิดกล้องไม่สำเร็จ');
-  }
+const errorBox=el('camera-error');
+errorBox?.classList.remove('show');
+if(!navigator.mediaDevices?.getUserMedia){
+if(errorBox){
+errorBox.textContent='เบราว์เซอร์นี้ไม่รองรับการเปิดกล้อง';
+errorBox.classList.add('show');
+}
+return;
+}
+stopCamera();
+setText('camera-status','กำลังขอสิทธิ์กล้อง...');
+el('camera-start').disabled=true;
+try{
+try{
+cameraStream=await navigator.mediaDevices.getUserMedia({
+audio:false,
+video:{
+facingMode:{ideal:'environment'},
+width:{ideal:1920},
+height:{ideal:1080}
+}
+});
+}catch(firstError){
+cameraStream=await navigator.mediaDevices.getUserMedia({audio:false,video:true});
+}
+el('camera-video').srcObject=cameraStream;
+await el('camera-video').play();
+el('camera-placeholder').classList.add('hidden');
+el('camera-stop').disabled=false;
+el('camera-status').classList.add('success');
+setText('camera-status','กล้องพร้อมสแกน');
+}catch(error){
+stopCamera();
+if(errorBox){
+errorBox.textContent=(error?.name||'Error')+': '+(error?.message||String(error));
+errorBox.classList.add('show');
+}
+setText('camera-status','เปิดกล้องไม่สำเร็จ');
+}
 }
 function stopCamera(){
-  if(cameraStream){
-    cameraStream.getTracks().forEach(track=>track.stop());
-  }
-  cameraStream=null;
-  if(el('camera-video'))el('camera-video').srcObject=null;
-  el('camera-placeholder')?.classList.remove('hidden');
-  el('camera-status')?.classList.remove('success');
-  if(el('camera-start'))el('camera-start').disabled=false;
-  if(el('camera-stop'))el('camera-stop').disabled=true;
-  setText('camera-status','ยังไม่ได้เปิดกล้อง');
+if(cameraStream){
+cameraStream.getTracks().forEach(track=>track.stop());
+}
+cameraStream=null;
+if(el('camera-video'))el('camera-video').srcObject=null;
+el('camera-placeholder')?.classList.remove('hidden');
+el('camera-status')?.classList.remove('success');
+if(el('camera-start'))el('camera-start').disabled=false;
+if(el('camera-stop'))el('camera-stop').disabled=true;
+setText('camera-status','ยังไม่ได้เปิดกล้อง');
 }
 </script>
 <script src="./app.js"></script>
@@ -975,245 +1130,240 @@ function stopCamera(){
 'use strict';
 const $=id=>document.getElementById(id);
 const esc=value=>String(value??'').replace(/[&<>"']/g,c=>({
-  '&':'&amp;',
-  '<':'&lt;',
-  '>':'&gt;',
-  '"':'&quot;',
-  "'":'&#39;'
+'&':'&amp;',
+'<':'&lt;',
+'>':'&gt;',
+'"':'&quot;',
+"'":'&#39;'
 }[c]));
 const state={
-  rooms:[],
-  students:[],
-  selectedRoom:null,
-  loaded:false,
-  loading:false,
-  rosterToken:0
+rooms:[],
+students:[],
+selectedRoom:null,
+loaded:false,
+loading:false,
+rosterToken:0,
+loadPromise:null
 };
 function field(item,keys,fallback=''){
-  if(!item||typeof item!=='object')return fallback;
-  for(const key of keys){
-    const value=item[key];
-    if(value!==undefined&&value!==null&&value!=='')return value;
-  }
-  return fallback;
+if(!item||typeof item!=='object')return fallback;
+for(const key of keys){
+const value=item[key];
+if(value!==undefined&&value!==null&&value!=='')return value;
+}
+return fallback;
 }
 function unwrap(value){
-  let result=value;
-  for(let i=0;i<3;i++){
-    if(!result||typeof result!=='object'||Array.isArray(result))break;
-    if(result.data&&typeof result.data==='object')result=result.data;
-    else if(result.result&&typeof result.result==='object')result=result.result;
-    else break;
-  }
-  return result;
+let result=value;
+for(let i=0;i<3;i++){
+if(!result||typeof result!=='object'||Array.isArray(result))break;
+if(result.data&&typeof result.data==='object'){
+result=result.data;
+}else if(result.result&&typeof result.result==='object'){
+result=result.result;
+}else{
+break;
+}
+}
+return result;
 }
 function readArray(value,keys){
-  const result=unwrap(value);
-  if(Array.isArray(result))return result;
-  if(!result||typeof result!=='object')return [];
-  for(const key of keys){
-    if(Array.isArray(result[key]))return result[key];
-  }
-  return [];
+const result=unwrap(value);
+if(Array.isArray(result))return result;
+if(!result||typeof result!=='object')return [];
+for(const key of keys){
+if(Array.isArray(result[key]))return result[key];
+}
+return [];
 }
 function roomId(room){
-  return field(room,[
-    'classId','ClassID','ClassId',
-    'classroomId','ClassroomID','ClassroomId',
-    'classroomID','id','ID'
-  ],'');
+return String(field(room,['id','classId','ClassID','classroomId','ClassroomID'],''));
 }
 function roomName(room){
-  return String(field(room,[
-    'classLabel','ClassLabel','classroomName',
-    'ClassroomName','className','ClassName',
-    'roomName','RoomName','gradeLabel',
-    'GradeLabel','name','Name','level','Level'
-  ],'ห้องเรียน'));
+return String(field(room,['className','ClassName','classLabel','ClassLabel','name','Name','level','Level'],'ห้องเรียน'));
 }
 function studentName(student){
-  const full=field(student,[
-    'fullName','FullName','studentName',
-    'StudentName','name','Name'
-  ],'');
-  if(full)return String(full);
-  return [
-    field(student,['prefix','Prefix','title','Title'],''),
-    field(student,['firstName','FirstName','firstname','Firstname'],''),
-    field(student,['lastName','LastName','lastname','Lastname'],'')
-  ].filter(Boolean).join(' ').trim();
+const full=field(student,['fullName','FullName','studentName','StudentName'],'');
+if(full)return String(full);
+return [
+field(student,['prefix','Prefix'],''),
+field(student,['firstName','FirstName'],''),
+field(student,['lastName','LastName'],'')
+].filter(Boolean).join(' ').trim();
 }
 function studentNumber(student,index){
-  return field(student,[
-    'studentNo','StudentNo',
-    'studentNumber','StudentNumber',
-    'number','Number','no','No'
-  ],index+1);
+return field(student,['studentNo','StudentNo','studentNumber','StudentNumber'],index+1);
 }
 function studentId(student){
-  return field(student,[
-    'studentId','StudentID','StudentId',
-    'studentID','id','ID'
-  ],'—');
+return field(student,['studentId','StudentID','studentCode','StudentCode'],'—');
 }
 function notice(message,icon='fa-spinner fa-spin'){
-  return '<div class="classroom-notice"><i class="fa-solid '+icon+'" style="font-size:23px;color:#146EF5"></i><p>'+esc(message)+'</p></div>';
+return '<div class="classroom-notice">'+
+'<i class="fa-solid '+icon+'" style="font-size:23px;color:#146EF5"></i>'+
+'<p>'+esc(message)+'</p>'+
+'</div>';
 }
 function errorHtml(error){
-  const message=error instanceof Error?error.message:String(error||'เกิดข้อผิดพลาด');
-  return '<div class="classroom-notice"><i class="fa-solid fa-circle-exclamation" style="font-size:25px;color:#DC2626"></i><h3>โหลดข้อมูลไม่สำเร็จ</h3><p>'+esc(message)+'</p></div>';
+const message=error instanceof Error?error.message:String(error||'เกิดข้อผิดพลาด');
+return '<div class="comsc-error">'+
+'<i class="fa-solid fa-circle-exclamation"></i>'+
+'<strong>โหลดข้อมูลไม่สำเร็จ</strong>'+
+'<p>'+esc(message)+'</p>'+
+'</div>';
 }
 async function apiClassrooms(){
-  if(typeof window.COMSC?.getClassroomModuleData!=='function'){
-    throw new Error('ไม่พบ getClassroomModuleData ใน app.js');
-  }
-  return await window.COMSC.getClassroomModuleData();
+if(typeof window.COMSC?.getClassroomModuleData!=='function'){
+throw new Error('ไม่พบ getClassroomModuleData ใน app.js');
+}
+return await window.COMSC.getClassroomModuleData();
 }
 async function apiStudents(classId){
-  if(typeof window.COMSC?.getClassroomStudents!=='function'){
-    throw new Error('ไม่พบ getClassroomStudents ใน app.js');
-  }
-  return await window.COMSC.getClassroomStudents(String(classId));
+if(typeof window.COMSC?.getClassroomStudents!=='function'){
+throw new Error('ไม่พบ getClassroomStudents ใน app.js');
+}
+return await window.COMSC.getClassroomStudents(String(classId));
 }
 function renderClassrooms(){
-  const grid=$('classroom-grid');
-  if(!state.rooms.length){
-    grid.innerHTML=notice('ยังไม่พบข้อมูลห้องเรียน','fa-school');
-    return;
-  }
-  grid.innerHTML=state.rooms.map((room,index)=>{
-    const label=roomName(room);
-    const count=field(room,[
-      'studentCount','StudentCount',
-      'studentsCount','StudentsCount',
-      'studentTotal','StudentTotal'
-    ],null);
-    const countText=count===null?'เปิดดูรายชื่อนักเรียน':esc(count)+' คน';
-    return '<button type="button" class="classroom-tile" data-room-index="'+index+'">'+
-      '<div class="classroom-tile-head">'+
-      '<span class="classroom-tile-icon"><i class="fa-solid fa-users"></i></span>'+
-      '<i class="fa-solid fa-arrow-up-right-from-square" style="color:#94A3B8"></i>'+
-      '</div>'+
-      '<h3>'+esc(label)+'</h3>'+
-      '<p>'+countText+'</p>'+
-      '<div class="classroom-tile-foot"><span>ดูรายชื่อนักเรียน</span><i class="fa-solid fa-arrow-right"></i></div>'+
-      '</button>';
-  }).join('');
-  grid.querySelectorAll('[data-room-index]').forEach(button=>{
-    button.addEventListener('click',()=>{
-      openCOMSCRoster(Number(button.dataset.roomIndex));
-    });
-  });
+const grid=$('classroom-grid');
+if(!state.rooms.length){
+grid.innerHTML=notice('ยังไม่พบข้อมูลห้องเรียน','fa-school');
+return;
+}
+grid.innerHTML=state.rooms.map((room,index)=>{
+const label=roomName(room);
+const count=field(room,['studentCount','StudentCount'],null);
+const countText=count===null?'เปิดดูรายชื่อนักเรียน':esc(count)+' คน';
+return '<button type="button" class="classroom-tile" data-room-index="'+index+'">'+
+'<div class="classroom-tile-head">'+
+'<span class="classroom-tile-icon"><i class="fa-solid fa-users"></i></span>'+
+'<i class="fa-solid fa-arrow-up-right-from-square" style="color:#94A3B8"></i>'+
+'</div>'+
+'<h3>'+esc(label)+'</h3>'+
+'<p>'+countText+'</p>'+
+'<div class="classroom-tile-foot">'+
+'<span>ดูรายชื่อนักเรียน</span>'+
+'<i class="fa-solid fa-arrow-right"></i>'+
+'</div>'+
+'</button>';
+}).join('');
+grid.querySelectorAll('[data-room-index]').forEach(button=>{
+button.addEventListener('click',()=>{
+window.openCOMSCRoster(Number(button.dataset.roomIndex));
+});
+});
 }
 window.loadCOMSCClassrooms=async function(force=false){
-  if(state.loading)return;
-  if(state.loaded&&!force)return;
-  state.loading=true;
-  state.loaded=false;
-  $('classroom-roster').hidden=true;
-  $('classroom-grid').style.display='grid';
-  $('classroom-grid').innerHTML=notice('กำลังโหลดข้อมูลห้องเรียนจากระบบจริง...');
-  $('classroom-summary').textContent='กำลังเชื่อมต่อข้อมูลห้องเรียน';
-  try{
-    const data=await apiClassrooms();
-    if(data?.success===false){
-      throw new Error(data.error?.message||data.message||'ไม่สามารถโหลดข้อมูลได้');
-    }
-    state.rooms=readArray(data,[
-      'classrooms','Classrooms',
-      'rooms','Rooms','items','Items'
-    ]);
-    state.loaded=true;
-    $('classroom-summary').textContent='ห้องเรียนทั้งหมด '+state.rooms.length+' ห้อง';
-    renderClassrooms();
-  }catch(error){
-    console.error('COM SC classrooms:',error);
-    state.loaded=false;
-    $('classroom-summary').textContent='เชื่อมต่อข้อมูลห้องเรียนไม่สำเร็จ';
-    $('classroom-grid').innerHTML=errorHtml(error);
-  }finally{
-    state.loading=false;
-  }
+if(state.loading)return state.loadPromise;
+if(state.loaded&&!force)return;
+state.loading=true;
+state.loaded=false;
+state.selectedRoom=null;
+++state.rosterToken;
+$('classroom-roster').hidden=true;
+$('classroom-grid').style.display='grid';
+$('classroom-grid').innerHTML=notice('กำลังโหลดข้อมูลห้องเรียนจากระบบจริง...');
+$('classroom-summary').textContent='กำลังเชื่อมต่อข้อมูลห้องเรียน';
+state.loadPromise=(async()=>{
+try{
+const data=await apiClassrooms();
+if(data?.success===false){
+throw new Error(data.error?.message||data.message||'ไม่สามารถโหลดข้อมูลได้');
+}
+state.rooms=readArray(data,['classrooms','Classrooms']);
+state.loaded=true;
+const total=state.rooms.reduce((sum,room)=>{
+return sum+Number(room.studentCount||0);
+},0);
+$('classroom-summary').textContent=
+'ห้องเรียนทั้งหมด '+state.rooms.length+' ห้อง · นักเรียนตามทะเบียน '+total+' คน';
+renderClassrooms();
+}catch(error){
+console.error('COM SC classrooms:',error);
+state.loaded=false;
+$('classroom-summary').textContent='เชื่อมต่อข้อมูลห้องเรียนไม่สำเร็จ';
+$('classroom-grid').innerHTML=errorHtml(error);
+}finally{
+state.loading=false;
+state.loadPromise=null;
+}
+})();
+return state.loadPromise;
 };
 window.openCOMSCRoster=async function(index){
-  const room=state.rooms[index];
-  if(!room)return;
-  state.selectedRoom=room;
-  const token=++state.rosterToken;
-  $('classroom-grid').style.display='none';
-  $('classroom-roster').hidden=false;
-  $('roster-title').textContent=roomName(room);
-  $('roster-description').textContent='กำลังโหลดรายชื่อนักเรียน';
-  $('roster-search').value='';
-  $('roster-result').innerHTML=notice('กำลังโหลดรายชื่อนักเรียน...');
-  try{
-    const id=roomId(room);
-    if(id===''){
-      throw new Error('ไม่พบรหัสห้องเรียนในข้อมูล API');
-    }
-    const data=await apiStudents(id);
-    if(token!==state.rosterToken)return;
-    if(data?.success===false){
-      throw new Error(data.error?.message||data.message||'ไม่สามารถโหลดรายชื่อได้');
-    }
-    state.students=readArray(data,[
-      'students','Students',
-      'items','Items','roster','Roster'
-    ]);
-    $('roster-description').textContent='นักเรียนทั้งหมด '+state.students.length+' คน';
-    filterCOMSCRoster('');
-  }catch(error){
-    if(token!==state.rosterToken)return;
-    console.error('COM SC students:',error);
-    $('roster-description').textContent='โหลดรายชื่อนักเรียนไม่สำเร็จ';
-    $('roster-result').innerHTML=errorHtml(error);
-  }
+const room=state.rooms[index];
+if(!room)return;
+state.selectedRoom=room;
+const token=++state.rosterToken;
+$('classroom-grid').style.display='none';
+$('classroom-roster').hidden=false;
+$('roster-title').textContent=roomName(room);
+$('roster-description').textContent='กำลังโหลดรายชื่อนักเรียน';
+$('roster-search').value='';
+$('roster-result').innerHTML=notice('กำลังโหลดรายชื่อนักเรียน...');
+try{
+const id=roomId(room);
+if(!id)throw new Error('ไม่พบรหัสห้องเรียนในข้อมูล API');
+const data=await apiStudents(id);
+if(token!==state.rosterToken)return;
+if(data?.success===false){
+throw new Error(data.error?.message||data.message||'ไม่สามารถโหลดรายชื่อได้');
+}
+state.students=readArray(data,['students','Students']);
+$('roster-description').textContent=
+'นักเรียนทั้งหมด '+state.students.length+' คน';
+window.filterCOMSCRoster('');
+}catch(error){
+if(token!==state.rosterToken)return;
+console.error('COM SC students:',error);
+$('roster-description').textContent='โหลดรายชื่อนักเรียนไม่สำเร็จ';
+$('roster-result').innerHTML=errorHtml(error);
+}
 };
 window.closeCOMSCRoster=function(){
-  ++state.rosterToken;
-  state.selectedRoom=null;
-  state.students=[];
-  $('classroom-roster').hidden=true;
-  $('classroom-grid').style.display='grid';
+++state.rosterToken;
+state.selectedRoom=null;
+state.students=[];
+$('classroom-roster').hidden=true;
+$('classroom-grid').style.display='grid';
 };
 window.reloadCOMSCRoster=function(){
-  if(!state.selectedRoom)return;
-  const index=state.rooms.indexOf(state.selectedRoom);
-  if(index>=0)openCOMSCRoster(index);
+if(!state.selectedRoom)return;
+const index=state.rooms.indexOf(state.selectedRoom);
+if(index>=0)window.openCOMSCRoster(index);
 };
 window.filterCOMSCRoster=function(query=''){
-  const q=String(query).trim().toLocaleLowerCase();
-  const students=state.students.map((student,index)=>({
-    student,index
-  })).filter(({student,index})=>{
-    const haystack=[
-      studentName(student),
-      studentNumber(student,index),
-      studentId(student)
-    ].join(' ').toLocaleLowerCase();
-    return haystack.includes(q);
-  });
-  if(!students.length){
-    $('roster-result').innerHTML=notice(
-      q?'ไม่พบนักเรียนที่ตรงกับคำค้นหา':'ยังไม่มีรายชื่อนักเรียนในห้องนี้',
-      'fa-users'
-    );
-    return;
-  }
-  const rows=students.map(({student,index})=>{
-    return '<tr>'+
-      '<td>'+esc(studentNumber(student,index))+'</td>'+
-      '<td>'+esc(studentName(student)||'ไม่ระบุชื่อ')+'</td>'+
-      '<td>'+esc(studentId(student))+'</td>'+
-      '</tr>';
-  }).join('');
-  $('roster-result').innerHTML=
-    '<div class="roster-table-wrap">'+
-    '<table class="roster-table">'+
-    '<thead><tr><th>เลขที่</th><th>ชื่อ–นามสกุล</th><th>รหัสนักเรียน</th></tr></thead>'+
-    '<tbody>'+rows+'</tbody>'+
-    '</table></div>'+
-    '<div class="roster-count">แสดง '+students.length+' จาก '+state.students.length+' คน</div>';
+const q=String(query).trim().toLocaleLowerCase();
+const students=state.students.map((student,index)=>({
+student,index
+})).filter(({student,index})=>{
+const text=[
+studentName(student),
+studentNumber(student,index),
+studentId(student)
+].join(' ').toLocaleLowerCase();
+return text.includes(q);
+});
+if(!students.length){
+$('roster-result').innerHTML=notice(
+q?'ไม่พบนักเรียนที่ตรงกับคำค้นหา':'ยังไม่มีรายชื่อนักเรียนในห้องนี้',
+'fa-users'
+);
+return;
+}
+const rows=students.map(({student,index})=>{
+return '<tr>'+
+'<td>'+esc(studentNumber(student,index))+'</td>'+
+'<td>'+esc(studentName(student)||'ไม่ระบุชื่อ')+'</td>'+
+'<td>'+esc(studentId(student))+'</td>'+
+'</tr>';
+}).join('');
+$('roster-result').innerHTML=
+'<div class="roster-table-wrap">'+
+'<table class="roster-table">'+
+'<thead><tr><th>เลขที่</th><th>ชื่อ–นามสกุล</th><th>รหัสนักเรียน</th></tr></thead>'+
+'<tbody>'+rows+'</tbody>'+
+'</table></div>'+
+'<div class="roster-count">แสดง '+students.length+' จาก '+state.students.length+' คน</div>';
 };
 })();
 </script>
