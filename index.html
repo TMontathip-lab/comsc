@@ -23,12 +23,9 @@
   --card:#FFFFFF;
   --danger:#DC2626;
   --warning:#D97706;
-  --radius-xl:28px;
-  --radius-lg:22px;
-  --radius-md:16px;
-  --shadow:0 14px 34px rgba(15,35,60,.07);
   --sidebar:260px;
   --bottom:78px;
+  --shadow:0 14px 34px rgba(15,35,60,.07);
 }
 
 *{
@@ -206,6 +203,7 @@ button{
 
 .topbar-left{
   min-width:0;
+  flex:1;
 }
 
 .page-title{
@@ -307,6 +305,25 @@ button{
   max-width:650px;
 }
 
+.hero-meta{
+  display:flex;
+  gap:7px;
+  flex-wrap:wrap;
+  margin-top:13px;
+}
+
+.hero-chip{
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+  padding:7px 10px;
+  border-radius:999px;
+  background:rgba(255,255,255,.12);
+  border:1px solid rgba(255,255,255,.14);
+  font-size:11px;
+  color:#fff;
+}
+
 .hero-logo{
   width:100px;
   height:100px;
@@ -389,7 +406,7 @@ button{
 .card{
   background:#fff;
   border:1px solid var(--line);
-  border-radius:var(--radius-lg);
+  border-radius:22px;
   padding:19px;
   box-shadow:0 7px 24px rgba(15,35,60,.035);
 }
@@ -468,31 +485,93 @@ button{
   font-size:12px;
 }
 
-.empty{
+.loading-box,
+.empty-box,
+.error-box{
   min-height:190px;
   display:flex;
   flex-direction:column;
   align-items:center;
   justify-content:center;
   text-align:center;
-  color:var(--muted);
   padding:20px;
+  color:var(--muted);
 }
 
-.empty i{
+.loading-box i,
+.empty-box i,
+.error-box i{
   font-size:25px;
   margin-bottom:10px;
-  color:#B8C4D2;
+  color:#AAB7C6;
 }
 
-.empty strong{
+.loading-box strong,
+.empty-box strong,
+.error-box strong{
   color:#52647A;
   font-size:13px;
 }
 
-.empty span{
+.loading-box span,
+.empty-box span,
+.error-box span{
   margin-top:5px;
   font-size:12px;
+  line-height:1.55;
+}
+
+.error-box i{
+  color:#D97706;
+}
+
+.schedule-list{
+  display:grid;
+  gap:9px;
+}
+
+.schedule-item{
+  display:grid;
+  grid-template-columns:66px 1fr;
+  gap:11px;
+  align-items:center;
+  padding:11px;
+  border:1px solid var(--line);
+  border-radius:16px;
+  background:#FBFDFF;
+}
+
+.schedule-period{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  min-height:54px;
+  border-radius:13px;
+  background:var(--blue-soft);
+  color:var(--blue);
+}
+
+.schedule-period strong{
+  font-size:13px;
+}
+
+.schedule-period span{
+  margin-top:2px;
+  font-size:9px;
+}
+
+.schedule-info strong{
+  display:block;
+  color:var(--navy);
+  font-size:13px;
+}
+
+.schedule-info span{
+  display:block;
+  margin-top:3px;
+  color:var(--muted);
+  font-size:11px;
 }
 
 .module-header{
@@ -541,6 +620,11 @@ button{
   background:#fff;
   color:var(--navy);
   border:1px solid var(--line);
+}
+
+button:disabled{
+  opacity:.45;
+  cursor:not-allowed;
 }
 
 .module-placeholder{
@@ -714,6 +798,17 @@ button{
   display:none;
 }
 
+.bridge-frame{
+  position:fixed;
+  width:1px;
+  height:1px;
+  left:-9999px;
+  top:-9999px;
+  border:0;
+  opacity:0;
+  pointer-events:none;
+}
+
 @media(max-width:1100px){
   .stats{
     grid-template-columns:repeat(2,minmax(0,1fr));
@@ -765,10 +860,6 @@ button{
 
   .mobile-menu{
     display:flex;
-  }
-
-  .topbar-left{
-    flex:1;
   }
 
   .page-title{
@@ -891,6 +982,14 @@ button{
 
 <body>
 
+<iframe
+  id="data-bridge"
+  class="bridge-frame"
+  title="COM SC"
+  src="https://script.google.com/macros/s/AKfycbxXpkrcsGh1YWZZe3QMgPT9Gh2qnemLgGA4RUKy5XI-oNFokdSA1RjQCcbJ43cpF5ry/exec?page=bridge"
+  onload="handleBridgeFrameLoad()"
+></iframe>
+
 <div class="app">
 
   <div
@@ -921,9 +1020,7 @@ button{
 
     <div class="side-scroll">
 
-      <div class="nav-label">
-        เมนูหลัก
-      </div>
+      <div class="nav-label">เมนูหลัก</div>
 
       <button
         class="nav-item active"
@@ -979,9 +1076,7 @@ button{
         <span>ตรวจข้อสอบ</span>
       </button>
 
-      <div class="nav-label">
-        จัดการ
-      </div>
+      <div class="nav-label">จัดการ</div>
 
       <button
         class="nav-item"
@@ -1064,6 +1159,7 @@ button{
       <div class="top-actions">
 
         <button
+          id="refresh-button"
           class="icon-btn"
           onclick="refreshCurrentView()"
           aria-label="รีเฟรช"
@@ -1096,10 +1192,32 @@ button{
 
             <div>
               <h2>Computer Smart Classroom</h2>
+
               <p>
-                จัดการห้องเรียน เช็กชื่อ คะแนน ตารางสอน ห้องปฏิบัติการ
-                และตรวจข้อสอบได้จากที่เดียว
+                จัดการห้องเรียน เช็กชื่อ คะแนน ตารางสอน
+                ห้องปฏิบัติการ และตรวจข้อสอบได้จากที่เดียว
               </p>
+
+              <div class="hero-meta">
+
+                <span
+                  id="dashboard-semester"
+                  class="hero-chip"
+                >
+                  <i class="fa-solid fa-calendar"></i>
+                  กำลังโหลดข้อมูล
+                </span>
+
+                <span
+                  id="dashboard-school"
+                  class="hero-chip"
+                >
+                  <i class="fa-solid fa-school"></i>
+                  COM SC
+                </span>
+
+              </div>
+
             </div>
 
             <img
@@ -1117,43 +1235,87 @@ button{
         <div class="stats">
 
           <div class="stat-card">
+
             <div class="stat-top">
               <div class="stat-icon">
                 <i class="fa-solid fa-door-open"></i>
               </div>
             </div>
-            <div class="stat-value">—</div>
-            <div class="stat-label">ห้องเรียน</div>
+
+            <div
+              id="stat-classrooms"
+              class="stat-value"
+            >
+              —
+            </div>
+
+            <div class="stat-label">
+              ห้องเรียน
+            </div>
+
           </div>
 
           <div class="stat-card">
+
             <div class="stat-top">
               <div class="stat-icon">
                 <i class="fa-solid fa-users"></i>
               </div>
             </div>
-            <div class="stat-value">—</div>
-            <div class="stat-label">นักเรียน</div>
+
+            <div
+              id="stat-students"
+              class="stat-value"
+            >
+              —
+            </div>
+
+            <div class="stat-label">
+              นักเรียน
+            </div>
+
           </div>
 
           <div class="stat-card">
+
             <div class="stat-top">
               <div class="stat-icon">
                 <i class="fa-solid fa-book"></i>
               </div>
             </div>
-            <div class="stat-value">—</div>
-            <div class="stat-label">รายวิชาที่สอน</div>
+
+            <div
+              id="stat-courses"
+              class="stat-value"
+            >
+              —
+            </div>
+
+            <div class="stat-label">
+              รายวิชาที่สอน
+            </div>
+
           </div>
 
           <div class="stat-card">
+
             <div class="stat-top">
               <div class="stat-icon">
                 <i class="fa-solid fa-calendar-check"></i>
               </div>
             </div>
-            <div class="stat-value">—</div>
-            <div class="stat-label">คาบเรียนวันนี้</div>
+
+            <div
+              id="stat-today"
+              class="stat-value"
+            >
+              —
+            </div>
+
+            <div class="stat-label">
+              คาบเรียนวันนี้
+            </div>
+
           </div>
 
         </div>
@@ -1246,18 +1408,22 @@ button{
                 </div>
 
                 <div>
-                  <h3>ตารางวันนี้</h3>
-                  <p>คาบเรียนประจำวัน</p>
+                  <h3 id="today-title">ตารางวันนี้</h3>
+                  <p id="today-subtitle">กำลังโหลดข้อมูล</p>
                 </div>
 
               </div>
 
             </div>
 
-            <div class="empty">
-              <i class="fa-solid fa-calendar"></i>
-              <strong>รอเชื่อมข้อมูลตารางสอน</strong>
-              <span>ข้อมูลเดิมยังไม่ได้ถูกแก้ไข</span>
+            <div id="today-schedule">
+
+              <div class="loading-box">
+                <i class="fa-solid fa-spinner fa-spin"></i>
+                <strong>กำลังโหลดข้อมูล</strong>
+                <span>กรุณารอสักครู่</span>
+              </div>
+
             </div>
 
           </div>
@@ -1270,11 +1436,13 @@ button{
         id="view-classrooms"
         class="view"
       >
+
         <div class="module-header">
           <div>
             <h2>ห้องเรียน</h2>
             <p>จัดการห้องเรียนและรายชื่อนักเรียน</p>
           </div>
+
           <button class="primary-btn">
             <i class="fa-solid fa-plus"></i>
             เพิ่มห้องเรียน
@@ -1284,16 +1452,18 @@ button{
         <div class="module-placeholder">
           <div>
             <i class="fa-solid fa-users"></i>
-            <h3>กำลังเตรียมเชื่อมข้อมูลห้องเรียนเดิม</h3>
-            <p>ขั้นตอนนี้ยังไม่อ่านหรือเขียนข้อมูลใน Google Sheet</p>
+            <h3>ห้องเรียน</h3>
+            <p>จะเชื่อมข้อมูลห้องเรียนในขั้นตอนถัดไป</p>
           </div>
         </div>
+
       </section>
 
       <section
         id="view-schedule"
         class="view"
       >
+
         <div class="module-header">
           <div>
             <h2>ตารางสอน</h2>
@@ -1304,16 +1474,18 @@ button{
         <div class="module-placeholder">
           <div>
             <i class="fa-solid fa-calendar-days"></i>
-            <h3>กำลังเตรียมเชื่อมตารางสอนเดิม</h3>
-            <p>ข้อมูล TeachingCourses และ Timetable เดิมยังอยู่ครบ</p>
+            <h3>ตารางสอน</h3>
+            <p>จะเชื่อมข้อมูลตารางสอนในขั้นตอนถัดไป</p>
           </div>
         </div>
+
       </section>
 
       <section
         id="view-attendance"
         class="view"
       >
+
         <div class="module-header">
           <div>
             <h2>เช็กชื่อ</h2>
@@ -1324,16 +1496,18 @@ button{
         <div class="module-placeholder">
           <div>
             <i class="fa-solid fa-user-check"></i>
-            <h3>กำลังเตรียมระบบเช็กชื่อ</h3>
-            <p>ข้อมูลเช็กชื่อเดิมยังไม่ถูกเปลี่ยนแปลง</p>
+            <h3>เช็กชื่อ</h3>
+            <p>จะเชื่อมระบบเช็กชื่อในขั้นตอนถัดไป</p>
           </div>
         </div>
+
       </section>
 
       <section
         id="view-scores"
         class="view"
       >
+
         <div class="module-header">
           <div>
             <h2>คะแนน</h2>
@@ -1344,10 +1518,11 @@ button{
         <div class="module-placeholder">
           <div>
             <i class="fa-solid fa-chart-column"></i>
-            <h3>กำลังเตรียมเชื่อมสมุดคะแนนเดิม</h3>
-            <p>โครงคะแนนและคะแนนนักเรียนเดิมยังคงอยู่ในฐานข้อมูลเดิม</p>
+            <h3>คะแนน</h3>
+            <p>จะเชื่อมสมุดคะแนนเดิมในขั้นตอนถัดไป</p>
           </div>
         </div>
+
       </section>
 
       <section
@@ -1427,8 +1602,8 @@ button{
             </button>
 
             <div class="info-box">
-              ขณะนี้เปิดใช้กล้องได้แล้ว ส่วนการอ่านกระดาษคำตอบ ชื่อนักเรียน
-              และการคำนวณคะแนน จะเชื่อมในขั้นตอนถัดไป
+              เปิดกล้องสำหรับสแกนกระดาษคำตอบ
+              ส่วนการอ่านคำตอบและแสดงคะแนนจะเชื่อมหลังจากข้อมูลหลักพร้อมแล้ว
             </div>
 
             <div
@@ -1446,6 +1621,7 @@ button{
         id="view-lab"
         class="view"
       >
+
         <div class="module-header">
           <div>
             <h2>ห้องปฏิบัติการคอมพิวเตอร์</h2>
@@ -1456,16 +1632,18 @@ button{
         <div class="module-placeholder">
           <div>
             <i class="fa-solid fa-desktop"></i>
-            <h3>กำลังเตรียมเชื่อมข้อมูลห้องปฏิบัติการ</h3>
-            <p>ประวัติการใช้งานเดิมยังอยู่ในฐานข้อมูลเดิมทั้งหมด</p>
+            <h3>ห้องปฏิบัติการคอมพิวเตอร์</h3>
+            <p>จะเชื่อมข้อมูลการใช้งานในขั้นตอนถัดไป</p>
           </div>
         </div>
+
       </section>
 
       <section
         id="view-reports"
         class="view"
       >
+
         <div class="module-header">
           <div>
             <h2>รายงาน</h2>
@@ -1476,16 +1654,18 @@ button{
         <div class="module-placeholder">
           <div>
             <i class="fa-solid fa-file-lines"></i>
-            <h3>กำลังเตรียมระบบรายงาน</h3>
-            <p>จะเชื่อมรายงานเดิมหลังจากโมดูลข้อมูลหลักพร้อมใช้งาน</p>
+            <h3>รายงาน</h3>
+            <p>จะเชื่อมรายงานเมื่อข้อมูลหลักพร้อมใช้งาน</p>
           </div>
         </div>
+
       </section>
 
       <section
         id="view-settings"
         class="view"
       >
+
         <div class="module-header">
           <div>
             <h2>ตั้งค่า</h2>
@@ -1496,10 +1676,11 @@ button{
         <div class="module-placeholder">
           <div>
             <i class="fa-solid fa-gear"></i>
-            <h3>กำลังเตรียมการตั้งค่า</h3>
-            <p>ยังไม่มีการแก้ไขค่าของระบบเดิมในขั้นตอนนี้</p>
+            <h3>ตั้งค่า</h3>
+            <p>จะเชื่อมการตั้งค่าในขั้นตอนถัดไป</p>
           </div>
         </div>
+
       </section>
 
     </div>
@@ -1562,42 +1743,60 @@ const VIEW_META={
     title:'หน้าหลัก',
     subtitle:'ภาพรวมการจัดการชั้นเรียน'
   },
+
   classrooms:{
     title:'ห้องเรียน',
     subtitle:'จัดการห้องเรียนและรายชื่อนักเรียน'
   },
+
   schedule:{
     title:'ตารางสอน',
     subtitle:'รายวิชาและตารางประจำสัปดาห์'
   },
+
   attendance:{
     title:'เช็กชื่อ',
     subtitle:'บันทึกการมาเรียนของนักเรียน'
   },
+
   scores:{
     title:'คะแนน',
     subtitle:'บันทึกและสรุปคะแนน'
   },
+
   scanner:{
     title:'ตรวจข้อสอบ',
     subtitle:'สแกนกระดาษคำตอบและตรวจคะแนน'
   },
+
   lab:{
     title:'ห้องปฏิบัติการคอมพิวเตอร์',
     subtitle:'บันทึกการใช้งานห้องปฏิบัติการ'
   },
+
   reports:{
     title:'รายงาน',
     subtitle:'สรุปและพิมพ์รายงาน'
   },
+
   settings:{
     title:'ตั้งค่า',
     subtitle:'การตั้งค่าระบบ'
   }
 };
 
+const BRIDGE_URL=
+  'https://script.google.com/macros/s/AKfycbxXpkrcsGh1YWZZe3QMgPT9Gh2qnemLgGA4RUKy5XI-oNFokdSA1RjQCcbJ43cpF5ry/exec?page=bridge';
+
 let currentView='dashboard';
 let cameraStream=null;
+
+let bridgeRequestNo=0;
+let dashboardLoading=false;
+let dashboardLoaded=false;
+
+const bridgePending=
+  new Map();
 
 function navigate(view){
   if(!VIEW_META[view]){
@@ -1642,13 +1841,25 @@ function navigate(view){
       );
     });
 
-  document.getElementById('page-title').textContent=
+  document
+    .getElementById('page-title')
+    .textContent=
     VIEW_META[view].title;
 
-  document.getElementById('page-subtitle').textContent=
+  document
+    .getElementById('page-subtitle')
+    .textContent=
     VIEW_META[view].subtitle;
 
   closeSidebar();
+
+  if(
+    view==='dashboard' &&
+    !dashboardLoaded &&
+    !dashboardLoading
+  ){
+    loadDashboard();
+  }
 
   window.scrollTo({
     top:0,
@@ -1680,21 +1891,576 @@ function closeSidebar(){
     .remove('show');
 }
 
-function refreshCurrentView(){
-  if(currentView==='scanner'){
-    setCameraStatus(
-      cameraStream
-        ? 'กล้องพร้อมใช้งาน'
-        : 'ยังไม่ได้เปิดกล้อง',
-      !!cameraStream
+async function refreshCurrentView(){
+  const btn=
+    document.getElementById(
+      'refresh-button'
     );
+
+  const icon=
+    btn?.querySelector('i');
+
+  icon?.classList.add(
+    'fa-spin'
+  );
+
+  try{
+    if(currentView==='dashboard'){
+      await loadDashboard(true);
+      return;
+    }
+
+    if(currentView==='scanner'){
+      setCameraStatus(
+        cameraStream
+          ? 'กล้องพร้อมสแกน'
+          : 'ยังไม่ได้เปิดกล้อง',
+        !!cameraStream
+      );
+    }
+
+  }finally{
+    setTimeout(()=>{
+      icon?.classList.remove(
+        'fa-spin'
+      );
+    },350);
   }
+}
+
+function handleBridgeFrameLoad(){
+  setTimeout(()=>{
+    if(!dashboardLoaded){
+      loadDashboard();
+    }
+  },500);
+}
+
+function bridgeCall(
+  action,
+  timeout=15000
+){
+  return new Promise(
+    (resolve,reject)=>{
+
+      const frame=
+        document.getElementById(
+          'data-bridge'
+        );
+
+      if(
+        !frame ||
+        !frame.contentWindow
+      ){
+        reject(
+          new Error(
+            'ไม่สามารถเชื่อมข้อมูลได้'
+          )
+        );
+        return;
+      }
+
+      const requestId=
+        'req_' +
+        Date.now() +
+        '_' +
+        (++bridgeRequestNo);
+
+      const timer=
+        setTimeout(()=>{
+          bridgePending.delete(
+            requestId
+          );
+
+          reject(
+            new Error(
+              'การเชื่อมข้อมูลใช้เวลานานเกินไป'
+            )
+          );
+        },timeout);
+
+      bridgePending.set(
+        requestId,
+        {
+          resolve,
+          reject,
+          timer
+        }
+      );
+
+      frame.contentWindow.postMessage(
+        {
+          source:'COMSC_WEB',
+          action:action,
+          requestId:requestId
+        },
+        '*'
+      );
+    }
+  );
+}
+
+window.addEventListener(
+  'message',
+  event=>{
+
+    const frame=
+      document.getElementById(
+        'data-bridge'
+      );
+
+    if(
+      !frame ||
+      event.source !==
+        frame.contentWindow
+    ){
+      return;
+    }
+
+    const message=
+      event.data || {};
+
+    if(
+      message.source !==
+      'COMSC_BRIDGE'
+    ){
+      return;
+    }
+
+    if(
+      message.type==='ready'
+    ){
+      if(
+        !dashboardLoaded &&
+        !dashboardLoading
+      ){
+        loadDashboard();
+      }
+
+      return;
+    }
+
+    const requestId=
+      String(
+        message.requestId ||
+        ''
+      );
+
+    if(!requestId){
+      return;
+    }
+
+    const pending=
+      bridgePending.get(
+        requestId
+      );
+
+    if(!pending){
+      return;
+    }
+
+    clearTimeout(
+      pending.timer
+    );
+
+    bridgePending.delete(
+      requestId
+    );
+
+    if(
+      message.type==='error'
+    ){
+      pending.reject(
+        new Error(
+          message.message ||
+          'ไม่สามารถโหลดข้อมูลได้'
+        )
+      );
+
+      return;
+    }
+
+    if(
+      message.type===
+      'dashboard.result'
+    ){
+      pending.resolve(
+        message.data
+      );
+    }
+  }
+);
+
+async function loadDashboard(
+  force=false
+){
+  if(
+    dashboardLoading
+  ){
+    return;
+  }
+
+  if(
+    dashboardLoaded &&
+    !force
+  ){
+    return;
+  }
+
+  dashboardLoading=true;
+
+  setDashboardLoading();
+
+  try{
+    const data=
+      await bridgeCall(
+        'dashboard.read'
+      );
+
+    if(
+      !data ||
+      data.success !== true
+    ){
+      throw new Error(
+        'ข้อมูลที่ได้รับไม่สมบูรณ์'
+      );
+    }
+
+    renderDashboard(
+      data
+    );
+
+    dashboardLoaded=true;
+
+  }catch(error){
+    dashboardLoaded=false;
+
+    renderDashboardError(
+      error
+    );
+
+  }finally{
+    dashboardLoading=false;
+  }
+}
+
+function setDashboardLoading(){
+  setText(
+    'stat-classrooms',
+    '—'
+  );
+
+  setText(
+    'stat-students',
+    '—'
+  );
+
+  setText(
+    'stat-courses',
+    '—'
+  );
+
+  setText(
+    'stat-today',
+    '—'
+  );
+
+  const box=
+    document.getElementById(
+      'today-schedule'
+    );
+
+  if(box){
+    box.innerHTML=
+      '<div class="loading-box">' +
+        '<i class="fa-solid fa-spinner fa-spin"></i>' +
+        '<strong>กำลังโหลดข้อมูล</strong>' +
+        '<span>กรุณารอสักครู่</span>' +
+      '</div>';
+  }
+}
+
+function renderDashboard(
+  data
+){
+  const settings=
+    data.settings || {};
+
+  const dashboard=
+    data.dashboard || {};
+
+  const today=
+    data.today || {};
+
+  setText(
+    'stat-classrooms',
+    dashboard.classroomCount ?? 0
+  );
+
+  setText(
+    'stat-students',
+    dashboard.studentCount ?? 0
+  );
+
+  setText(
+    'stat-courses',
+    dashboard.courseCount ?? 0
+  );
+
+  setText(
+    'stat-today',
+    dashboard.todayScheduleCount ?? 0
+  );
+
+  const semesterText=
+    [
+      settings.semester
+        ? 'ภาคเรียนที่ ' +
+          settings.semester
+        : '',
+
+      settings.academicYear
+        ? 'ปีการศึกษา ' +
+          settings.academicYear
+        : ''
+    ]
+      .filter(Boolean)
+      .join(' · ');
+
+  const semesterBox=
+    document.getElementById(
+      'dashboard-semester'
+    );
+
+  if(semesterBox){
+    semesterBox.innerHTML=
+      '<i class="fa-solid fa-calendar"></i>' +
+      escapeHtml(
+        semesterText ||
+        'ปีการศึกษาปัจจุบัน'
+      );
+  }
+
+  const schoolBox=
+    document.getElementById(
+      'dashboard-school'
+    );
+
+  if(schoolBox){
+    schoolBox.innerHTML=
+      '<i class="fa-solid fa-school"></i>' +
+      escapeHtml(
+        settings.schoolName ||
+        'COM SC'
+      );
+  }
+
+  setText(
+    'today-title',
+    today.dayLabel
+      ? 'ตารางวัน' +
+        today.dayLabel
+      : 'ตารางวันนี้'
+  );
+
+  setText(
+    'today-subtitle',
+    semesterText ||
+    'คาบเรียนประจำวัน'
+  );
+
+  renderTodaySchedule(
+    Array.isArray(
+      today.schedules
+    )
+      ? today.schedules
+      : []
+  );
+
+  document
+    .getElementById(
+      'page-subtitle'
+    )
+    .textContent=
+    semesterText
+      ? 'ภาพรวมการจัดการชั้นเรียน · ' +
+        semesterText
+      : 'ภาพรวมการจัดการชั้นเรียน';
+}
+
+function renderTodaySchedule(
+  schedules
+){
+  const box=
+    document.getElementById(
+      'today-schedule'
+    );
+
+  if(!box){
+    return;
+  }
+
+  if(!schedules.length){
+    box.innerHTML=
+      '<div class="empty-box">' +
+        '<i class="fa-solid fa-calendar-check"></i>' +
+        '<strong>ไม่มีคาบเรียนวันนี้</strong>' +
+        '<span>ยังไม่มีรายการในตารางสำหรับวันนี้</span>' +
+      '</div>';
+
+    return;
+  }
+
+  box.innerHTML=
+    '<div class="schedule-list">' +
+    schedules
+      .map(item=>{
+
+        const time=
+          [
+            item.startTime || '',
+            item.endTime || ''
+          ]
+            .filter(Boolean)
+            .join('–');
+
+        return (
+          '<div class="schedule-item">' +
+
+            '<div class="schedule-period">' +
+              '<strong>' +
+                escapeHtml(
+                  item.periodNo
+                    ? 'คาบ ' +
+                      item.periodNo
+                    : 'คาบ'
+                ) +
+              '</strong>' +
+              '<span>' +
+                escapeHtml(
+                  time ||
+                  ''
+                ) +
+              '</span>' +
+            '</div>' +
+
+            '<div class="schedule-info">' +
+
+              '<strong>' +
+                escapeHtml(
+                  item.title ||
+                  'กิจกรรม'
+                ) +
+              '</strong>' +
+
+              '<span>' +
+                escapeHtml(
+                  item.classLabel ||
+                  ''
+                ) +
+              '</span>' +
+
+            '</div>' +
+
+          '</div>'
+        );
+      })
+      .join('') +
+    '</div>';
+}
+
+function renderDashboardError(
+  error
+){
+  const box=
+    document.getElementById(
+      'today-schedule'
+    );
+
+  if(box){
+    box.innerHTML=
+      '<div class="error-box">' +
+        '<i class="fa-solid fa-circle-exclamation"></i>' +
+        '<strong>ยังโหลดข้อมูลไม่ได้</strong>' +
+        '<span>' +
+          escapeHtml(
+            error?.message ||
+            'กรุณาลองใหม่อีกครั้ง'
+          ) +
+        '</span>' +
+        '<button ' +
+          'class="secondary-btn" ' +
+          'style="margin-top:12px" ' +
+          'onclick="loadDashboard(true)">' +
+          '<i class="fa-solid fa-rotate"></i>' +
+          'ลองอีกครั้ง' +
+        '</button>' +
+      '</div>';
+  }
+
+  const semesterBox=
+    document.getElementById(
+      'dashboard-semester'
+    );
+
+  if(semesterBox){
+    semesterBox.innerHTML=
+      '<i class="fa-solid fa-circle-exclamation"></i>' +
+      'ยังโหลดข้อมูลไม่ได้';
+  }
+}
+
+function setText(
+  id,
+  value
+){
+  const el=
+    document.getElementById(
+      id
+    );
+
+  if(el){
+    el.textContent=
+      value;
+  }
+}
+
+function escapeHtml(
+  value
+){
+  return String(
+    value ?? ''
+  )
+    .replace(
+      /&/g,
+      '&amp;'
+    )
+    .replace(
+      /</g,
+      '&lt;'
+    )
+    .replace(
+      />/g,
+      '&gt;'
+    )
+    .replace(
+      /"/g,
+      '&quot;'
+    )
+    .replace(
+      /'/g,
+      '&#039;'
+    );
 }
 
 async function startCamera(){
   clearCameraError();
 
-  if(!navigator.mediaDevices?.getUserMedia){
+  if(
+    !navigator
+      .mediaDevices
+      ?.getUserMedia
+  ){
     showCameraError(
       'เบราว์เซอร์นี้ไม่รองรับการเปิดกล้อง'
     );
@@ -1708,49 +2474,66 @@ async function startCamera(){
   );
 
   const startBtn=
-    document.getElementById('camera-start');
+    document.getElementById(
+      'camera-start'
+    );
 
   startBtn.disabled=true;
 
   try{
     try{
       cameraStream=
-        await navigator.mediaDevices.getUserMedia({
-          audio:false,
-          video:{
-            facingMode:{
-              ideal:'environment'
-            },
-            width:{
-              ideal:1920
-            },
-            height:{
-              ideal:1080
+        await navigator
+          .mediaDevices
+          .getUserMedia({
+            audio:false,
+
+            video:{
+              facingMode:{
+                ideal:'environment'
+              },
+
+              width:{
+                ideal:1920
+              },
+
+              height:{
+                ideal:1080
+              }
             }
-          }
-        });
+          });
+
     }catch(firstError){
       cameraStream=
-        await navigator.mediaDevices.getUserMedia({
-          audio:false,
-          video:true
-        });
+        await navigator
+          .mediaDevices
+          .getUserMedia({
+            audio:false,
+            video:true
+          });
     }
 
     const video=
-      document.getElementById('camera-video');
+      document.getElementById(
+        'camera-video'
+      );
 
-    video.srcObject=cameraStream;
+    video.srcObject=
+      cameraStream;
 
     await video.play();
 
     document
-      .getElementById('camera-placeholder')
+      .getElementById(
+        'camera-placeholder'
+      )
       .classList
       .add('hidden');
 
     document
-      .getElementById('camera-stop')
+      .getElementById(
+        'camera-stop'
+      )
       .disabled=false;
 
     setCameraStatus(
@@ -1764,9 +2547,15 @@ async function startCamera(){
     startBtn.disabled=false;
 
     showCameraError(
-      (error?.name||'Error')+
-      ': '+
-      (error?.message||String(error))
+      (
+        error?.name ||
+        'Error'
+      ) +
+      ': ' +
+      (
+        error?.message ||
+        String(error)
+      )
     );
 
     setCameraStatus(
@@ -1787,22 +2576,30 @@ function stopCamera(){
   cameraStream=null;
 
   const video=
-    document.getElementById('camera-video');
+    document.getElementById(
+      'camera-video'
+    );
 
   if(video){
     video.srcObject=null;
   }
 
   document
-    .getElementById('camera-placeholder')
+    .getElementById(
+      'camera-placeholder'
+    )
     ?.classList
     .remove('hidden');
 
   const startBtn=
-    document.getElementById('camera-start');
+    document.getElementById(
+      'camera-start'
+    );
 
   const stopBtn=
-    document.getElementById('camera-stop');
+    document.getElementById(
+      'camera-stop'
+    );
 
   if(startBtn){
     startBtn.disabled=false;
@@ -1817,9 +2614,14 @@ function stopCamera(){
   );
 }
 
-function setCameraStatus(text,success=false){
+function setCameraStatus(
+  text,
+  success=false
+){
   const el=
-    document.getElementById('camera-status');
+    document.getElementById(
+      'camera-status'
+    );
 
   if(!el){
     return;
@@ -1833,33 +2635,60 @@ function setCameraStatus(text,success=false){
   );
 }
 
-function showCameraError(message){
+function showCameraError(
+  message
+){
   const box=
-    document.getElementById('camera-error');
+    document.getElementById(
+      'camera-error'
+    );
 
   if(!box){
     return;
   }
 
-  box.textContent=message;
-  box.classList.add('show');
+  box.textContent=
+    message;
+
+  box.classList.add(
+    'show'
+  );
 }
 
 function clearCameraError(){
   const box=
-    document.getElementById('camera-error');
+    document.getElementById(
+      'camera-error'
+    );
 
   if(!box){
     return;
   }
 
   box.textContent='';
-  box.classList.remove('show');
+
+  box.classList.remove(
+    'show'
+  );
 }
 
 window.addEventListener(
   'pagehide',
   stopCamera
+);
+
+window.addEventListener(
+  'DOMContentLoaded',
+  ()=>{
+    setTimeout(()=>{
+      if(
+        !dashboardLoaded &&
+        !dashboardLoading
+      ){
+        loadDashboard();
+      }
+    },900);
+  }
 );
 </script>
 
