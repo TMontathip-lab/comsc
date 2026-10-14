@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="th">
 <head>
@@ -7,876 +8,487 @@
 <title>COM SC | Computer Smart Classroom</title>
 <link rel="preconnect" href="https://cdnjs.cloudflare.com">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+<link rel="stylesheet" href="./styles.css">
 <style>
-:root{--blue:#146EF5;--blue-soft:#EAF3FF;--green:#66CC99;--green-soft:#ECFBF4;--navy:#0B1F3A;--text:#132238;--muted:#718096;--line:#E5EBF3;--bg:#F5F8FC;--card:#FFFFFF;--danger:#DC2626;--warning:#D97706;--sidebar:260px;--bottom:78px;--shadow:0 14px 34px rgba(15,35,60,.07)}
-*{box-sizing:border-box}html{scroll-behavior:smooth}html,body{margin:0;min-height:100%;background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans Thai",sans-serif}button,input,select{font:inherit}button{cursor:pointer}.app{min-height:100vh}
-.sidebar{position:fixed;inset:0 auto 0 0;width:var(--sidebar);background:#fff;border-right:1px solid var(--line);z-index:40;display:flex;flex-direction:column}.brand{padding:22px 18px 16px;display:flex;align-items:center;gap:12px}.brand-logo{width:48px;height:48px;border-radius:15px;object-fit:contain;background:#fff;border:1px solid var(--line);padding:4px}.brand-text strong{display:block;font-size:18px;color:var(--navy)}.brand-text span{display:block;margin-top:3px;font-size:11px;color:var(--muted)}.side-scroll{padding:8px 12px 18px;overflow:auto}.nav-label{padding:10px 12px 7px;font-size:11px;font-weight:700;color:#94A3B8}.nav-item{width:100%;border:0;background:transparent;display:flex;align-items:center;gap:12px;min-height:48px;padding:0 13px;border-radius:15px;color:#52647A;margin-bottom:4px;text-align:left}.nav-item i{width:21px;text-align:center;font-size:17px}.nav-item:hover{background:#F3F7FC}.nav-item.active{background:var(--blue-soft);color:var(--blue);font-weight:700}.sidebar-footer{margin-top:auto;padding:14px 16px 20px}.sidebar-profile{display:flex;align-items:center;gap:10px;padding:11px;background:#F8FAFD;border:1px solid var(--line);border-radius:16px}.avatar{width:38px;height:38px;border-radius:13px;display:flex;align-items:center;justify-content:center;background:var(--blue);color:#fff}.profile-copy strong{display:block;font-size:13px}.profile-copy span{display:block;margin-top:2px;font-size:11px;color:var(--muted)}
-.main{margin-left:var(--sidebar);min-height:100vh}.topbar{height:84px;position:sticky;top:0;z-index:30;background:rgba(255,255,255,.9);backdrop-filter:blur(18px);border-bottom:1px solid rgba(229,235,243,.85);padding:0 28px;display:flex;align-items:center;justify-content:space-between;gap:16px}.topbar-left{min-width:0;flex:1}.page-title{margin:0;font-size:24px;line-height:1.15;color:var(--navy)}.page-subtitle{margin:5px 0 0;color:var(--muted);font-size:13px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.top-actions{display:flex;align-items:center;gap:9px}.icon-btn{width:44px;height:44px;border:1px solid var(--line);background:#fff;border-radius:14px;color:var(--navy);display:flex;align-items:center;justify-content:center;font-size:17px}.icon-btn:hover{background:#F8FAFD}.mobile-menu{display:none}.content{padding:24px 28px 110px;max-width:1500px;margin:0 auto}.view{display:none}.view.active{display:block}
-.hero{position:relative;overflow:hidden;background:linear-gradient(135deg,#0B1F3A 0%,#144E8C 55%,#146EF5 100%);border-radius:30px;padding:28px;color:#fff;box-shadow:var(--shadow)}.hero:after{content:"";position:absolute;width:250px;height:250px;border-radius:50%;background:rgba(255,255,255,.09);right:-70px;top:-85px}.hero-content{position:relative;z-index:2;display:flex;justify-content:space-between;gap:20px;align-items:center}.hero h2{margin:0;font-size:28px}.hero p{margin:8px 0 0;color:rgba(255,255,255,.78);line-height:1.6;max-width:650px}.hero-meta{display:flex;gap:7px;flex-wrap:wrap;margin-top:13px}.hero-chip{display:inline-flex;align-items:center;gap:6px;padding:7px 10px;border-radius:999px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.14);font-size:11px;color:#fff}.hero-logo{width:100px;height:100px;object-fit:contain;border-radius:25px;background:#fff;padding:9px;box-shadow:0 16px 38px rgba(0,0,0,.16)}.section-gap{height:18px}.stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}.stat-card{background:var(--card);border:1px solid var(--line);border-radius:21px;padding:17px;box-shadow:0 7px 22px rgba(15,35,60,.035)}.stat-top{display:flex;align-items:center;justify-content:space-between}.stat-icon{width:42px;height:42px;border-radius:14px;display:flex;align-items:center;justify-content:center;background:var(--blue-soft);color:var(--blue)}.stat-card:nth-child(2) .stat-icon{background:#FFF4E8;color:#E67E22}.stat-card:nth-child(3) .stat-icon{background:var(--green-soft);color:#2F9D67}.stat-card:nth-child(4) .stat-icon{background:#F4EEFF;color:#7C3AED}.stat-value{font-size:27px;font-weight:800;margin-top:15px;color:var(--navy)}.stat-label{color:var(--muted);font-size:12px;margin-top:3px}
-.grid-main{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(300px,.65fr);gap:16px}.card{background:#fff;border:1px solid var(--line);border-radius:22px;padding:19px;box-shadow:0 7px 24px rgba(15,35,60,.035)}.card-head{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:15px}.card-title{display:flex;align-items:center;gap:10px}.card-title-icon{width:37px;height:37px;border-radius:12px;display:flex;align-items:center;justify-content:center;background:var(--blue-soft);color:var(--blue)}.card-title h3{margin:0;font-size:16px;color:var(--navy)}.card-title p{margin:3px 0 0;font-size:11px;color:var(--muted)}.quick-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}.quick{border:1px solid var(--line);background:#FAFCFF;border-radius:17px;padding:15px 11px;text-align:center;color:var(--text)}.quick:hover{border-color:#BED9FF;background:#F4F9FF}.quick i{display:flex;align-items:center;justify-content:center;margin:0 auto 9px;width:39px;height:39px;border-radius:13px;background:var(--blue-soft);color:var(--blue)}.quick strong{display:block;font-size:12px}.loading-box,.empty-box,.error-box{min-height:190px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:20px;color:var(--muted)}.loading-box i,.empty-box i,.error-box i{font-size:25px;margin-bottom:10px;color:#AAB7C6}.loading-box strong,.empty-box strong,.error-box strong{color:#52647A;font-size:13px}.loading-box span,.empty-box span,.error-box span{margin-top:5px;font-size:12px;line-height:1.55}.error-box i{color:#D97706}.schedule-list{display:grid;gap:9px}.schedule-item{display:grid;grid-template-columns:66px 1fr;gap:11px;align-items:center;padding:11px;border:1px solid var(--line);border-radius:16px;background:#FBFDFF}.schedule-period{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:54px;border-radius:13px;background:var(--blue-soft);color:var(--blue)}.schedule-period strong{font-size:13px}.schedule-period span{margin-top:2px;font-size:9px}.schedule-info strong{display:block;color:var(--navy);font-size:13px}.schedule-info span{display:block;margin-top:3px;color:var(--muted);font-size:11px}
-.module-header{display:flex;align-items:flex-start;justify-content:space-between;gap:14px;margin-bottom:17px}.module-header h2{margin:0;font-size:21px;color:var(--navy)}.module-header p{margin:5px 0 0;color:var(--muted);font-size:13px}.primary-btn,.secondary-btn{min-height:44px;border-radius:14px;padding:0 15px;display:inline-flex;align-items:center;justify-content:center;gap:8px;font-weight:700;border:0}.primary-btn{background:var(--blue);color:#fff}.primary-btn:hover{background:#0F60DA}.secondary-btn{background:#fff;color:var(--navy);border:1px solid var(--line)}button:disabled{opacity:.45;cursor:not-allowed}.module-placeholder{background:#fff;border:1px solid var(--line);border-radius:24px;min-height:430px;display:flex;align-items:center;justify-content:center;text-align:center;padding:30px}.module-placeholder i{font-size:32px;color:#AAB7C6}.module-placeholder h3{margin:13px 0 5px;font-size:17px;color:#45576C}.module-placeholder p{margin:0;color:var(--muted);font-size:13px;line-height:1.6;max-width:430px}
-.scanner-layout{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(280px,.75fr);gap:16px}.camera-card{background:#fff;border:1px solid var(--line);border-radius:24px;padding:14px}.camera-box{position:relative;overflow:hidden;border-radius:19px;background:#020617;aspect-ratio:3/4;max-height:70vh}.camera-box video{display:block;width:100%;height:100%;object-fit:cover}.camera-guide{position:absolute;inset:8%;border:2px solid rgba(255,255,255,.6);border-radius:18px;pointer-events:none}.camera-placeholder{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:25px;text-align:center;color:#94A3B8}.camera-placeholder i{font-size:33px;margin-bottom:12px}.camera-placeholder.hidden{display:none}.camera-status{position:absolute;left:50%;bottom:16px;transform:translateX(-50%);max-width:88%;background:rgba(15,23,42,.82);backdrop-filter:blur(8px);color:#fff;border-radius:999px;padding:9px 14px;font-size:12px;font-weight:700;text-align:center;white-space:nowrap}.camera-status.success{background:rgba(22,163,74,.9)}.scanner-side{display:grid;gap:12px;align-content:start}.scan-result{border-radius:22px;background:linear-gradient(145deg,#0B1F3A,#174A80);color:#fff;padding:22px;min-height:175px;display:flex;flex-direction:column;justify-content:center;text-align:center}.scan-result small{color:#B8CDE4}.scan-result strong{margin-top:8px;font-size:39px}.info-box{background:#EFF6FF;border:1px solid #CFE2FF;color:#245AA1;border-radius:18px;padding:14px;font-size:12px;line-height:1.6}.camera-error{display:none;background:#FFF7ED;border:1px solid #FED7AA;color:#A34117;border-radius:17px;padding:13px;font-size:12px;line-height:1.6;word-break:break-word}.camera-error.show{display:block}.bottom-nav{display:none}.backdrop{display:none}
-@media(max-width:1100px){.stats{grid-template-columns:repeat(2,minmax(0,1fr))}.grid-main,.scanner-layout{grid-template-columns:1fr}}
-@media(max-width:760px){.sidebar{transform:translateX(-105%);transition:.22s ease;width:275px;box-shadow:18px 0 40px rgba(15,35,60,.15)}.sidebar.open{transform:translateX(0)}.backdrop{position:fixed;inset:0;background:rgba(2,8,23,.35);z-index:35}.backdrop.show{display:block}.main{margin-left:0}.topbar{height:80px;padding:env(safe-area-inset-top) 15px 0}.mobile-menu{display:flex}.page-title{font-size:20px}.page-subtitle{font-size:12px}.content{padding:16px 14px calc(var(--bottom) + 28px)}.hero{padding:22px 18px;border-radius:24px}.hero h2{font-size:22px}.hero-logo{width:72px;height:72px;border-radius:20px}.stats{gap:9px}.stat-card{padding:14px;border-radius:18px}.stat-value{font-size:23px}.quick-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.module-header{display:block}.module-header .primary-btn{width:100%;margin-top:12px}.bottom-nav{display:grid;position:fixed;left:0;right:0;bottom:0;height:calc(var(--bottom) + env(safe-area-inset-bottom));padding:6px 7px env(safe-area-inset-bottom);grid-template-columns:repeat(5,1fr);background:rgba(255,255,255,.94);backdrop-filter:blur(18px);border-top:1px solid var(--line);z-index:34}.bottom-item{border:0;background:transparent;color:#8796A8;border-radius:14px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;font-size:10px}.bottom-item i{font-size:18px}.bottom-item.active{color:var(--blue);font-weight:700}}
-@media(max-width:480px){.hero-content{align-items:flex-start}.hero-logo{width:62px;height:62px}.stats{grid-template-columns:1fr 1fr}.stat-icon{width:38px;height:38px}.card{padding:15px;border-radius:20px}}
+:root{--blue:#146EF5;--green:#66CC99;--navy:#0B1F3A;--text:#132238;--muted:#718096;--line:#E5EBF3;--bg:#F5F8FC;--sidebar:260px}
+*{box-sizing:border-box}
+body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans Thai",sans-serif;background:var(--bg);color:var(--text)}
+button,input{font:inherit}
+button{cursor:pointer}
+button:disabled{opacity:.5;cursor:not-allowed}
+.app{min-height:100vh}
+.sidebar{position:fixed;inset:0 auto 0 0;width:var(--sidebar);background:white;border-right:1px solid var(--line);z-index:40;display:flex;flex-direction:column}
+.brand{padding:22px 18px;display:flex;align-items:center;gap:12px}
+.brand-logo{width:48px;height:48px;object-fit:contain;border-radius:15px}
+.brand-text strong{display:block;font-size:18px}
+.brand-text span{font-size:11px;color:var(--muted)}
+.side-scroll{padding:8px 12px;overflow:auto}
+.nav-label{padding:12px;font-size:11px;font-weight:700;color:#94A3B8}
+.nav-item{display:flex;align-items:center;gap:12px;width:100%;min-height:48px;padding:0 13px;border:0;border-radius:15px;background:transparent;text-align:left;color:#52647A;margin-bottom:4px}
+.nav-item i{width:21px;text-align:center}
+.nav-item.active,.nav-item:hover{background:#EAF3FF;color:var(--blue)}
+.sidebar-footer{margin-top:auto;padding:16px}
+.sidebar-profile{padding:12px;border-radius:16px;background:#F8FAFD;display:flex;align-items:center;gap:10px}
+.avatar{width:38px;height:38px;background:var(--blue);border-radius:12px;color:white;display:grid;place-items:center}
+.profile-copy strong{display:block;font-size:13px}
+.profile-copy span{font-size:11px;color:var(--muted)}
+.main{margin-left:var(--sidebar);min-height:100vh}
+.topbar{height:88px;padding:15px 28px;background:white;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;gap:14px}
+.page-title{font-size:23px;margin:0}
+.page-subtitle{margin:4px 0 0;font-size:12px;color:var(--muted)}
+.top-actions{display:flex;gap:8px}
+.icon-btn{width:43px;height:43px;border:1px solid var(--line);border-radius:13px;background:white;color:var(--text)}
+.content{padding:26px;max-width:1500px;margin:auto}
+.view{display:none}
+.view.active{display:block}
+.hero{background:linear-gradient(120deg,#1268E9,#428FFF);border-radius:24px;padding:28px;color:white}
+.hero-content{display:flex;align-items:center;justify-content:space-between;gap:20px}
+.hero h2{font-size:27px;margin:0 0 10px}
+.hero p{font-size:14px;line-height:1.8;max-width:600px}
+.hero-logo{width:105px;height:105px;object-fit:contain}
+.hero-meta{display:flex;gap:9px;flex-wrap:wrap;margin-top:17px}
+.hero-chip{font-size:12px;padding:8px 12px;border-radius:20px;background:#ffffff25}
+.stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px;margin:20px 0}
+.stat-card,.card{background:white;border:1px solid var(--line);border-radius:20px;padding:20px;box-shadow:0 8px 25px #142d4810}
+.stat-icon{font-size:20px;color:var(--blue);margin-bottom:14px}
+.stat-value{font-size:30px;font-weight:800}
+.stat-label{font-size:12px;color:var(--muted);margin-top:4px}
+.grid-main{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.card-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:17px}
+.card-head h3{margin:0;font-size:17px}
+.card-head p{color:var(--muted);font-size:12px;margin:4px 0}
+.quick-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.quick{border:1px solid var(--line);background:#F8FAFD;border-radius:15px;padding:17px 8px;color:var(--text);display:flex;flex-direction:column;align-items:center;gap:10px}
+.quick i{font-size:22px;color:var(--blue)}
+.quick strong{font-size:12px}
+.schedule-item{padding:14px 0;border-bottom:1px solid var(--line);display:flex;gap:15px}
+.schedule-period{min-width:90px}
+.schedule-period strong,.schedule-info strong{display:block;font-size:13px}
+.schedule-period span,.schedule-info span{font-size:12px;color:var(--muted)}
+.module-header{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:20px}
+.module-header h2{margin:0 0 5px;font-size:23px}
+.module-header p{font-size:13px;color:var(--muted);margin:0}
+.primary-btn,.secondary-btn{border:0;border-radius:12px;padding:11px 17px;display:inline-flex;align-items:center;justify-content:center;gap:8px;font-weight:600;font-size:13px}
+.primary-btn{background:var(--blue);color:white}
+.secondary-btn{background:#EAF3FF;color:var(--blue)}
+.module-placeholder,.loading-box,.empty-box,.error-box,.classroom-notice{text-align:center;padding:32px;background:white;border:1px solid var(--line);border-radius:18px;color:#52647A}
+.module-placeholder i,.empty-box i{display:block;font-size:28px;color:var(--blue);margin-bottom:15px}
+.module-placeholder h3{margin:8px}
+.module-placeholder p{font-size:13px}
+.loading-box strong,.empty-box strong,.error-box strong{display:block;margin:10px 0}
+.loading-box span,.empty-box span,.error-box span{display:block;font-size:12px;color:var(--muted)}
+.classroom-summary{font-size:13px;color:#64748B;margin-bottom:17px}
+.classroom-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.classroom-tile{width:100%;text-align:left;background:white;border:1px solid var(--line);border-radius:20px;padding:20px;color:var(--text);box-shadow:0 8px 25px #142d4810;transition:.15s}
+.classroom-tile:hover{transform:translateY(-2px);border-color:var(--blue)}
+.classroom-tile-head{display:flex;justify-content:space-between;align-items:center}
+.classroom-tile-icon{width:49px;height:49px;display:grid;place-items:center;background:#EAF3FF;color:var(--blue);border-radius:15px;font-size:20px}
+.classroom-tile h3{font-size:20px;margin:17px 0 6px}
+.classroom-tile p{font-size:13px;color:var(--muted);margin:0}
+.classroom-tile-foot{display:flex;justify-content:space-between;margin-top:18px;color:var(--blue);font-size:13px;font-weight:700}
+.classroom-roster{margin-top:18px;background:white;border:1px solid var(--line);border-radius:20px;padding:22px}
+.classroom-roster[hidden]{display:none!important}
+.classroom-roster-top{display:flex;align-items:end;justify-content:space-between;gap:14px;flex-wrap:wrap}
+.classroom-roster-top h3{font-size:22px;margin:16px 0 5px}
+.classroom-roster-top p{font-size:13px;color:var(--muted);margin:0}
+.classroom-roster-tools{display:flex;gap:8px;flex-wrap:wrap}
+.classroom-roster-tools input{padding:11px 13px;border:1px solid var(--line);border-radius:12px;min-width:200px}
+.roster-table-wrap{overflow:auto;margin-top:18px}
+.roster-table{border-collapse:collapse;width:100%;font-size:13px}
+.roster-table th,.roster-table td{text-align:left;padding:14px 12px;border-bottom:1px solid var(--line)}
+.roster-table th{background:#F8FAFD;color:#52647A}
+.scanner-layout{display:grid;grid-template-columns:1.4fr 1fr;gap:18px}
+.camera-card,.scanner-side{background:white;padding:18px;border-radius:20px;border:1px solid var(--line)}
+.camera-box{position:relative;aspect-ratio:16/10;background:#101827;border-radius:15px;overflow:hidden;display:flex;align-items:center;justify-content:center}
+#camera-video{width:100%;height:100%;object-fit:contain}
+.camera-placeholder{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:10px;color:white;background:#101827}
+.camera-placeholder.hidden{display:none}
+.camera-status{position:absolute;bottom:12px;left:12px;background:#ffffffec;padding:6px 11px;border-radius:9px;font-size:12px}
+.camera-status.success{color:#087D4A}
+.camera-error{display:none;font-size:12px;color:#DC2626;margin-top:12px}
+.camera-error.show{display:block}
+.scanner-side{display:flex;flex-direction:column;gap:12px}
+.scan-result{padding:18px;border-radius:15px;background:#F5F8FC}
+.scan-result small,.scan-result span{display:block;color:var(--muted)}
+.scan-result strong{display:block;font-size:30px;margin:8px 0}
+.info-box{padding:14px;font-size:12px;color:#64748B;background:#F8FAFD;border-radius:12px;line-height:1.7}
+.bottom-nav{display:none}
+.mobile-menu{display:none}
+.backdrop{display:none}
+@media(max-width:1100px){.stats{grid-template-columns:repeat(2,1fr)}.classroom-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:850px){
+.sidebar{transform:translateX(-100%);transition:transform .2s}
+.sidebar.open{transform:translateX(0)}
+.main{margin-left:0}
+.mobile-menu{display:block}
+.backdrop.show{display:block;position:fixed;inset:0;background:#0007;z-index:30}
+.content{padding:18px}
+.grid-main,.scanner-layout{grid-template-columns:1fr}
+.bottom-nav{position:fixed;bottom:0;left:0;right:0;display:flex;background:white;border-top:1px solid var(--line);z-index:20;padding:7px 4px max(9px,env(safe-area-inset-bottom))}
+.bottom-item{flex:1;border:0;background:transparent;color:#718096;display:flex;flex-direction:column;align-items:center;gap:4px;font-size:10px;padding:7px 0}
+.bottom-item i{font-size:20px}
+.bottom-item.active{color:var(--blue)}
+.content{padding-bottom:105px}
+}
+@media(max-width:600px){
+.topbar{height:74px;padding:12px 15px}
+.page-title{font-size:20px}
+.hero{padding:20px}
+.hero h2{font-size:21px}
+.hero-logo{width:65px;height:65px}
+.stats{gap:10px}
+.stat-card{padding:15px}
+.stat-value{font-size:26px}
+.quick-grid{grid-template-columns:repeat(3,1fr)}
+.classroom-grid{grid-template-columns:1fr}
+.classroom-roster{padding:14px}
+.classroom-roster-tools{width:100%}
+.classroom-roster-tools input{flex:1;min-width:0}
+}
 </style>
 </head>
 <body>
 <div class="app">
-<div id="backdrop" class="backdrop" onclick="closeSidebar()"></div>
-<aside id="sidebar" class="sidebar">
-<div class="brand"><img class="brand-logo" src="https://s.imgz.io/2026/08/31/Logo-384c5649d9c8e9035.png" alt="COM SC"><div class="brand-text"><strong>COM SC</strong><span>Computer Smart Classroom</span></div></div>
-<div class="side-scroll">
-<div class="nav-label">เมนูหลัก</div>
-<button class="nav-item active" data-view="dashboard" onclick="navigate('dashboard')"><i class="fa-solid fa-house"></i><span>หน้าหลัก</span></button>
-<button class="nav-item" data-view="classrooms" onclick="navigate('classrooms')"><i class="fa-solid fa-users"></i><span>ห้องเรียน</span></button>
-<button class="nav-item" data-view="schedule" onclick="navigate('schedule')"><i class="fa-solid fa-calendar-days"></i><span>ตารางสอน</span></button>
-<button class="nav-item" data-view="attendance" onclick="navigate('attendance')"><i class="fa-solid fa-user-check"></i><span>เช็กชื่อ</span></button>
-<button class="nav-item" data-view="scores" onclick="navigate('scores')"><i class="fa-solid fa-chart-column"></i><span>คะแนน</span></button>
-<button class="nav-item" data-view="scanner" onclick="navigate('scanner')"><i class="fa-solid fa-camera"></i><span>ตรวจข้อสอบ</span></button>
-<div class="nav-label">จัดการ</div>
-<button class="nav-item" data-view="lab" onclick="navigate('lab')"><i class="fa-solid fa-desktop"></i><span>ห้องปฏิบัติการคอมพิวเตอร์</span></button>
-<button class="nav-item" data-view="reports" onclick="navigate('reports')"><i class="fa-solid fa-file-lines"></i><span>รายงาน</span></button>
-<button class="nav-item" data-view="settings" onclick="navigate('settings')"><i class="fa-solid fa-gear"></i><span>ตั้งค่า</span></button>
+<aside class="sidebar" id="sidebar">
+<div class="brand">
+<img class="brand-logo" src="https://s.imgz.io/2026/08/31/Logo-384c5649d9c8e9035.png" alt="COM SC">
+<div class="brand-text"><strong>COM SC</strong><span>Computer Smart Classroom</span></div>
 </div>
-<div class="sidebar-footer"><div class="sidebar-profile"><div class="avatar"><i class="fa-solid fa-user"></i></div><div class="profile-copy"><strong>ผู้ใช้งาน</strong><span>เจ้าของระบบ</span></div></div></div>
+<div class="side-scroll">
+<div class="nav-label">ภาพรวมและการจัดการเรียนรู้</div>
+<button class="nav-item active" data-view="dashboard" onclick="navigate('dashboard')"><i class="fa-solid fa-house"></i>หน้าหลัก</button>
+<button class="nav-item" data-view="classrooms" onclick="navigate('classrooms')"><i class="fa-solid fa-users"></i>ห้องเรียน</button>
+<button class="nav-item" data-view="schedule" onclick="navigate('schedule')"><i class="fa-solid fa-calendar-days"></i>ตารางสอน</button>
+<button class="nav-item" data-view="attendance" onclick="navigate('attendance')"><i class="fa-solid fa-user-check"></i>เช็กชื่อ</button>
+<button class="nav-item" data-view="scores" onclick="navigate('scores')"><i class="fa-solid fa-chart-column"></i>คะแนน</button>
+<button class="nav-item" data-view="scanner" onclick="navigate('scanner')"><i class="fa-solid fa-camera"></i>ตรวจข้อสอบ</button>
+<div class="nav-label">จัดการ</div>
+<button class="nav-item" data-view="lab" onclick="navigate('lab')"><i class="fa-solid fa-desktop"></i>ห้องปฏิบัติการคอมพิวเตอร์</button>
+<button class="nav-item" data-view="reports" onclick="navigate('reports')"><i class="fa-solid fa-file-lines"></i>รายงาน</button>
+<button class="nav-item" data-view="settings" onclick="navigate('settings')"><i class="fa-solid fa-gear"></i>ตั้งค่า</button>
+</div>
+<div class="sidebar-footer">
+<div class="sidebar-profile"><div class="avatar"><i class="fa-solid fa-user"></i></div><div class="profile-copy"><strong>ผู้ใช้งาน</strong><span>เจ้าของระบบ</span></div></div>
+</div>
 </aside>
-
+<div class="backdrop" id="backdrop" onclick="closeSidebar()"></div>
 <main class="main">
 <header class="topbar">
-<button class="icon-btn mobile-menu" onclick="openSidebar()" aria-label="เปิดเมนู"><i class="fa-solid fa-bars"></i></button>
-<div class="topbar-left"><h1 id="page-title" class="page-title">หน้าหลัก</h1><p id="page-subtitle" class="page-subtitle">ภาพรวมการจัดการชั้นเรียน</p></div>
-<div class="top-actions"><button id="refresh-button" class="icon-btn" onclick="refreshCurrentView()" aria-label="รีเฟรช"><i class="fa-solid fa-rotate"></i></button><button class="icon-btn" onclick="navigate('settings')" aria-label="ตั้งค่า"><i class="fa-solid fa-user"></i></button></div>
+<div style="display:flex;align-items:center;gap:12px">
+<button class="icon-btn mobile-menu" onclick="openSidebar()" aria-label="เมนู"><i class="fa-solid fa-bars"></i></button>
+<div><h1 id="page-title" class="page-title">หน้าหลัก</h1><p id="page-subtitle" class="page-subtitle">ภาพรวมการจัดการชั้นเรียน</p></div>
+</div>
+<div class="top-actions">
+<button id="refresh-button" class="icon-btn" onclick="refreshCurrentView()" aria-label="รีเฟรช"><i class="fa-solid fa-rotate"></i></button>
+<button class="icon-btn" onclick="navigate('settings')" aria-label="ตั้งค่า"><i class="fa-solid fa-gear"></i></button>
+</div>
 </header>
-
 <div class="content">
 <section id="view-dashboard" class="view active">
-<div class="hero"><div class="hero-content"><div><h2>Computer Smart Classroom</h2><p>จัดการห้องเรียน เช็กชื่อ คะแนน ตารางสอน ห้องปฏิบัติการ และตรวจข้อสอบได้จากที่เดียว</p><div class="hero-meta"><span id="dashboard-semester" class="hero-chip"><i class="fa-solid fa-calendar"></i>กำลังโหลดข้อมูล</span><span id="dashboard-school" class="hero-chip"><i class="fa-solid fa-school"></i>COM SC</span></div></div><img class="hero-logo" src="https://s.imgz.io/2026/08/31/Logo-384c5649d9c8e9035.png" alt="COM SC"></div></div>
-
-<div class="section-gap"></div>
-
+<div class="hero"><div class="hero-content">
+<div><h2>Computer Smart Classroom</h2><p>จัดการห้องเรียน เช็กชื่อ คะแนน ตารางสอน ห้องปฏิบัติการ และตรวจข้อสอบได้จากที่เดียว</p>
+<div class="hero-meta"><span id="dashboard-semester" class="hero-chip">กำลังโหลดข้อมูล</span><span id="dashboard-school" class="hero-chip">COM SC</span></div></div>
+<img class="hero-logo" src="https://s.imgz.io/2026/08/31/Logo-384c5649d9c8e9035.png" alt="COM SC">
+</div></div>
 <div class="stats">
-<div class="stat-card"><div class="stat-top"><div class="stat-icon"><i class="fa-solid fa-door-open"></i></div></div><div id="stat-classrooms" class="stat-value">—</div><div class="stat-label">ห้องเรียน</div></div>
-<div class="stat-card"><div class="stat-top"><div class="stat-icon"><i class="fa-solid fa-users"></i></div></div><div id="stat-students" class="stat-value">—</div><div class="stat-label">นักเรียน</div></div>
-<div class="stat-card"><div class="stat-top"><div class="stat-icon"><i class="fa-solid fa-book"></i></div></div><div id="stat-courses" class="stat-value">—</div><div class="stat-label">รายวิชาที่สอน</div></div>
-<div class="stat-card"><div class="stat-top"><div class="stat-icon"><i class="fa-solid fa-calendar-check"></i></div></div><div id="stat-today" class="stat-value">—</div><div class="stat-label">เช็กชื่อวันนี้</div></div>
+<div class="stat-card"><div class="stat-icon"><i class="fa-solid fa-door-open"></i></div><div id="stat-classrooms" class="stat-value">—</div><div class="stat-label">ห้องเรียน</div></div>
+<div class="stat-card"><div class="stat-icon"><i class="fa-solid fa-users"></i></div><div id="stat-students" class="stat-value">—</div><div class="stat-label">นักเรียน</div></div>
+<div class="stat-card"><div class="stat-icon"><i class="fa-solid fa-book"></i></div><div id="stat-courses" class="stat-value">—</div><div class="stat-label">รายวิชาที่สอน</div></div>
+<div class="stat-card"><div class="stat-icon"><i class="fa-solid fa-calendar-check"></i></div><div id="stat-today" class="stat-value">—</div><div class="stat-label">คาบเรียนวันนี้</div></div>
 </div>
-
-<div class="section-gap"></div>
-
 <div class="grid-main">
-<div class="card">
-<div class="card-head"><div class="card-title"><div class="card-title-icon"><i class="fa-solid fa-bolt"></i></div><div><h3>เมนูลัด</h3><p>เข้าถึงงานที่ใช้บ่อย</p></div></div></div>
+<div class="card"><div class="card-head"><div><h3>เมนูลัด</h3><p>เข้าถึงงานที่ใช้บ่อย</p></div></div>
 <div class="quick-grid">
+<button class="quick" onclick="navigate('classrooms')"><i class="fa-solid fa-users"></i><strong>ห้องเรียน</strong></button>
 <button class="quick" onclick="navigate('attendance')"><i class="fa-solid fa-user-check"></i><strong>เช็กชื่อ</strong></button>
-<button class="quick" onclick="navigate('scores')"><i class="fa-solid fa-chart-column"></i><strong>บันทึกคะแนน</strong></button>
+<button class="quick" onclick="navigate('scores')"><i class="fa-solid fa-chart-column"></i><strong>คะแนน</strong></button>
 <button class="quick" onclick="navigate('scanner')"><i class="fa-solid fa-camera"></i><strong>ตรวจข้อสอบ</strong></button>
 <button class="quick" onclick="navigate('schedule')"><i class="fa-solid fa-calendar-days"></i><strong>ตารางสอน</strong></button>
-<button class="quick" onclick="navigate('lab')"><i class="fa-solid fa-desktop"></i><strong>ห้องคอม</strong></button>
 <button class="quick" onclick="navigate('reports')"><i class="fa-solid fa-file-lines"></i><strong>รายงาน</strong></button>
-</div>
-</div>
-
-<div class="card">
-<div class="card-head"><div class="card-title"><div class="card-title-icon"><i class="fa-solid fa-clock"></i></div><div><h3 id="today-title">การเช็กชื่อล่าสุด</h3><p id="today-subtitle">กำลังโหลดข้อมูล</p></div></div></div>
-<div id="today-schedule"><div class="loading-box"><i class="fa-solid fa-spinner fa-spin"></i><strong>กำลังโหลดข้อมูล</strong><span>กรุณารอสักครู่</span></div></div>
-</div>
-</div>
+</div></div>
+<div class="card"><div class="card-head"><div><h3 id="today-title">ตารางวันนี้</h3><p id="today-subtitle">กำลังโหลดข้อมูล</p></div></div>
+<div id="today-schedule"><div class="loading-box"><strong>กำลังโหลดข้อมูล</strong><span>กรุณารอสักครู่</span></div></div>
+</div></div>
 </section>
-
 <section id="view-classrooms" class="view">
-<div class="module-header"><div><h2>ห้องเรียน</h2><p>จัดการห้องเรียนและรายชื่อนักเรียน</p></div><button class="primary-btn"><i class="fa-solid fa-plus"></i>เพิ่มห้องเรียน</button></div>
-<div class="module-placeholder"><div><i class="fa-solid fa-users"></i><h3>ห้องเรียน</h3><p>จะเชื่อมข้อมูลห้องเรียนในขั้นตอนถัดไป</p></div></div>
+<div class="module-header">
+<div><h2>ห้องเรียน</h2><p>กลุ่มนักเรียนชั้นประถมศึกษาปีที่ 1–6</p></div>
+<button class="secondary-btn" onclick="loadCOMSCClassrooms(true)"><i class="fa-solid fa-rotate"></i> รีเฟรช</button>
+</div>
+<div id="classroom-summary" class="classroom-summary">กำลังเตรียมข้อมูลห้องเรียน</div>
+<div id="classroom-grid" class="classroom-grid"><div class="classroom-notice">เลือกเมนูห้องเรียนเพื่อโหลดข้อมูล</div></div>
+<div id="classroom-roster" class="classroom-roster" hidden>
+<div class="classroom-roster-top">
+<div>
+<button class="secondary-btn" onclick="closeCOMSCRoster()"><i class="fa-solid fa-arrow-left"></i> กลับไปห้องเรียน</button>
+<h3 id="roster-title">รายชื่อนักเรียน</h3>
+<p id="roster-description"></p>
+</div>
+<div class="classroom-roster-tools">
+<input id="roster-search" type="search" placeholder="ค้นหาชื่อหรือเลขที่" oninput="filterCOMSCRoster(this.value)">
+<button class="secondary-btn" onclick="reloadCOMSCRoster()"><i class="fa-solid fa-rotate"></i> รีเฟรช</button>
+</div>
+</div>
+<div id="roster-result"><div class="classroom-notice">กำลังโหลดข้อมูล</div></div>
+</div>
 </section>
-
-<section id="view-schedule" class="view">
-<div class="module-header"><div><h2>ตารางสอน</h2><p>รายวิชา รายวิชาที่สอน และตารางประจำสัปดาห์</p></div></div>
-<div class="module-placeholder"><div><i class="fa-solid fa-calendar-days"></i><h3>ตารางสอน</h3><p>จะเชื่อมข้อมูลตารางสอนในขั้นตอนถัดไป</p></div></div>
-</section>
-
-<section id="view-attendance" class="view">
-<div class="module-header"><div><h2>เช็กชื่อ</h2><p>บันทึกการมาเรียนของนักเรียน</p></div></div>
-<div class="module-placeholder"><div><i class="fa-solid fa-user-check"></i><h3>เช็กชื่อ</h3><p>จะเชื่อมระบบเช็กชื่อในขั้นตอนถัดไป</p></div></div>
-</section>
-
-<section id="view-scores" class="view">
-<div class="module-header"><div><h2>คะแนน</h2><p>กิจกรรม คะแนนเก็บ สอบปลายภาค และสรุปผล</p></div></div>
-<div class="module-placeholder"><div><i class="fa-solid fa-chart-column"></i><h3>คะแนน</h3><p>จะเชื่อมสมุดคะแนนเดิมในขั้นตอนถัดไป</p></div></div>
-</section>
-
+<section id="view-schedule" class="view"><div class="module-header"><div><h2>ตารางสอน</h2><p>รายวิชาและตารางสอนแยกจากกลุ่มห้องเรียน</p></div></div><div class="module-placeholder"><i class="fa-solid fa-calendar-days"></i><h3>ตารางสอน</h3><p>จะเชื่อมโมดูลตารางสอนในขั้นตอนถัดไป</p></div></section>
+<section id="view-attendance" class="view"><div class="module-header"><div><h2>เช็กชื่อ</h2><p>บันทึกการมาเรียนของนักเรียน</p></div></div><div class="module-placeholder"><i class="fa-solid fa-user-check"></i><h3>เช็กชื่อ</h3><p>จะเชื่อมระบบเช็กชื่อในขั้นตอนถัดไป</p></div></section>
+<section id="view-scores" class="view"><div class="module-header"><div><h2>คะแนน</h2><p>บันทึกคะแนนกิจกรรมและการสอบ</p></div></div><div class="module-placeholder"><i class="fa-solid fa-chart-column"></i><h3>คะแนน</h3><p>จะเชื่อมระบบคะแนนในขั้นตอนถัดไป</p></div></section>
 <section id="view-scanner" class="view">
-<div class="module-header"><div><h2>ตรวจข้อสอบ</h2><p>สแกนกระดาษคำตอบและตรวจคะแนนอัตโนมัติ</p></div></div>
+<div class="module-header"><div><h2>ตรวจข้อสอบ</h2><p>เปิดกล้องเพื่อเตรียมสแกนกระดาษคำตอบ</p></div></div>
 <div class="scanner-layout">
-<div class="camera-card">
-<div class="camera-box">
+<div class="camera-card"><div class="camera-box">
 <video id="camera-video" autoplay muted playsinline></video>
-<div class="camera-guide"></div>
-<div id="camera-placeholder" class="camera-placeholder"><i class="fa-solid fa-camera"></i><strong>พร้อมสแกนกระดาษคำตอบ</strong><span style="margin-top:6px;font-size:12px">กดเปิดกล้องเพื่อเริ่มใช้งาน</span></div>
+<div id="camera-placeholder" class="camera-placeholder"><i class="fa-solid fa-camera" style="font-size:34px"></i><strong>พร้อมสแกนกระดาษคำตอบ</strong><span style="font-size:12px">กดเปิดกล้องเพื่อเริ่มใช้งาน</span></div>
 <div id="camera-status" class="camera-status">ยังไม่ได้เปิดกล้อง</div>
-</div>
-</div>
-
+</div></div>
 <div class="scanner-side">
 <div class="scan-result"><small>คะแนนล่าสุด</small><strong>—</strong><span>ยังไม่มีผลการตรวจ</span></div>
-<button id="camera-start" class="primary-btn" onclick="startCamera()"><i class="fa-solid fa-video"></i>เปิดกล้อง</button>
-<button id="camera-stop" class="secondary-btn" onclick="stopCamera()" disabled><i class="fa-solid fa-video-slash"></i>ปิดกล้อง</button>
-<div class="info-box">เปิดกล้องสำหรับสแกนกระดาษคำตอบ ส่วนการอ่านคำตอบและแสดงคะแนนจะเชื่อมในขั้นตอน OMR</div>
+<button id="camera-start" class="primary-btn" onclick="startCamera()"><i class="fa-solid fa-video"></i> เปิดกล้อง</button>
+<button id="camera-stop" class="secondary-btn" onclick="stopCamera()" disabled><i class="fa-solid fa-video-slash"></i> ปิดกล้อง</button>
+<div class="info-box">การเปิดกล้องพร้อมใช้งาน ส่วนการอ่านคำตอบและคำนวณคะแนนจะเชื่อมต่อในขั้นตอนถัดไป</div>
 <div id="camera-error" class="camera-error"></div>
-</div>
-</div>
+</div></div>
 </section>
-
-<section id="view-lab" class="view">
-<div class="module-header"><div><h2>ห้องปฏิบัติการคอมพิวเตอร์</h2><p>บันทึกการใช้งานเครื่องคอมพิวเตอร์และผู้ควบคุม</p></div></div>
-<div class="module-placeholder"><div><i class="fa-solid fa-desktop"></i><h3>ห้องปฏิบัติการคอมพิวเตอร์</h3><p>จะเชื่อมข้อมูลการใช้งานในขั้นตอนถัดไป</p></div></div>
-</section>
-
-<section id="view-reports" class="view">
-<div class="module-header"><div><h2>รายงาน</h2><p>สรุปข้อมูลสำหรับตรวจสอบและพิมพ์รายงาน</p></div></div>
-<div class="module-placeholder"><div><i class="fa-solid fa-file-lines"></i><h3>รายงาน</h3><p>จะเชื่อมรายงานเมื่อข้อมูลหลักพร้อมใช้งาน</p></div></div>
-</section>
-
-<section id="view-settings" class="view">
-<div class="module-header"><div><h2>ตั้งค่า</h2><p>ปีการศึกษา ภาคเรียน และการตั้งค่าระบบ</p></div></div>
-<div class="module-placeholder"><div><i class="fa-solid fa-gear"></i><h3>ตั้งค่า</h3><p>จะเชื่อมการตั้งค่าในขั้นตอนถัดไป</p></div></div>
-</section>
-
+<section id="view-lab" class="view"><div class="module-header"><div><h2>ห้องปฏิบัติการคอมพิวเตอร์</h2><p>บันทึกการใช้งานห้องคอมพิวเตอร์</p></div></div><div class="module-placeholder"><i class="fa-solid fa-desktop"></i><h3>ห้องปฏิบัติการ</h3><p>จะเชื่อมข้อมูลในขั้นตอนถัดไป</p></div></section>
+<section id="view-reports" class="view"><div class="module-header"><div><h2>รายงาน</h2><p>สรุปข้อมูลสำหรับตรวจสอบและพิมพ์</p></div></div><div class="module-placeholder"><i class="fa-solid fa-file-lines"></i><h3>รายงาน</h3><p>จะเชื่อมรายงานในขั้นตอนถัดไป</p></div></section>
+<section id="view-settings" class="view"><div class="module-header"><div><h2>ตั้งค่า</h2><p>การตั้งค่าระบบ</p></div></div><div class="module-placeholder"><i class="fa-solid fa-gear"></i><h3>ตั้งค่า</h3><p>ระบบยังคงใช้ Access Key ที่ตั้งค่าไว้เดิม</p></div></section>
 </div>
 </main>
-
 <nav class="bottom-nav">
-<button class="bottom-item active" data-view="dashboard" onclick="navigate('dashboard')"><i class="fa-solid fa-house"></i><span>หน้าหลัก</span></button>
-<button class="bottom-item" data-view="attendance" onclick="navigate('attendance')"><i class="fa-solid fa-user-check"></i><span>เช็กชื่อ</span></button>
-<button class="bottom-item" data-view="scores" onclick="navigate('scores')"><i class="fa-solid fa-chart-column"></i><span>คะแนน</span></button>
-<button class="bottom-item" data-view="scanner" onclick="navigate('scanner')"><i class="fa-solid fa-camera"></i><span>ตรวจข้อสอบ</span></button>
-<button class="bottom-item" onclick="openSidebar()"><i class="fa-solid fa-grip"></i><span>เพิ่มเติม</span></button>
+<button class="bottom-item active" data-view="dashboard" onclick="navigate('dashboard')"><i class="fa-solid fa-house"></i>หน้าหลัก</button>
+<button class="bottom-item" data-view="classrooms" onclick="navigate('classrooms')"><i class="fa-solid fa-users"></i>ห้องเรียน</button>
+<button class="bottom-item" data-view="attendance" onclick="navigate('attendance')"><i class="fa-solid fa-user-check"></i>เช็กชื่อ</button>
+<button class="bottom-item" data-view="scanner" onclick="navigate('scanner')"><i class="fa-solid fa-camera"></i>ตรวจข้อสอบ</button>
+<button class="bottom-item" onclick="openSidebar()"><i class="fa-solid fa-grip"></i>เพิ่มเติม</button>
 </nav>
 </div>
-
 <script>
+'use strict';
 const VIEW_META={
 dashboard:{title:'หน้าหลัก',subtitle:'ภาพรวมการจัดการชั้นเรียน'},
-classrooms:{title:'ห้องเรียน',subtitle:'จัดการห้องเรียนและรายชื่อนักเรียน'},
+classrooms:{title:'ห้องเรียน',subtitle:'ข้อมูลห้องเรียนและรายชื่อนักเรียน'},
 schedule:{title:'ตารางสอน',subtitle:'รายวิชาและตารางประจำสัปดาห์'},
-attendance:{title:'เช็กชื่อ',subtitle:'บันทึกการมาเรียนของนักเรียน'},
+attendance:{title:'เช็กชื่อ',subtitle:'บันทึกการมาเรียน'},
 scores:{title:'คะแนน',subtitle:'บันทึกและสรุปคะแนน'},
-scanner:{title:'ตรวจข้อสอบ',subtitle:'สแกนกระดาษคำตอบและตรวจคะแนน'},
+scanner:{title:'ตรวจข้อสอบ',subtitle:'เปิดกล้องและสแกนกระดาษคำตอบ'},
 lab:{title:'ห้องปฏิบัติการคอมพิวเตอร์',subtitle:'บันทึกการใช้งานห้องปฏิบัติการ'},
 reports:{title:'รายงาน',subtitle:'สรุปและพิมพ์รายงาน'},
 settings:{title:'ตั้งค่า',subtitle:'การตั้งค่าระบบ'}
 };
-
-let currentView='dashboard';
-let cameraStream=null;
-let dashboardLoaded=false;
-let dashboardLoading=false;
-
+let currentView='dashboard',cameraStream=null,dashboardLoaded=false,dashboardLoading=false;
+const el=id=>document.getElementById(id);
+const setText=(id,value)=>{if(el(id))el(id).textContent=value??'';};
+const escapeHtml=value=>String(value??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 function navigate(view){
 if(!VIEW_META[view])return;
 if(currentView==='scanner'&&view!=='scanner')stopCamera();
 currentView=view;
-document.querySelectorAll('.view').forEach(el=>el.classList.remove('active'));
-document.getElementById('view-'+view)?.classList.add('active');
-document.querySelectorAll('.nav-item[data-view]').forEach(el=>el.classList.toggle('active',el.dataset.view===view));
-document.querySelectorAll('.bottom-item[data-view]').forEach(el=>el.classList.toggle('active',el.dataset.view===view));
+document.querySelectorAll('.view').forEach(x=>x.classList.toggle('active',x.id==='view-'+view));
+document.querySelectorAll('[data-view]').forEach(x=>x.classList.toggle('active',x.dataset.view===view));
 setText('page-title',VIEW_META[view].title);
 setText('page-subtitle',VIEW_META[view].subtitle);
 closeSidebar();
-if(view==='dashboard'&&!dashboardLoaded&&!dashboardLoading)reloadDashboardApi();
+if(view==='classrooms')loadCOMSCClassrooms();
+if(view==='dashboard'&&!dashboardLoaded&&!dashboardLoading)reloadDashboardApi().catch(()=>{});
 window.scrollTo({top:0,behavior:'smooth'});
 }
-
-function openSidebar(){
-document.getElementById('sidebar').classList.add('open');
-document.getElementById('backdrop').classList.add('show');
-}
-
-function closeSidebar(){
-document.getElementById('sidebar').classList.remove('open');
-document.getElementById('backdrop').classList.remove('show');
-}
-
+function openSidebar(){el('sidebar').classList.add('open');el('backdrop').classList.add('show');}
+function closeSidebar(){el('sidebar').classList.remove('open');el('backdrop').classList.remove('show');}
 async function refreshCurrentView(){
-const btn=document.getElementById('refresh-button');
-const icon=btn?.querySelector('i');
-icon?.classList.add('fa-spin');
-
+const icon=el('refresh-button').querySelector('i');
+icon.classList.add('fa-spin');
 try{
-if(currentView==='dashboard'){
-await reloadDashboardApi();
-return;
+if(currentView==='dashboard')await reloadDashboardApi();
+else if(currentView==='classrooms')await loadCOMSCClassrooms(true);
+else if(currentView==='scanner')setText('camera-status',cameraStream?'กล้องพร้อมสแกน':'ยังไม่ได้เปิดกล้อง');
+}catch(e){console.error(e);}
+finally{icon.classList.remove('fa-spin');}
 }
-
-if(currentView==='scanner'){
-setCameraStatus(
-cameraStream
-?'กล้องพร้อมสแกน'
-:'ยังไม่ได้เปิดกล้อง',
-!!cameraStream
-);
-}
-}
-finally{
-setTimeout(()=>{
-icon?.classList.remove('fa-spin');
-},500);
-}
-}
-
 async function reloadDashboardApi(){
-dashboardLoaded=false;
-dashboardLoading=true;
-setDashboardLoading();
-
+if(dashboardLoading)return;
+dashboardLoading=true;dashboardLoaded=false;
+setText('today-schedule','กำลังโหลดข้อมูล...');
 try{
-if(
-!window.COMSC||
-typeof window.COMSC.bootstrap!=='function'
-){
-throw new Error(
-'ระบบเชื่อมต่อยังไม่พร้อม'
-);
-}
-
-const data=
-await window.COMSC.bootstrap();
-
-dashboardLoading=false;
-dashboardLoaded=true;
-
-renderDashboard(
-data
-);
-
+if(typeof window.COMSC?.bootstrap!=='function')throw new Error('ยังไม่พบการเชื่อมต่อ Dashboard ใน app.js');
+const data=await window.COMSC.bootstrap();
+renderDashboard(data);
 return data;
+}catch(e){renderDashboardError(e);throw e;}
+finally{dashboardLoading=false;}
 }
-catch(error){
-dashboardLoading=false;
-dashboardLoaded=false;
-
-renderDashboardError(
-error
-);
-
-return null;
-}
-}
-
-window.addEventListener(
-'comsc:bootstrap',
-event=>{
-const data=
-event.detail||{};
-
-dashboardLoading=false;
+function renderDashboard(data){
+data=data?.data||data?.result||data||{};
+const settings=data.settings||{},dashboard=data.dashboard||{},today=data.today||{};
+setText('stat-classrooms',dashboard.classroomCount??0);
+setText('stat-students',dashboard.studentCount??0);
+setText('stat-courses',dashboard.courseCount??0);
+setText('stat-today',dashboard.todayScheduleCount??0);
+const semester=[settings.semester?'ภาคเรียนที่ '+settings.semester:'',settings.academicYear?'ปีการศึกษา '+settings.academicYear:''].filter(Boolean).join(' · ');
+setText('dashboard-semester',semester||'ปีการศึกษาปัจจุบัน');
+setText('dashboard-school',settings.schoolName||'COM SC');
+setText('today-title',today.dayLabel?'ตารางวัน'+today.dayLabel:'ตารางวันนี้');
+setText('today-subtitle',semester||'คาบเรียนประจำวัน');
+renderTodaySchedule(Array.isArray(today.schedules)?today.schedules:[]);
 dashboardLoaded=true;
-
-renderDashboard(
-data
-);
 }
-);
-
-window.addEventListener(
-'comsc:error',
-event=>{
-dashboardLoading=false;
-dashboardLoaded=false;
-
-renderDashboardError(
-new Error(
-event.detail?.message||
-'ไม่สามารถเชื่อมต่อระบบได้'
-)
-);
+function renderTodaySchedule(items){
+if(!items.length){el('today-schedule').innerHTML='<div class="empty-box"><i class="fa-solid fa-calendar-check"></i><strong>ไม่มีคาบเรียนวันนี้</strong><span>ยังไม่มีรายการในตารางสอนวันนี้</span></div>';return;}
+el('today-schedule').innerHTML=items.map(item=>'<div class="schedule-item"><div class="schedule-period"><strong>'+escapeHtml(item.periodNo?'คาบ '+item.periodNo:'คาบ')+'</strong><span>'+escapeHtml([item.startTime,item.endTime].filter(Boolean).join('–'))+'</span></div><div class="schedule-info"><strong>'+escapeHtml(item.title||'กิจกรรม')+'</strong><span>'+escapeHtml(item.classLabel||'')+'</span></div></div>').join('');
 }
-);
-
-function setDashboardLoading(){
-setText(
-'stat-classrooms',
-'—'
-);
-
-setText(
-'stat-students',
-'—'
-);
-
-setText(
-'stat-courses',
-'—'
-);
-
-setText(
-'stat-today',
-'—'
-);
-
-const semester=
-document.getElementById(
-'dashboard-semester'
-);
-
-if(semester){
-semester.innerHTML=
-'<i class="fa-solid fa-spinner fa-spin"></i>'+
-'กำลังโหลดข้อมูล';
+function renderDashboardError(error){
+el('today-schedule').innerHTML='<div class="error-box"><strong>ยังโหลดข้อมูลไม่ได้</strong><span>'+escapeHtml(error?.message||'กรุณาลองใหม่')+'</span><button class="secondary-btn" onclick="reloadDashboardApi().catch(()=>{})">ลองอีกครั้ง</button></div>';
 }
-
-setText(
-'today-title',
-'การเช็กชื่อล่าสุด'
-);
-
-setText(
-'today-subtitle',
-'กำลังโหลดข้อมูล'
-);
-
-const box=
-document.getElementById(
-'today-schedule'
-);
-
-if(box){
-box.innerHTML=
-'<div class="loading-box">'+
-'<i class="fa-solid fa-spinner fa-spin"></i>'+
-'<strong>กำลังโหลดข้อมูล</strong>'+
-'<span>กรุณารอสักครู่</span>'+
-'</div>';
-}
-}
-
-function renderDashboard(
-data
-){
-const settings=
-data.settings||{};
-
-const dashboard=
-data.dashboard||{};
-
-setText(
-'stat-classrooms',
-dashboard.classroomCount??0
-);
-
-setText(
-'stat-students',
-dashboard.studentCount??0
-);
-
-setText(
-'stat-courses',
-dashboard.courseCount??0
-);
-
-setText(
-'stat-today',
-dashboard.checkedClassCount??0
-);
-
-const semesterText=
-[
-settings.semester
-?'ภาคเรียนที่ '+settings.semester
-:'',
-
-settings.academicYear
-?'ปีการศึกษา '+settings.academicYear
-:''
-]
-.filter(Boolean)
-.join(' · ');
-
-const semesterBox=
-document.getElementById(
-'dashboard-semester'
-);
-
-if(semesterBox){
-semesterBox.innerHTML=
-'<i class="fa-solid fa-calendar"></i>'+
-escapeHtml(
-semesterText||
-'ปีการศึกษาปัจจุบัน'
-);
-}
-
-const schoolBox=
-document.getElementById(
-'dashboard-school'
-);
-
-if(schoolBox){
-schoolBox.innerHTML=
-'<i class="fa-solid fa-school"></i>'+
-escapeHtml(
-settings.schoolName||
-'COM SC'
-);
-}
-
-setText(
-'today-title',
-'การเช็กชื่อล่าสุด'
-);
-
-setText(
-'today-subtitle',
-semesterText||
-'ข้อมูลการเช็กชื่อ'
-);
-
-renderRecentAttendance(
-Array.isArray(
-dashboard.recentAttendance
-)
-?dashboard.recentAttendance
-:[]
-);
-
-if(
-currentView==='dashboard'
-){
-setText(
-'page-subtitle',
-semesterText
-?'ภาพรวมการจัดการชั้นเรียน · '+
-semesterText
-:'ภาพรวมการจัดการชั้นเรียน'
-);
-}
-}
-
-function renderRecentAttendance(
-items
-){
-const box=
-document.getElementById(
-'today-schedule'
-);
-
-if(!box){
-return;
-}
-
-if(!items.length){
-box.innerHTML=
-'<div class="empty-box">'+
-'<i class="fa-solid fa-calendar-check"></i>'+
-'<strong>ยังไม่มีข้อมูลล่าสุด</strong>'+
-'<span>เมื่อมีการเช็กชื่อ รายการล่าสุดจะแสดงที่นี่</span>'+
-'</div>';
-
-return;
-}
-
-box.innerHTML=
-'<div class="schedule-list">'+
-items
-.map(
-item=>
-'<div class="schedule-item">'+
-
-'<div class="schedule-period">'+
-'<strong>'+
-escapeHtml(
-item.className||
-'-'
-)+
-'</strong>'+
-'<span>'+
-escapeHtml(
-formatThaiShortDate(
-item.date
-)
-)+
-'</span>'+
-'</div>'+
-
-'<div class="schedule-info">'+
-'<strong>'+
-escapeHtml(
-item.subjectName||
-'กิจกรรม'
-)+
-'</strong>'+
-'<span>'+
-'มา '+
-Number(
-item.present||0
-)+
-' · สาย '+
-Number(
-item.late||0
-)+
-' · ขาด '+
-Number(
-item.absent||0
-)+
-' · รวม '+
-Number(
-item.total||0
-)+
-'</span>'+
-'</div>'+
-
-'</div>'
-)
-.join('')+
-'</div>';
-}
-
-function formatThaiShortDate(
-value
-){
-const s=
-String(
-value||''
-);
-
-const p=
-s.split(
-'-'
-);
-
-if(
-p.length!==3
-){
-return s;
-}
-
-return (
-p[2]+
-'/'+
-p[1]+
-'/'+
-p[0]
-);
-}
-
-function renderDashboardError(
-error
-){
-const message=
-error?.message||
-'กรุณาลองใหม่อีกครั้ง';
-
-const box=
-document.getElementById(
-'today-schedule'
-);
-
-if(box){
-box.innerHTML=
-'<div class="error-box">'+
-'<i class="fa-solid fa-circle-exclamation"></i>'+
-'<strong>ยังโหลดข้อมูลไม่ได้</strong>'+
-'<span>'+
-escapeHtml(
-message
-)+
-'</span>'+
-'<button class="secondary-btn" style="margin-top:12px" onclick="reloadDashboardApi()">'+
-'<i class="fa-solid fa-rotate"></i>'+
-'ลองอีกครั้ง'+
-'</button>'+
-'</div>';
-}
-
-const semester=
-document.getElementById(
-'dashboard-semester'
-);
-
-if(semester){
-semester.innerHTML=
-'<i class="fa-solid fa-circle-exclamation"></i>'+
-'ยังโหลดข้อมูลไม่ได้';
-}
-}
-
-function setText(
-id,
-value
-){
-const el=
-document.getElementById(
-id
-);
-
-if(el){
-el.textContent=
-value;
-}
-}
-
-function escapeHtml(
-value
-){
-return String(
-value??''
-)
-.replace(
-/&/g,
-'&amp;'
-)
-.replace(
-/</g,
-'&lt;'
-)
-.replace(
-/>/g,
-'&gt;'
-)
-.replace(
-/"/g,
-'&quot;'
-)
-.replace(
-/'/g,
-'&#039;'
-);
-}
-
+window.addEventListener('comsc:bootstrap',event=>{dashboardLoading=false;renderDashboard(event.detail||{});});
+window.addEventListener('comsc:error',event=>{dashboardLoading=false;dashboardLoaded=false;renderDashboardError(new Error(event.detail?.message||'ไม่สามารถเชื่อมต่อระบบได้'));});
 async function startCamera(){
-clearCameraError();
-
-if(
-!navigator
-.mediaDevices
-?.getUserMedia
-){
-showCameraError(
-'เบราว์เซอร์นี้ไม่รองรับการเปิดกล้อง'
-);
-
-return;
-}
-
+const errorBox=el('camera-error');
+errorBox.classList.remove('show');
+if(!navigator.mediaDevices?.getUserMedia){errorBox.textContent='เบราว์เซอร์นี้ไม่รองรับการเปิดกล้อง';errorBox.classList.add('show');return;}
 stopCamera();
-
-setCameraStatus(
-'กำลังขอสิทธิ์กล้อง...'
-);
-
-const startBtn=
-document.getElementById(
-'camera-start'
-);
-
-startBtn.disabled=true;
-
+setText('camera-status','กำลังขอสิทธิ์กล้อง...');
+el('camera-start').disabled=true;
 try{
-try{
-cameraStream=
-await navigator
-.mediaDevices
-.getUserMedia({
-audio:false,
-
-video:{
-facingMode:{
-ideal:'environment'
-},
-
-width:{
-ideal:1920
-},
-
-height:{
-ideal:1080
+try{cameraStream=await navigator.mediaDevices.getUserMedia({audio:false,video:{facingMode:{ideal:'environment'},width:{ideal:1920},height:{ideal:1080}}});}
+catch(e){cameraStream=await navigator.mediaDevices.getUserMedia({audio:false,video:true});}
+el('camera-video').srcObject=cameraStream;
+await el('camera-video').play();
+el('camera-placeholder').classList.add('hidden');
+el('camera-stop').disabled=false;
+el('camera-status').classList.add('success');
+setText('camera-status','กล้องพร้อมสแกน');
+}catch(e){stopCamera();errorBox.textContent=(e?.name||'Error')+': '+(e?.message||String(e));errorBox.classList.add('show');setText('camera-status','เปิดกล้องไม่สำเร็จ');}
 }
-}
-});
-}
-catch(firstError){
-cameraStream=
-await navigator
-.mediaDevices
-.getUserMedia({
-audio:false,
-video:true
-});
-}
-
-const video=
-document.getElementById(
-'camera-video'
-);
-
-video.srcObject=
-cameraStream;
-
-await video.play();
-
-document
-.getElementById(
-'camera-placeholder'
-)
-.classList
-.add(
-'hidden'
-);
-
-document
-.getElementById(
-'camera-stop'
-)
-.disabled=false;
-
-setCameraStatus(
-'กล้องพร้อมสแกน',
-true
-);
-}
-catch(error){
-cameraStream=null;
-startBtn.disabled=false;
-
-showCameraError(
-(
-error?.name||
-'Error'
-)+
-': '+
-(
-error?.message||
-String(
-error
-)
-)
-);
-
-setCameraStatus(
-'เปิดกล้องไม่สำเร็จ'
-);
-}
-}
-
 function stopCamera(){
-if(
-cameraStream
-){
-cameraStream
-.getTracks()
-.forEach(
-track=>{
-track.stop();
-}
-);
-}
-
+if(cameraStream)cameraStream.getTracks().forEach(t=>t.stop());
 cameraStream=null;
-
-const video=
-document.getElementById(
-'camera-video'
-);
-
-if(video){
-video.srcObject=null;
+if(el('camera-video'))el('camera-video').srcObject=null;
+el('camera-placeholder')?.classList.remove('hidden');
+el('camera-status')?.classList.remove('success');
+el('camera-start').disabled=false;
+el('camera-stop').disabled=true;
+setText('camera-status','ยังไม่ได้เปิดกล้อง');
 }
-
-document
-.getElementById(
-'camera-placeholder'
-)
-?.classList
-.remove(
-'hidden'
-);
-
-const startBtn=
-document.getElementById(
-'camera-start'
-);
-
-const stopBtn=
-document.getElementById(
-'camera-stop'
-);
-
-if(startBtn){
-startBtn.disabled=false;
-}
-
-if(stopBtn){
-stopBtn.disabled=true;
-}
-
-setCameraStatus(
-'ยังไม่ได้เปิดกล้อง'
-);
-}
-
-function setCameraStatus(
-text,
-success=false
-){
-const el=
-document.getElementById(
-'camera-status'
-);
-
-if(!el){
-return;
-}
-
-el.textContent=text;
-
-el.classList.toggle(
-'success',
-!!success
-);
-}
-
-function showCameraError(
-message
-){
-const box=
-document.getElementById(
-'camera-error'
-);
-
-if(!box){
-return;
-}
-
-box.textContent=
-message;
-
-box.classList.add(
-'show'
-);
-}
-
-function clearCameraError(){
-const box=
-document.getElementById(
-'camera-error'
-);
-
-if(!box){
-return;
-}
-
-box.textContent='';
-
-box.classList.remove(
-'show'
-);
-}
-
-window.addEventListener(
-'pagehide',
-stopCamera
-);
 </script>
-
 <script src="./app.js"></script>
+<script>
+(function(){
+'use strict';
+let rooms=[],roster=[],selectedRoom=null,loaded=false,pending=null,rosterToken=0;
+const $=id=>document.getElementById(id);
+const esc=window.escapeHtml;
+function pick(obj,keys,fallback=''){
+for(const key of keys)if(obj?.[key]!==undefined&&obj?.[key]!==null&&obj[key]!=='')return obj[key];
+return fallback;
+}
+function arrayFrom(input,keys){
+if(Array.isArray(input))return input;
+for(const key of keys)if(Array.isArray(input?.[key]))return input[key];
+for(const key of ['data','result','payload']){
+if(input?.[key]&&input[key]!==input){
+const data=arrayFrom(input[key],keys);
+if(data.length)return data;
+}
+}
+return [];
+}
+function roomId(room){return pick(room,['ClassroomID','ClassroomId','classroomId','classroomID','ClassID','classId','id','ID']);}
+function roomName(room){return String(pick(room,['ClassroomName','classroomName','ClassName','className','RoomName','roomName','Name','name','ClassLabel','classLabel','GradeLabel','gradeLabel','Level','level'],'ห้องเรียน'));}
+async function request(action,payload){
+const c=window.COMSC;
+if(!c)throw new Error('ไม่พบ COMSC API Client ใน app.js');
+if(typeof c[action]==='function')return await c[action](...(payload===undefined?[]:[payload]));
+for(const method of ['api','request','call','callApi','apiCall']){
+if(typeof c[method]==='function')return await c[method](action,payload);
+}
+throw new Error('app.js ยังไม่มีเมธอดสำหรับ '+action);
+}
+function check(result){
+if(result?.success===false||result?.ok===false)throw new Error(result.message||result.error||'API ส่งข้อมูลไม่สำเร็จ');
+return result;
+}
+function errorBox(id,error,retry){
+$(id).innerHTML='<div class="classroom-notice"><strong>ไม่สามารถโหลดข้อมูลได้</strong><p>'+esc(error?.message||String(error))+'</p><button class="secondary-btn" onclick="'+retry+'">ลองอีกครั้ง</button></div>';
+}
+window.loadCOMSCClassrooms=async function(force=false){
+if(loaded&&!force)return;
+if(pending&&!force)return pending;
+$('classroom-roster').hidden=true;
+$('classroom-grid').style.display='grid';
+$('classroom-grid').innerHTML='<div class="classroom-notice">กำลังโหลดข้อมูลห้องเรียนจากระบบจริง...</div>';
+$('classroom-summary').textContent='กำลังโหลดข้อมูลจาก Google Sheets';
+pending=(async()=>{
+try{
+const result=check(await request('getClassroomModuleData'));
+rooms=arrayFrom(result,['classrooms','Classrooms','rooms','items']);
+loaded=true;
+$('classroom-summary').textContent='ห้องเรียน '+rooms.length+' ห้อง · เลือกห้องเพื่อดูรายชื่อนักเรียน';
+if(!rooms.length){$('classroom-grid').innerHTML='<div class="classroom-notice">ยังไม่พบข้อมูลห้องเรียนจาก API</div>';return;}
+$('classroom-grid').innerHTML=rooms.map((room,index)=>{
+const label=roomName(room);
+const count=pick(room,['StudentCount','studentCount','studentTotal','studentsCount','Count','count'],'');
+return '<button type="button" class="classroom-tile" data-room-index="'+index+'"><div class="classroom-tile-head"><span class="classroom-tile-icon"><i class="fa-solid fa-users"></i></span><i class="fa-solid fa-arrow-up-right-from-square"></i></div><h3>'+esc(label)+'</h3><p>'+(count!==''?esc(count)+' คน':'ดูสมาชิกในห้องเรียน')+'</p><div class="classroom-tile-foot"><span>ดูรายชื่อนักเรียน</span><i class="fa-solid fa-arrow-right"></i></div></button>';
+}).join('');
+$('classroom-grid').querySelectorAll('[data-room-index]').forEach(button=>button.addEventListener('click',()=>window.openCOMSCRoster(Number(button.dataset.roomIndex))));
+}catch(e){loaded=false;$('classroom-summary').textContent='เชื่อมต่อข้อมูลห้องเรียนไม่สำเร็จ';errorBox('classroom-grid',e,'loadCOMSCClassrooms(true)');}
+finally{pending=null;}
+})();
+return pending;
+};
+window.openCOMSCRoster=async function(index){
+const room=rooms[index];
+if(!room)return;
+selectedRoom=room;
+const token=++rosterToken;
+$('classroom-grid').style.display='none';
+$('classroom-roster').hidden=false;
+$('roster-title').textContent=roomName(room);
+$('roster-description').textContent='กำลังโหลดรายชื่อนักเรียน';
+$('roster-search').value='';
+$('roster-result').innerHTML='<div class="classroom-notice">กำลังโหลดรายชื่อนักเรียน...</div>';
+try{
+const id=roomId(room);
+if(id===undefined||id===null||id==='')throw new Error('ไม่พบ ClassroomID ของห้องเรียนนี้');
+const data=check(await request('getClassroomStudents',id));
+if(token!==rosterToken)return;
+roster=arrayFrom(data,['students','Students','items','roster']);
+$('roster-description').textContent='นักเรียน '+roster.length+' คน · '+roomName(room);
+window.filterCOMSCRoster('');
+}catch(e){if(token!==rosterToken)return;errorBox('roster-result',e,'reloadCOMSCRoster()');}
+};
+window.closeCOMSCRoster=function(){
+++rosterToken;
+selectedRoom=null;
+$('classroom-roster').hidden=true;
+$('classroom-grid').style.display='grid';
+};
+window.reloadCOMSCRoster=function(){
+if(selectedRoom){
+const index=rooms.indexOf(selectedRoom);
+if(index>=0)window.openCOMSCRoster(index);
+}
+};
+window.filterCOMSCRoster=function(query){
+const q=String(query||'').trim().toLocaleLowerCase();
+const filtered=roster.map((r,index)=>({r,index})).filter(({r,index})=>{
+const name=pick(r,['FullName','fullName','StudentName','studentName','Name','name'],[pick(r,['Prefix','prefix']),pick(r,['FirstName','firstName']),pick(r,['LastName','lastName'])].filter(Boolean).join(' '));
+const number=pick(r,['StudentNo','studentNo','No','no','Number','number','StudentNumber','studentNumber'],index+1);
+const id=pick(r,['StudentID','StudentId','studentId','studentID','ID','id']);
+return (String(name)+' '+number+' '+id).toLocaleLowerCase().includes(q);
+});
+if(!filtered.length){
+$('roster-result').innerHTML='<div class="classroom-notice">'+(q?'ไม่พบนักเรียนที่ตรงกับคำค้นหา':'ยังไม่มีรายชื่อนักเรียนในห้องนี้')+'</div>';
+return;
+}
+$('roster-result').innerHTML='<div class="roster-table-wrap"><table class="roster-table"><thead><tr><th>เลขที่</th><th>ชื่อ–นามสกุล</th><th>รหัสนักเรียน</th></tr></thead><tbody>'+filtered.map(({r,index})=>{
+const name=pick(r,['FullName','fullName','StudentName','studentName','Name','name'],[pick(r,['Prefix','prefix']),pick(r,['FirstName','firstName']),pick(r,['LastName','lastName'])].filter(Boolean).join(' '));
+const no=pick(r,['StudentNo','studentNo','No','no','Number','number','StudentNumber','studentNumber'],index+1);
+const id=pick(r,['StudentID','StudentId','studentId','studentID','ID','id'],'—');
+return '<tr><td>'+esc(no)+'</td><td>'+esc(name||'ไม่ระบุชื่อ')+'</td><td>'+esc(id)+'</td></tr>';
+}).join('')+'</tbody></table></div>';
+};
+})();
+</script>
 </body>
 </html>
