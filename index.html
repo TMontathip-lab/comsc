@@ -852,10 +852,7 @@ button:disabled{
 
   .topbar{
     height:80px;
-    padding:
-      env(safe-area-inset-top)
-      15px
-      0;
+    padding:env(safe-area-inset-top) 15px 0;
   }
 
   .mobile-menu{
@@ -986,8 +983,7 @@ button:disabled{
   id="data-bridge"
   class="bridge-frame"
   title="COM SC"
-  src="https://script.google.com/macros/s/AKfycbxXpkrcsGh1YWZZe3QMgPT9Gh2qnemLgGA4RUKy5XI-oNFokdSA1RjQCcbJ43cpF5ry/exec?page=bridge"
-  onload="handleBridgeFrameLoad()"
+  src="about:blank"
 ></iframe>
 
 <div class="app">
@@ -1191,7 +1187,10 @@ button:disabled{
           <div class="hero-content">
 
             <div>
-              <h2>Computer Smart Classroom</h2>
+
+              <h2>
+                Computer Smart Classroom
+              </h2>
 
               <p>
                 จัดการห้องเรียน เช็กชื่อ คะแนน ตารางสอน
@@ -1408,8 +1407,13 @@ button:disabled{
                 </div>
 
                 <div>
-                  <h3 id="today-title">ตารางวันนี้</h3>
-                  <p id="today-subtitle">กำลังโหลดข้อมูล</p>
+                  <h3 id="today-title">
+                    ตารางวันนี้
+                  </h3>
+
+                  <p id="today-subtitle">
+                    กำลังโหลดข้อมูล
+                  </p>
                 </div>
 
               </div>
@@ -1438,6 +1442,7 @@ button:disabled{
       >
 
         <div class="module-header">
+
           <div>
             <h2>ห้องเรียน</h2>
             <p>จัดการห้องเรียนและรายชื่อนักเรียน</p>
@@ -1447,14 +1452,17 @@ button:disabled{
             <i class="fa-solid fa-plus"></i>
             เพิ่มห้องเรียน
           </button>
+
         </div>
 
         <div class="module-placeholder">
+
           <div>
             <i class="fa-solid fa-users"></i>
             <h3>ห้องเรียน</h3>
             <p>จะเชื่อมข้อมูลห้องเรียนในขั้นตอนถัดไป</p>
           </div>
+
         </div>
 
       </section>
@@ -1472,11 +1480,13 @@ button:disabled{
         </div>
 
         <div class="module-placeholder">
+
           <div>
             <i class="fa-solid fa-calendar-days"></i>
             <h3>ตารางสอน</h3>
             <p>จะเชื่อมข้อมูลตารางสอนในขั้นตอนถัดไป</p>
           </div>
+
         </div>
 
       </section>
@@ -1494,11 +1504,13 @@ button:disabled{
         </div>
 
         <div class="module-placeholder">
+
           <div>
             <i class="fa-solid fa-user-check"></i>
             <h3>เช็กชื่อ</h3>
             <p>จะเชื่อมระบบเช็กชื่อในขั้นตอนถัดไป</p>
           </div>
+
         </div>
 
       </section>
@@ -1516,11 +1528,13 @@ button:disabled{
         </div>
 
         <div class="module-placeholder">
+
           <div>
             <i class="fa-solid fa-chart-column"></i>
             <h3>คะแนน</h3>
             <p>จะเชื่อมสมุดคะแนนเดิมในขั้นตอนถัดไป</p>
           </div>
+
         </div>
 
       </section>
@@ -1630,11 +1644,13 @@ button:disabled{
         </div>
 
         <div class="module-placeholder">
+
           <div>
             <i class="fa-solid fa-desktop"></i>
             <h3>ห้องปฏิบัติการคอมพิวเตอร์</h3>
             <p>จะเชื่อมข้อมูลการใช้งานในขั้นตอนถัดไป</p>
           </div>
+
         </div>
 
       </section>
@@ -1652,11 +1668,13 @@ button:disabled{
         </div>
 
         <div class="module-placeholder">
+
           <div>
             <i class="fa-solid fa-file-lines"></i>
             <h3>รายงาน</h3>
             <p>จะเชื่อมรายงานเมื่อข้อมูลหลักพร้อมใช้งาน</p>
           </div>
+
         </div>
 
       </section>
@@ -1674,11 +1692,13 @@ button:disabled{
         </div>
 
         <div class="module-placeholder">
+
           <div>
             <i class="fa-solid fa-gear"></i>
             <h3>ตั้งค่า</h3>
             <p>จะเชื่อมการตั้งค่าในขั้นตอนถัดไป</p>
           </div>
+
         </div>
 
       </section>
@@ -1791,12 +1811,11 @@ const BRIDGE_URL=
 let currentView='dashboard';
 let cameraStream=null;
 
-let bridgeRequestNo=0;
-let dashboardLoading=false;
 let dashboardLoaded=false;
+let dashboardLoading=false;
 
-const bridgePending=
-  new Map();
+let bridgeTimer=null;
+let bridgeLoadNumber=0;
 
 function navigate(view){
   if(!VIEW_META[view]){
@@ -1841,15 +1860,15 @@ function navigate(view){
       );
     });
 
-  document
-    .getElementById('page-title')
-    .textContent=
-    VIEW_META[view].title;
+  setText(
+    'page-title',
+    VIEW_META[view].title
+  );
 
-  document
-    .getElementById('page-subtitle')
-    .textContent=
-    VIEW_META[view].subtitle;
+  setText(
+    'page-subtitle',
+    VIEW_META[view].subtitle
+  );
 
   closeSidebar();
 
@@ -1858,7 +1877,7 @@ function navigate(view){
     !dashboardLoaded &&
     !dashboardLoading
   ){
-    loadDashboard();
+    reloadDashboardBridge();
   }
 
   window.scrollTo({
@@ -1905,12 +1924,17 @@ async function refreshCurrentView(){
   );
 
   try{
-    if(currentView==='dashboard'){
-      await loadDashboard(true);
+
+    if(
+      currentView==='dashboard'
+    ){
+      reloadDashboardBridge();
       return;
     }
 
-    if(currentView==='scanner'){
+    if(
+      currentView==='scanner'
+    ){
       setCameraStatus(
         cameraStream
           ? 'กล้องพร้อมสแกน'
@@ -1920,106 +1944,94 @@ async function refreshCurrentView(){
     }
 
   }finally{
+
     setTimeout(()=>{
       icon?.classList.remove(
         'fa-spin'
       );
-    },350);
+    },500);
   }
 }
 
-function handleBridgeFrameLoad(){
-  setTimeout(()=>{
-    if(!dashboardLoaded){
-      loadDashboard();
-    }
-  },500);
-}
+function reloadDashboardBridge(){
+  const frame=
+    document.getElementById(
+      'data-bridge'
+    );
 
-function bridgeCall(
-  action,
-  timeout=15000
-){
-  return new Promise(
-    (resolve,reject)=>{
+  if(!frame){
+    renderDashboardError(
+      new Error(
+        'ไม่พบตัวเชื่อมข้อมูล'
+      )
+    );
 
-      const frame=
-        document.getElementById(
-          'data-bridge'
-        );
+    return;
+  }
+
+  dashboardLoaded=false;
+  dashboardLoading=true;
+
+  setDashboardLoading();
+
+  bridgeLoadNumber++;
+
+  const currentLoad=
+    bridgeLoadNumber;
+
+  if(bridgeTimer){
+    clearTimeout(
+      bridgeTimer
+    );
+  }
+
+  /*
+   * Bridge จะอ่านข้อมูลเองทันทีเมื่อโหลด
+   * ไม่ต้องส่ง postMessage เข้า Apps Script
+   */
+  frame.src=
+    BRIDGE_URL +
+    '&refresh=' +
+    Date.now();
+
+  bridgeTimer=
+    setTimeout(()=>{
 
       if(
-        !frame ||
-        !frame.contentWindow
+        currentLoad !==
+        bridgeLoadNumber
       ){
-        reject(
-          new Error(
-            'ไม่สามารถเชื่อมข้อมูลได้'
-          )
-        );
         return;
       }
 
-      const requestId=
-        'req_' +
-        Date.now() +
-        '_' +
-        (++bridgeRequestNo);
+      if(
+        dashboardLoaded
+      ){
+        return;
+      }
 
-      const timer=
-        setTimeout(()=>{
-          bridgePending.delete(
-            requestId
-          );
+      dashboardLoading=false;
 
-          reject(
-            new Error(
-              'การเชื่อมข้อมูลใช้เวลานานเกินไป'
-            )
-          );
-        },timeout);
-
-      bridgePending.set(
-        requestId,
-        {
-          resolve,
-          reject,
-          timer
-        }
+      renderDashboardError(
+        new Error(
+          'ใช้เวลาเชื่อมต่อนานเกินไป กรุณากดรีเฟรชอีกครั้ง'
+        )
       );
 
-      frame.contentWindow.postMessage(
-        {
-          source:'COMSC_WEB',
-          action:action,
-          requestId:requestId
-        },
-        '*'
-      );
-    }
-  );
+    },20000);
 }
 
 window.addEventListener(
   'message',
   event=>{
 
-    const frame=
-      document.getElementById(
-        'data-bridge'
-      );
-
-    if(
-      !frame ||
-      event.source !==
-        frame.contentWindow
-    ){
-      return;
-    }
-
     const message=
       event.data || {};
 
+    /*
+     * Bridge ของ COM SC
+     * เป็นฝ่ายส่งข้อมูลขึ้นมาหา GitHub เอง
+     */
     if(
       message.source !==
       'COMSC_BRIDGE'
@@ -2030,47 +2042,22 @@ window.addEventListener(
     if(
       message.type==='ready'
     ){
-      if(
-        !dashboardLoaded &&
-        !dashboardLoading
-      ){
-        loadDashboard();
-      }
-
       return;
     }
-
-    const requestId=
-      String(
-        message.requestId ||
-        ''
-      );
-
-    if(!requestId){
-      return;
-    }
-
-    const pending=
-      bridgePending.get(
-        requestId
-      );
-
-    if(!pending){
-      return;
-    }
-
-    clearTimeout(
-      pending.timer
-    );
-
-    bridgePending.delete(
-      requestId
-    );
 
     if(
       message.type==='error'
     ){
-      pending.reject(
+      dashboardLoading=false;
+      dashboardLoaded=false;
+
+      if(bridgeTimer){
+        clearTimeout(
+          bridgeTimer
+        );
+      }
+
+      renderDashboardError(
         new Error(
           message.message ||
           'ไม่สามารถโหลดข้อมูลได้'
@@ -2081,68 +2068,51 @@ window.addEventListener(
     }
 
     if(
-      message.type===
+      message.type!==
       'dashboard.result'
     ){
-      pending.resolve(
-        message.data
-      );
+      return;
     }
-  }
-);
 
-async function loadDashboard(
-  force=false
-){
-  if(
-    dashboardLoading
-  ){
-    return;
-  }
-
-  if(
-    dashboardLoaded &&
-    !force
-  ){
-    return;
-  }
-
-  dashboardLoading=true;
-
-  setDashboardLoading();
-
-  try{
     const data=
-      await bridgeCall(
-        'dashboard.read'
-      );
+      message.data;
 
     if(
       !data ||
       data.success !== true
     ){
-      throw new Error(
-        'ข้อมูลที่ได้รับไม่สมบูรณ์'
+      dashboardLoading=false;
+      dashboardLoaded=false;
+
+      if(bridgeTimer){
+        clearTimeout(
+          bridgeTimer
+        );
+      }
+
+      renderDashboardError(
+        new Error(
+          'ข้อมูลที่ได้รับไม่สมบูรณ์'
+        )
+      );
+
+      return;
+    }
+
+    if(bridgeTimer){
+      clearTimeout(
+        bridgeTimer
       );
     }
+
+    dashboardLoading=false;
+    dashboardLoaded=true;
 
     renderDashboard(
       data
     );
-
-    dashboardLoaded=true;
-
-  }catch(error){
-    dashboardLoaded=false;
-
-    renderDashboardError(
-      error
-    );
-
-  }finally{
-    dashboardLoading=false;
   }
-}
+);
 
 function setDashboardLoading(){
   setText(
@@ -2163,6 +2133,27 @@ function setDashboardLoading(){
   setText(
     'stat-today',
     '—'
+  );
+
+  const semester=
+    document.getElementById(
+      'dashboard-semester'
+    );
+
+  if(semester){
+    semester.innerHTML=
+      '<i class="fa-solid fa-spinner fa-spin"></i>' +
+      'กำลังโหลดข้อมูล';
+  }
+
+  setText(
+    'today-title',
+    'ตารางวันนี้'
+  );
+
+  setText(
+    'today-subtitle',
+    'กำลังโหลดข้อมูล'
   );
 
   const box=
@@ -2277,15 +2268,17 @@ function renderDashboard(
       : []
   );
 
-  document
-    .getElementById(
-      'page-subtitle'
-    )
-    .textContent=
-    semesterText
-      ? 'ภาพรวมการจัดการชั้นเรียน · ' +
-        semesterText
-      : 'ภาพรวมการจัดการชั้นเรียน';
+  if(
+    currentView==='dashboard'
+  ){
+    setText(
+      'page-subtitle',
+      semesterText
+        ? 'ภาพรวมการจัดการชั้นเรียน · ' +
+          semesterText
+        : 'ภาพรวมการจัดการชั้นเรียน'
+    );
+  }
 }
 
 function renderTodaySchedule(
@@ -2328,6 +2321,7 @@ function renderTodaySchedule(
           '<div class="schedule-item">' +
 
             '<div class="schedule-period">' +
+
               '<strong>' +
                 escapeHtml(
                   item.periodNo
@@ -2336,12 +2330,13 @@ function renderTodaySchedule(
                     : 'คาบ'
                 ) +
               '</strong>' +
+
               '<span>' +
                 escapeHtml(
-                  time ||
-                  ''
+                  time
                 ) +
               '</span>' +
+
             '</div>' +
 
             '<div class="schedule-info">' +
@@ -2372,6 +2367,10 @@ function renderTodaySchedule(
 function renderDashboardError(
   error
 ){
+  const message=
+    error?.message ||
+    'กรุณาลองใหม่อีกครั้ง';
+
   const box=
     document.getElementById(
       'today-schedule'
@@ -2384,27 +2383,26 @@ function renderDashboardError(
         '<strong>ยังโหลดข้อมูลไม่ได้</strong>' +
         '<span>' +
           escapeHtml(
-            error?.message ||
-            'กรุณาลองใหม่อีกครั้ง'
+            message
           ) +
         '</span>' +
         '<button ' +
           'class="secondary-btn" ' +
           'style="margin-top:12px" ' +
-          'onclick="loadDashboard(true)">' +
+          'onclick="reloadDashboardBridge()">' +
           '<i class="fa-solid fa-rotate"></i>' +
           'ลองอีกครั้ง' +
         '</button>' +
       '</div>';
   }
 
-  const semesterBox=
+  const semester=
     document.getElementById(
       'dashboard-semester'
     );
 
-  if(semesterBox){
-    semesterBox.innerHTML=
+  if(semester){
+    semester.innerHTML=
       '<i class="fa-solid fa-circle-exclamation"></i>' +
       'ยังโหลดข้อมูลไม่ได้';
   }
@@ -2464,6 +2462,7 @@ async function startCamera(){
     showCameraError(
       'เบราว์เซอร์นี้ไม่รองรับการเปิดกล้อง'
     );
+
     return;
   }
 
@@ -2481,7 +2480,9 @@ async function startCamera(){
   startBtn.disabled=true;
 
   try{
+
     try{
+
       cameraStream=
         await navigator
           .mediaDevices
@@ -2504,6 +2505,7 @@ async function startCamera(){
           });
 
     }catch(firstError){
+
       cameraStream=
         await navigator
           .mediaDevices
@@ -2542,6 +2544,7 @@ async function startCamera(){
     );
 
   }catch(error){
+
     cameraStream=null;
 
     startBtn.disabled=false;
@@ -2566,6 +2569,7 @@ async function startCamera(){
 
 function stopCamera(){
   if(cameraStream){
+
     cameraStream
       .getTracks()
       .forEach(track=>{
@@ -2680,14 +2684,7 @@ window.addEventListener(
 window.addEventListener(
   'DOMContentLoaded',
   ()=>{
-    setTimeout(()=>{
-      if(
-        !dashboardLoaded &&
-        !dashboardLoading
-      ){
-        loadDashboard();
-      }
-    },900);
+    reloadDashboardBridge();
   }
 );
 </script>
