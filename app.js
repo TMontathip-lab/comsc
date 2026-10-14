@@ -1,9 +1,6 @@
 /**
  * COM SC
  * GitHub Pages -> Apps Script Web App
- *
- * Access Key จะไม่ถูกเขียนไว้ในไฟล์นี้
- * แต่เก็บเฉพาะใน browser ของเครื่องที่ใช้งาน
  */
 
 (() => {
@@ -27,7 +24,9 @@
     connected: false,
     bootstrap: null,
     settings: null,
-    dashboard: null
+    dashboard: null,
+    classroomModule: null,
+    classroomStudents: {}
   };
 
   function getAccessKey() {
@@ -139,9 +138,7 @@
           );
 
         function cleanup() {
-          if (
-            finished
-          ) {
+          if (finished) {
             return;
           }
 
@@ -174,37 +171,33 @@
 
         window[
           callbackName
-        ] =
-          response => {
-            cleanup();
+        ] = response => {
+          cleanup();
 
-            if (
-              !response ||
-              response.success !==
-                true
-            ) {
-              const message =
-                response &&
-                response.error &&
-                response.error.message
-                  ? response
-                      .error
-                      .message
-                  : 'ไม่สามารถเชื่อมต่อ COM SC ได้';
+          if (
+            !response ||
+            response.success !== true
+          ) {
+            const message =
+              response &&
+              response.error &&
+              response.error.message
+                ? response.error.message
+                : 'ไม่สามารถเชื่อมต่อ COM SC ได้';
 
-              reject(
-                new Error(
-                  message
-                )
-              );
-
-              return;
-            }
-
-            resolve(
-              response
+            reject(
+              new Error(
+                message
+              )
             );
-          };
+
+            return;
+          }
+
+          resolve(
+            response
+          );
+        };
 
         script.onerror =
           () => {
@@ -236,7 +229,10 @@
     );
   }
 
-  async function getSystemBootstrap() {
+  async function authenticatedRequest(
+    action,
+    params = {}
+  ) {
     const key =
       getAccessKey();
 
@@ -246,13 +242,19 @@
       );
     }
 
+    return jsonpRequest(
+      action,
+      {
+        ...params,
+        key: key
+      }
+    );
+  }
+
+  async function getSystemBootstrap() {
     const response =
-      await jsonpRequest(
-        'getSystemBootstrap',
-        {
-          key:
-            key
-        }
+      await authenticatedRequest(
+        'getSystemBootstrap'
       );
 
     const data =
@@ -279,6 +281,80 @@
         {
           detail:
             data
+        }
+      )
+    );
+
+    return data;
+  }
+
+  async function getClassroomModuleData() {
+    const response =
+      await authenticatedRequest(
+        'getClassroomModuleData'
+      );
+
+    const data =
+      response.data ||
+      {};
+
+    state.classroomModule =
+      data;
+
+    window.dispatchEvent(
+      new CustomEvent(
+        'comsc:classrooms',
+        {
+          detail:
+            data
+        }
+      )
+    );
+
+    return data;
+  }
+
+  async function getClassroomStudents(
+    classId
+  ) {
+    const targetClassId =
+      String(
+        classId || ''
+      ).trim();
+
+    if (!targetClassId) {
+      throw new Error(
+        'กรุณาเลือกห้องเรียน'
+      );
+    }
+
+    const response =
+      await authenticatedRequest(
+        'getClassroomStudents',
+        {
+          classId:
+            targetClassId
+        }
+      );
+
+    const data =
+      response.data ||
+      {};
+
+    state.classroomStudents[
+      targetClassId
+    ] = data;
+
+    window.dispatchEvent(
+      new CustomEvent(
+        'comsc:classroom-students',
+        {
+          detail: {
+            classId:
+              targetClassId,
+            data:
+              data
+          }
         }
       )
     );
@@ -636,6 +712,12 @@
 
       bootstrap:
         getSystemBootstrap,
+
+      getClassroomModuleData:
+        getClassroomModuleData,
+
+      getClassroomStudents:
+        getClassroomStudents,
 
       getAccessKey:
         getAccessKey,
