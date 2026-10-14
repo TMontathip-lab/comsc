@@ -3,191 +3,887 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>COM SC Scanner</title>
+<meta name="theme-color" content="#ffffff">
+<title>COM SC | Computer Smart Classroom</title>
+
+<link rel="preconnect" href="https://cdnjs.cloudflare.com">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
 
 <style>
-*{box-sizing:border-box}
-
-html,body{
-  margin:0;
-  min-height:100%;
-  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
-  background:#f4f7fb;
-  color:#0f172a;
+:root{
+  --blue:#146EF5;
+  --blue-soft:#EAF3FF;
+  --green:#66CC99;
+  --green-soft:#ECFBF4;
+  --navy:#0B1F3A;
+  --text:#132238;
+  --muted:#718096;
+  --line:#E5EBF3;
+  --bg:#F5F8FC;
+  --card:#FFFFFF;
+  --danger:#DC2626;
+  --warning:#D97706;
+  --radius-xl:28px;
+  --radius-lg:22px;
+  --radius-md:16px;
+  --shadow:0 14px 34px rgba(15,35,60,.07);
+  --sidebar:260px;
+  --bottom:78px;
 }
 
+*{
+  box-sizing:border-box;
+}
+
+html{
+  scroll-behavior:smooth;
+}
+
+html,
 body{
-  padding:
-    max(18px,env(safe-area-inset-top))
-    16px
-    max(24px,env(safe-area-inset-bottom));
+  margin:0;
+  min-height:100%;
+  background:var(--bg);
+  color:var(--text);
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans Thai",sans-serif;
+}
+
+button,
+input,
+select{
+  font:inherit;
+}
+
+button{
+  cursor:pointer;
 }
 
 .app{
-  max-width:600px;
+  min-height:100vh;
+}
+
+.sidebar{
+  position:fixed;
+  inset:0 auto 0 0;
+  width:var(--sidebar);
+  background:#fff;
+  border-right:1px solid var(--line);
+  z-index:40;
+  display:flex;
+  flex-direction:column;
+}
+
+.brand{
+  padding:22px 18px 16px;
+  display:flex;
+  align-items:center;
+  gap:12px;
+}
+
+.brand-logo{
+  width:48px;
+  height:48px;
+  border-radius:15px;
+  object-fit:contain;
+  background:#fff;
+  border:1px solid var(--line);
+  padding:4px;
+}
+
+.brand-text strong{
+  display:block;
+  font-size:18px;
+  color:var(--navy);
+}
+
+.brand-text span{
+  display:block;
+  margin-top:3px;
+  font-size:11px;
+  color:var(--muted);
+}
+
+.side-scroll{
+  padding:8px 12px 18px;
+  overflow:auto;
+}
+
+.nav-label{
+  padding:10px 12px 7px;
+  font-size:11px;
+  font-weight:700;
+  color:#94A3B8;
+}
+
+.nav-item{
+  width:100%;
+  border:0;
+  background:transparent;
+  display:flex;
+  align-items:center;
+  gap:12px;
+  min-height:48px;
+  padding:0 13px;
+  border-radius:15px;
+  color:#52647A;
+  margin-bottom:4px;
+  text-align:left;
+}
+
+.nav-item i{
+  width:21px;
+  text-align:center;
+  font-size:17px;
+}
+
+.nav-item:hover{
+  background:#F3F7FC;
+}
+
+.nav-item.active{
+  background:var(--blue-soft);
+  color:var(--blue);
+  font-weight:700;
+}
+
+.sidebar-footer{
+  margin-top:auto;
+  padding:14px 16px 20px;
+}
+
+.sidebar-profile{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  padding:11px;
+  background:#F8FAFD;
+  border:1px solid var(--line);
+  border-radius:16px;
+}
+
+.avatar{
+  width:38px;
+  height:38px;
+  border-radius:13px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:var(--blue);
+  color:#fff;
+}
+
+.profile-copy strong{
+  display:block;
+  font-size:13px;
+}
+
+.profile-copy span{
+  display:block;
+  margin-top:2px;
+  font-size:11px;
+  color:var(--muted);
+}
+
+.main{
+  margin-left:var(--sidebar);
+  min-height:100vh;
+}
+
+.topbar{
+  height:84px;
+  position:sticky;
+  top:0;
+  z-index:30;
+  background:rgba(255,255,255,.9);
+  backdrop-filter:blur(18px);
+  border-bottom:1px solid rgba(229,235,243,.85);
+  padding:0 28px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:16px;
+}
+
+.topbar-left{
+  min-width:0;
+}
+
+.page-title{
+  margin:0;
+  font-size:24px;
+  line-height:1.15;
+  color:var(--navy);
+}
+
+.page-subtitle{
+  margin:5px 0 0;
+  color:var(--muted);
+  font-size:13px;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+
+.top-actions{
+  display:flex;
+  align-items:center;
+  gap:9px;
+}
+
+.icon-btn{
+  width:44px;
+  height:44px;
+  border:1px solid var(--line);
+  background:#fff;
+  border-radius:14px;
+  color:var(--navy);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:17px;
+}
+
+.icon-btn:hover{
+  background:#F8FAFD;
+}
+
+.mobile-menu{
+  display:none;
+}
+
+.content{
+  padding:24px 28px 110px;
+  max-width:1500px;
   margin:0 auto;
 }
 
-.header{
-  margin-bottom:16px;
+.view{
+  display:none;
 }
 
-.header h1{
+.view.active{
+  display:block;
+}
+
+.hero{
+  position:relative;
+  overflow:hidden;
+  background:linear-gradient(135deg,#0B1F3A 0%,#144E8C 55%,#146EF5 100%);
+  border-radius:30px;
+  padding:28px;
+  color:#fff;
+  box-shadow:var(--shadow);
+}
+
+.hero:after{
+  content:"";
+  position:absolute;
+  width:250px;
+  height:250px;
+  border-radius:50%;
+  background:rgba(255,255,255,.09);
+  right:-70px;
+  top:-85px;
+}
+
+.hero-content{
+  position:relative;
+  z-index:2;
+  display:flex;
+  justify-content:space-between;
+  gap:20px;
+  align-items:center;
+}
+
+.hero h2{
   margin:0;
-  font-size:26px;
+  font-size:28px;
 }
 
-.header p{
-  margin:6px 0 0;
-  color:#64748b;
-  line-height:1.5;
+.hero p{
+  margin:8px 0 0;
+  color:rgba(255,255,255,.78);
+  line-height:1.6;
+  max-width:650px;
+}
+
+.hero-logo{
+  width:100px;
+  height:100px;
+  object-fit:contain;
+  border-radius:25px;
+  background:#fff;
+  padding:9px;
+  box-shadow:0 16px 38px rgba(0,0,0,.16);
+}
+
+.section-gap{
+  height:18px;
+}
+
+.stats{
+  display:grid;
+  grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:14px;
+}
+
+.stat-card{
+  background:var(--card);
+  border:1px solid var(--line);
+  border-radius:21px;
+  padding:17px;
+  box-shadow:0 7px 22px rgba(15,35,60,.035);
+}
+
+.stat-top{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+}
+
+.stat-icon{
+  width:42px;
+  height:42px;
+  border-radius:14px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:var(--blue-soft);
+  color:var(--blue);
+}
+
+.stat-card:nth-child(2) .stat-icon{
+  background:#FFF4E8;
+  color:#E67E22;
+}
+
+.stat-card:nth-child(3) .stat-icon{
+  background:var(--green-soft);
+  color:#2F9D67;
+}
+
+.stat-card:nth-child(4) .stat-icon{
+  background:#F4EEFF;
+  color:#7C3AED;
+}
+
+.stat-value{
+  font-size:27px;
+  font-weight:800;
+  margin-top:15px;
+  color:var(--navy);
+}
+
+.stat-label{
+  color:var(--muted);
+  font-size:12px;
+  margin-top:3px;
+}
+
+.grid-main{
+  display:grid;
+  grid-template-columns:minmax(0,1.35fr) minmax(300px,.65fr);
+  gap:16px;
 }
 
 .card{
   background:#fff;
-  border:1px solid #e2e8f0;
-  border-radius:24px;
-  padding:16px;
-  box-shadow:0 12px 32px rgba(15,23,42,.07);
+  border:1px solid var(--line);
+  border-radius:var(--radius-lg);
+  padding:19px;
+  box-shadow:0 7px 24px rgba(15,35,60,.035);
 }
 
-.camera{
-  position:relative;
-  overflow:hidden;
-  width:100%;
-  aspect-ratio:3/4;
-  background:#020617;
-  border-radius:20px;
+.card-head{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:10px;
+  margin-bottom:15px;
 }
 
-video{
-  width:100%;
-  height:100%;
-  object-fit:cover;
+.card-title{
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+
+.card-title-icon{
+  width:37px;
+  height:37px;
+  border-radius:12px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:var(--blue-soft);
+  color:var(--blue);
+}
+
+.card-title h3{
+  margin:0;
+  font-size:16px;
+  color:var(--navy);
+}
+
+.card-title p{
+  margin:3px 0 0;
+  font-size:11px;
+  color:var(--muted);
+}
+
+.quick-grid{
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:10px;
+}
+
+.quick{
+  border:1px solid var(--line);
+  background:#FAFCFF;
+  border-radius:17px;
+  padding:15px 11px;
+  text-align:center;
+  color:var(--text);
+}
+
+.quick:hover{
+  border-color:#BED9FF;
+  background:#F4F9FF;
+}
+
+.quick i{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  margin:0 auto 9px;
+  width:39px;
+  height:39px;
+  border-radius:13px;
+  background:var(--blue-soft);
+  color:var(--blue);
+}
+
+.quick strong{
   display:block;
+  font-size:12px;
 }
 
-.placeholder{
-  position:absolute;
-  inset:0;
+.empty{
+  min-height:190px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  color:var(--muted);
+  padding:20px;
+}
+
+.empty i{
+  font-size:25px;
+  margin-bottom:10px;
+  color:#B8C4D2;
+}
+
+.empty strong{
+  color:#52647A;
+  font-size:13px;
+}
+
+.empty span{
+  margin-top:5px;
+  font-size:12px;
+}
+
+.module-header{
+  display:flex;
+  align-items:flex-start;
+  justify-content:space-between;
+  gap:14px;
+  margin-bottom:17px;
+}
+
+.module-header h2{
+  margin:0;
+  font-size:21px;
+  color:var(--navy);
+}
+
+.module-header p{
+  margin:5px 0 0;
+  color:var(--muted);
+  font-size:13px;
+}
+
+.primary-btn,
+.secondary-btn{
+  min-height:44px;
+  border-radius:14px;
+  padding:0 15px;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:8px;
+  font-weight:700;
+  border:0;
+}
+
+.primary-btn{
+  background:var(--blue);
+  color:#fff;
+}
+
+.primary-btn:hover{
+  background:#0F60DA;
+}
+
+.secondary-btn{
+  background:#fff;
+  color:var(--navy);
+  border:1px solid var(--line);
+}
+
+.module-placeholder{
+  background:#fff;
+  border:1px solid var(--line);
+  border-radius:24px;
+  min-height:430px;
   display:flex;
   align-items:center;
   justify-content:center;
   text-align:center;
   padding:30px;
-  color:#94a3b8;
 }
 
-.placeholder.hidden{
-  display:none;
+.module-placeholder i{
+  font-size:32px;
+  color:#AAB7C6;
 }
 
-.status{
-  margin-top:14px;
-  padding:13px 14px;
-  border-radius:16px;
-  background:#f1f5f9;
-  color:#475569;
-  line-height:1.5;
-}
-
-.status.success{
-  background:#ecfdf5;
-  color:#166534;
-}
-
-.status.error{
-  background:#fef2f2;
-  color:#b91c1c;
-}
-
-.buttons{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:10px;
-  margin-top:14px;
-}
-
-button{
-  min-height:52px;
-  border:0;
-  border-radius:16px;
-  font:inherit;
-  font-weight:700;
-  cursor:pointer;
-}
-
-.primary{
-  background:#66cc99;
-  color:#0f172a;
-}
-
-.secondary{
-  background:#eef2f7;
-  color:#334155;
-}
-
-button:disabled{
-  opacity:.45;
-}
-
-.info{
-  margin-top:16px;
-  background:#fff;
-  border:1px solid #e2e8f0;
-  border-radius:20px;
-  padding:15px;
-}
-
-.info h2{
-  margin:0 0 10px;
+.module-placeholder h3{
+  margin:13px 0 5px;
   font-size:17px;
+  color:#45576C;
 }
 
-.row{
-  display:grid;
-  grid-template-columns:120px 1fr;
-  gap:8px;
-  padding:7px 0;
-  border-bottom:1px solid #edf2f7;
-  font-size:14px;
-}
-
-.row:last-child{
-  border-bottom:0;
-}
-
-.label{
-  color:#64748b;
-}
-
-.value{
-  word-break:break-word;
-}
-
-.error-box{
-  display:none;
-  margin-top:14px;
-  padding:14px;
-  border-radius:16px;
-  background:#fff7ed;
-  border:1px solid #fed7aa;
-  color:#9a3412;
+.module-placeholder p{
+  margin:0;
+  color:var(--muted);
   font-size:13px;
+  line-height:1.6;
+  max-width:430px;
+}
+
+.scanner-layout{
+  display:grid;
+  grid-template-columns:minmax(0,1.25fr) minmax(280px,.75fr);
+  gap:16px;
+}
+
+.camera-card{
+  background:#fff;
+  border:1px solid var(--line);
+  border-radius:24px;
+  padding:14px;
+}
+
+.camera-box{
+  position:relative;
+  overflow:hidden;
+  border-radius:19px;
+  background:#020617;
+  aspect-ratio:3/4;
+  max-height:70vh;
+}
+
+.camera-box video{
+  display:block;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+}
+
+.camera-guide{
+  position:absolute;
+  inset:8%;
+  border:2px solid rgba(255,255,255,.6);
+  border-radius:18px;
+  pointer-events:none;
+}
+
+.camera-placeholder{
+  position:absolute;
+  inset:0;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  padding:25px;
+  text-align:center;
+  color:#94A3B8;
+}
+
+.camera-placeholder i{
+  font-size:33px;
+  margin-bottom:12px;
+}
+
+.camera-placeholder.hidden{
+  display:none;
+}
+
+.camera-status{
+  position:absolute;
+  left:50%;
+  bottom:16px;
+  transform:translateX(-50%);
+  max-width:88%;
+  background:rgba(15,23,42,.82);
+  backdrop-filter:blur(8px);
+  color:#fff;
+  border-radius:999px;
+  padding:9px 14px;
+  font-size:12px;
+  font-weight:700;
+  text-align:center;
+  white-space:nowrap;
+}
+
+.camera-status.success{
+  background:rgba(22,163,74,.9);
+}
+
+.scanner-side{
+  display:grid;
+  gap:12px;
+  align-content:start;
+}
+
+.scan-result{
+  border-radius:22px;
+  background:linear-gradient(145deg,#0B1F3A,#174A80);
+  color:#fff;
+  padding:22px;
+  min-height:175px;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  text-align:center;
+}
+
+.scan-result small{
+  color:#B8CDE4;
+}
+
+.scan-result strong{
+  margin-top:8px;
+  font-size:39px;
+}
+
+.info-box{
+  background:#EFF6FF;
+  border:1px solid #CFE2FF;
+  color:#245AA1;
+  border-radius:18px;
+  padding:14px;
+  font-size:12px;
   line-height:1.6;
 }
 
-.error-box.show{
+.camera-error{
+  display:none;
+  background:#FFF7ED;
+  border:1px solid #FED7AA;
+  color:#A34117;
+  border-radius:17px;
+  padding:13px;
+  font-size:12px;
+  line-height:1.6;
+  word-break:break-word;
+}
+
+.camera-error.show{
   display:block;
 }
 
-@media(max-width:480px){
-  .buttons{
+.bottom-nav{
+  display:none;
+}
+
+.backdrop{
+  display:none;
+}
+
+@media(max-width:1100px){
+  .stats{
+    grid-template-columns:repeat(2,minmax(0,1fr));
+  }
+
+  .grid-main{
     grid-template-columns:1fr;
   }
 
-  .row{
-    grid-template-columns:100px 1fr;
+  .scanner-layout{
+    grid-template-columns:1fr;
+  }
+}
+
+@media(max-width:760px){
+  .sidebar{
+    transform:translateX(-105%);
+    transition:.22s ease;
+    width:275px;
+    box-shadow:18px 0 40px rgba(15,35,60,.15);
+  }
+
+  .sidebar.open{
+    transform:translateX(0);
+  }
+
+  .backdrop{
+    position:fixed;
+    inset:0;
+    background:rgba(2,8,23,.35);
+    z-index:35;
+  }
+
+  .backdrop.show{
+    display:block;
+  }
+
+  .main{
+    margin-left:0;
+  }
+
+  .topbar{
+    height:80px;
+    padding:
+      env(safe-area-inset-top)
+      15px
+      0;
+  }
+
+  .mobile-menu{
+    display:flex;
+  }
+
+  .topbar-left{
+    flex:1;
+  }
+
+  .page-title{
+    font-size:20px;
+  }
+
+  .page-subtitle{
+    font-size:12px;
+  }
+
+  .content{
+    padding:16px 14px calc(var(--bottom) + 28px);
+  }
+
+  .hero{
+    padding:22px 18px;
+    border-radius:24px;
+  }
+
+  .hero h2{
+    font-size:22px;
+  }
+
+  .hero-logo{
+    width:72px;
+    height:72px;
+    border-radius:20px;
+  }
+
+  .stats{
+    gap:9px;
+  }
+
+  .stat-card{
+    padding:14px;
+    border-radius:18px;
+  }
+
+  .stat-value{
+    font-size:23px;
+  }
+
+  .quick-grid{
+    grid-template-columns:repeat(2,minmax(0,1fr));
+  }
+
+  .module-header{
+    display:block;
+  }
+
+  .module-header .primary-btn{
+    width:100%;
+    margin-top:12px;
+  }
+
+  .bottom-nav{
+    display:grid;
+    position:fixed;
+    left:0;
+    right:0;
+    bottom:0;
+    height:calc(var(--bottom) + env(safe-area-inset-bottom));
+    padding:6px 7px env(safe-area-inset-bottom);
+    grid-template-columns:repeat(5,1fr);
+    background:rgba(255,255,255,.94);
+    backdrop-filter:blur(18px);
+    border-top:1px solid var(--line);
+    z-index:34;
+  }
+
+  .bottom-item{
+    border:0;
+    background:transparent;
+    color:#8796A8;
+    border-radius:14px;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    gap:4px;
+    font-size:10px;
+  }
+
+  .bottom-item i{
+    font-size:18px;
+  }
+
+  .bottom-item.active{
+    color:var(--blue);
+    font-weight:700;
+  }
+}
+
+@media(max-width:480px){
+  .hero-content{
+    align-items:flex-start;
+  }
+
+  .hero-logo{
+    width:62px;
+    height:62px;
+  }
+
+  .stats{
+    grid-template-columns:1fr 1fr;
+  }
+
+  .stat-icon{
+    width:38px;
+    height:38px;
+  }
+
+  .card{
+    padding:15px;
+    border-radius:20px;
   }
 }
 </style>
@@ -197,244 +893,974 @@ button:disabled{
 
 <div class="app">
 
-  <div class="header">
-    <h1>COM SC Scanner</h1>
-    <p>
-      ทดสอบเปิดกล้องหลังบน iPhone
-      ยังไม่มีการตรวจข้อสอบและไม่บันทึกข้อมูลใด ๆ
-    </p>
-  </div>
+  <div
+    id="backdrop"
+    class="backdrop"
+    onclick="closeSidebar()"
+  ></div>
 
-  <div class="card">
+  <aside
+    id="sidebar"
+    class="sidebar"
+  >
 
-    <div class="camera">
+    <div class="brand">
 
-      <video
-        id="video"
-        autoplay
-        muted
-        playsinline
-      ></video>
-
-      <div
-        id="placeholder"
-        class="placeholder"
+      <img
+        class="brand-logo"
+        src="https://s.imgz.io/2026/08/31/Logo-384c5649d9c8e9035.png"
+        alt="COM SC"
       >
-        กด “เปิดกล้องหลัง”
+
+      <div class="brand-text">
+        <strong>COM SC</strong>
+        <span>Computer Smart Classroom</span>
       </div>
 
     </div>
 
-    <div
-      id="status"
-      class="status"
+    <div class="side-scroll">
+
+      <div class="nav-label">
+        เมนูหลัก
+      </div>
+
+      <button
+        class="nav-item active"
+        data-view="dashboard"
+        onclick="navigate('dashboard')"
+      >
+        <i class="fa-solid fa-house"></i>
+        <span>หน้าหลัก</span>
+      </button>
+
+      <button
+        class="nav-item"
+        data-view="classrooms"
+        onclick="navigate('classrooms')"
+      >
+        <i class="fa-solid fa-users"></i>
+        <span>ห้องเรียน</span>
+      </button>
+
+      <button
+        class="nav-item"
+        data-view="schedule"
+        onclick="navigate('schedule')"
+      >
+        <i class="fa-solid fa-calendar-days"></i>
+        <span>ตารางสอน</span>
+      </button>
+
+      <button
+        class="nav-item"
+        data-view="attendance"
+        onclick="navigate('attendance')"
+      >
+        <i class="fa-solid fa-user-check"></i>
+        <span>เช็กชื่อ</span>
+      </button>
+
+      <button
+        class="nav-item"
+        data-view="scores"
+        onclick="navigate('scores')"
+      >
+        <i class="fa-solid fa-chart-column"></i>
+        <span>คะแนน</span>
+      </button>
+
+      <button
+        class="nav-item"
+        data-view="scanner"
+        onclick="navigate('scanner')"
+      >
+        <i class="fa-solid fa-camera"></i>
+        <span>ตรวจข้อสอบ</span>
+      </button>
+
+      <div class="nav-label">
+        จัดการ
+      </div>
+
+      <button
+        class="nav-item"
+        data-view="lab"
+        onclick="navigate('lab')"
+      >
+        <i class="fa-solid fa-desktop"></i>
+        <span>ห้องปฏิบัติการคอมพิวเตอร์</span>
+      </button>
+
+      <button
+        class="nav-item"
+        data-view="reports"
+        onclick="navigate('reports')"
+      >
+        <i class="fa-solid fa-file-lines"></i>
+        <span>รายงาน</span>
+      </button>
+
+      <button
+        class="nav-item"
+        data-view="settings"
+        onclick="navigate('settings')"
+      >
+        <i class="fa-solid fa-gear"></i>
+        <span>ตั้งค่า</span>
+      </button>
+
+    </div>
+
+    <div class="sidebar-footer">
+
+      <div class="sidebar-profile">
+
+        <div class="avatar">
+          <i class="fa-solid fa-user"></i>
+        </div>
+
+        <div class="profile-copy">
+          <strong>ผู้ใช้งาน</strong>
+          <span>เจ้าของระบบ</span>
+        </div>
+
+      </div>
+
+    </div>
+
+  </aside>
+
+  <main class="main">
+
+    <header class="topbar">
+
+      <button
+        class="icon-btn mobile-menu"
+        onclick="openSidebar()"
+        aria-label="เปิดเมนู"
+      >
+        <i class="fa-solid fa-bars"></i>
+      </button>
+
+      <div class="topbar-left">
+
+        <h1
+          id="page-title"
+          class="page-title"
+        >
+          หน้าหลัก
+        </h1>
+
+        <p
+          id="page-subtitle"
+          class="page-subtitle"
+        >
+          ภาพรวมการจัดการชั้นเรียน
+        </p>
+
+      </div>
+
+      <div class="top-actions">
+
+        <button
+          class="icon-btn"
+          onclick="refreshCurrentView()"
+          aria-label="รีเฟรช"
+        >
+          <i class="fa-solid fa-rotate"></i>
+        </button>
+
+        <button
+          class="icon-btn"
+          onclick="navigate('settings')"
+          aria-label="ตั้งค่า"
+        >
+          <i class="fa-solid fa-user"></i>
+        </button>
+
+      </div>
+
+    </header>
+
+    <div class="content">
+
+      <section
+        id="view-dashboard"
+        class="view active"
+      >
+
+        <div class="hero">
+
+          <div class="hero-content">
+
+            <div>
+              <h2>Computer Smart Classroom</h2>
+              <p>
+                จัดการห้องเรียน เช็กชื่อ คะแนน ตารางสอน ห้องปฏิบัติการ
+                และตรวจข้อสอบได้จากที่เดียว
+              </p>
+            </div>
+
+            <img
+              class="hero-logo"
+              src="https://s.imgz.io/2026/08/31/Logo-384c5649d9c8e9035.png"
+              alt="COM SC"
+            >
+
+          </div>
+
+        </div>
+
+        <div class="section-gap"></div>
+
+        <div class="stats">
+
+          <div class="stat-card">
+            <div class="stat-top">
+              <div class="stat-icon">
+                <i class="fa-solid fa-door-open"></i>
+              </div>
+            </div>
+            <div class="stat-value">—</div>
+            <div class="stat-label">ห้องเรียน</div>
+          </div>
+
+          <div class="stat-card">
+            <div class="stat-top">
+              <div class="stat-icon">
+                <i class="fa-solid fa-users"></i>
+              </div>
+            </div>
+            <div class="stat-value">—</div>
+            <div class="stat-label">นักเรียน</div>
+          </div>
+
+          <div class="stat-card">
+            <div class="stat-top">
+              <div class="stat-icon">
+                <i class="fa-solid fa-book"></i>
+              </div>
+            </div>
+            <div class="stat-value">—</div>
+            <div class="stat-label">รายวิชาที่สอน</div>
+          </div>
+
+          <div class="stat-card">
+            <div class="stat-top">
+              <div class="stat-icon">
+                <i class="fa-solid fa-calendar-check"></i>
+              </div>
+            </div>
+            <div class="stat-value">—</div>
+            <div class="stat-label">คาบเรียนวันนี้</div>
+          </div>
+
+        </div>
+
+        <div class="section-gap"></div>
+
+        <div class="grid-main">
+
+          <div class="card">
+
+            <div class="card-head">
+
+              <div class="card-title">
+
+                <div class="card-title-icon">
+                  <i class="fa-solid fa-bolt"></i>
+                </div>
+
+                <div>
+                  <h3>เมนูลัด</h3>
+                  <p>เข้าถึงงานที่ใช้บ่อย</p>
+                </div>
+
+              </div>
+
+            </div>
+
+            <div class="quick-grid">
+
+              <button
+                class="quick"
+                onclick="navigate('attendance')"
+              >
+                <i class="fa-solid fa-user-check"></i>
+                <strong>เช็กชื่อ</strong>
+              </button>
+
+              <button
+                class="quick"
+                onclick="navigate('scores')"
+              >
+                <i class="fa-solid fa-chart-column"></i>
+                <strong>บันทึกคะแนน</strong>
+              </button>
+
+              <button
+                class="quick"
+                onclick="navigate('scanner')"
+              >
+                <i class="fa-solid fa-camera"></i>
+                <strong>ตรวจข้อสอบ</strong>
+              </button>
+
+              <button
+                class="quick"
+                onclick="navigate('schedule')"
+              >
+                <i class="fa-solid fa-calendar-days"></i>
+                <strong>ตารางสอน</strong>
+              </button>
+
+              <button
+                class="quick"
+                onclick="navigate('lab')"
+              >
+                <i class="fa-solid fa-desktop"></i>
+                <strong>ห้องคอม</strong>
+              </button>
+
+              <button
+                class="quick"
+                onclick="navigate('reports')"
+              >
+                <i class="fa-solid fa-file-lines"></i>
+                <strong>รายงาน</strong>
+              </button>
+
+            </div>
+
+          </div>
+
+          <div class="card">
+
+            <div class="card-head">
+
+              <div class="card-title">
+
+                <div class="card-title-icon">
+                  <i class="fa-solid fa-clock"></i>
+                </div>
+
+                <div>
+                  <h3>ตารางวันนี้</h3>
+                  <p>คาบเรียนประจำวัน</p>
+                </div>
+
+              </div>
+
+            </div>
+
+            <div class="empty">
+              <i class="fa-solid fa-calendar"></i>
+              <strong>รอเชื่อมข้อมูลตารางสอน</strong>
+              <span>ข้อมูลเดิมยังไม่ได้ถูกแก้ไข</span>
+            </div>
+
+          </div>
+
+        </div>
+
+      </section>
+
+      <section
+        id="view-classrooms"
+        class="view"
+      >
+        <div class="module-header">
+          <div>
+            <h2>ห้องเรียน</h2>
+            <p>จัดการห้องเรียนและรายชื่อนักเรียน</p>
+          </div>
+          <button class="primary-btn">
+            <i class="fa-solid fa-plus"></i>
+            เพิ่มห้องเรียน
+          </button>
+        </div>
+
+        <div class="module-placeholder">
+          <div>
+            <i class="fa-solid fa-users"></i>
+            <h3>กำลังเตรียมเชื่อมข้อมูลห้องเรียนเดิม</h3>
+            <p>ขั้นตอนนี้ยังไม่อ่านหรือเขียนข้อมูลใน Google Sheet</p>
+          </div>
+        </div>
+      </section>
+
+      <section
+        id="view-schedule"
+        class="view"
+      >
+        <div class="module-header">
+          <div>
+            <h2>ตารางสอน</h2>
+            <p>รายวิชา รายวิชาที่สอน และตารางประจำสัปดาห์</p>
+          </div>
+        </div>
+
+        <div class="module-placeholder">
+          <div>
+            <i class="fa-solid fa-calendar-days"></i>
+            <h3>กำลังเตรียมเชื่อมตารางสอนเดิม</h3>
+            <p>ข้อมูล TeachingCourses และ Timetable เดิมยังอยู่ครบ</p>
+          </div>
+        </div>
+      </section>
+
+      <section
+        id="view-attendance"
+        class="view"
+      >
+        <div class="module-header">
+          <div>
+            <h2>เช็กชื่อ</h2>
+            <p>บันทึกการมาเรียนของนักเรียน</p>
+          </div>
+        </div>
+
+        <div class="module-placeholder">
+          <div>
+            <i class="fa-solid fa-user-check"></i>
+            <h3>กำลังเตรียมระบบเช็กชื่อ</h3>
+            <p>ข้อมูลเช็กชื่อเดิมยังไม่ถูกเปลี่ยนแปลง</p>
+          </div>
+        </div>
+      </section>
+
+      <section
+        id="view-scores"
+        class="view"
+      >
+        <div class="module-header">
+          <div>
+            <h2>คะแนน</h2>
+            <p>กิจกรรม คะแนนเก็บ สอบปลายภาค และสรุปผล</p>
+          </div>
+        </div>
+
+        <div class="module-placeholder">
+          <div>
+            <i class="fa-solid fa-chart-column"></i>
+            <h3>กำลังเตรียมเชื่อมสมุดคะแนนเดิม</h3>
+            <p>โครงคะแนนและคะแนนนักเรียนเดิมยังคงอยู่ในฐานข้อมูลเดิม</p>
+          </div>
+        </div>
+      </section>
+
+      <section
+        id="view-scanner"
+        class="view"
+      >
+
+        <div class="module-header">
+          <div>
+            <h2>ตรวจข้อสอบ</h2>
+            <p>สแกนกระดาษคำตอบและตรวจคะแนนอัตโนมัติ</p>
+          </div>
+        </div>
+
+        <div class="scanner-layout">
+
+          <div class="camera-card">
+
+            <div class="camera-box">
+
+              <video
+                id="camera-video"
+                autoplay
+                muted
+                playsinline
+              ></video>
+
+              <div class="camera-guide"></div>
+
+              <div
+                id="camera-placeholder"
+                class="camera-placeholder"
+              >
+                <i class="fa-solid fa-camera"></i>
+                <strong>พร้อมสแกนกระดาษคำตอบ</strong>
+                <span style="margin-top:6px;font-size:12px">
+                  กดเปิดกล้องเพื่อเริ่มใช้งาน
+                </span>
+              </div>
+
+              <div
+                id="camera-status"
+                class="camera-status"
+              >
+                ยังไม่ได้เปิดกล้อง
+              </div>
+
+            </div>
+
+          </div>
+
+          <div class="scanner-side">
+
+            <div class="scan-result">
+              <small>คะแนนล่าสุด</small>
+              <strong>—</strong>
+              <span>ยังไม่มีผลการตรวจ</span>
+            </div>
+
+            <button
+              id="camera-start"
+              class="primary-btn"
+              onclick="startCamera()"
+            >
+              <i class="fa-solid fa-video"></i>
+              เปิดกล้อง
+            </button>
+
+            <button
+              id="camera-stop"
+              class="secondary-btn"
+              onclick="stopCamera()"
+              disabled
+            >
+              <i class="fa-solid fa-video-slash"></i>
+              ปิดกล้อง
+            </button>
+
+            <div class="info-box">
+              ขณะนี้เปิดใช้กล้องได้แล้ว ส่วนการอ่านกระดาษคำตอบ ชื่อนักเรียน
+              และการคำนวณคะแนน จะเชื่อมในขั้นตอนถัดไป
+            </div>
+
+            <div
+              id="camera-error"
+              class="camera-error"
+            ></div>
+
+          </div>
+
+        </div>
+
+      </section>
+
+      <section
+        id="view-lab"
+        class="view"
+      >
+        <div class="module-header">
+          <div>
+            <h2>ห้องปฏิบัติการคอมพิวเตอร์</h2>
+            <p>บันทึกการใช้งานเครื่องคอมพิวเตอร์และผู้ควบคุม</p>
+          </div>
+        </div>
+
+        <div class="module-placeholder">
+          <div>
+            <i class="fa-solid fa-desktop"></i>
+            <h3>กำลังเตรียมเชื่อมข้อมูลห้องปฏิบัติการ</h3>
+            <p>ประวัติการใช้งานเดิมยังอยู่ในฐานข้อมูลเดิมทั้งหมด</p>
+          </div>
+        </div>
+      </section>
+
+      <section
+        id="view-reports"
+        class="view"
+      >
+        <div class="module-header">
+          <div>
+            <h2>รายงาน</h2>
+            <p>สรุปข้อมูลสำหรับตรวจสอบและพิมพ์รายงาน</p>
+          </div>
+        </div>
+
+        <div class="module-placeholder">
+          <div>
+            <i class="fa-solid fa-file-lines"></i>
+            <h3>กำลังเตรียมระบบรายงาน</h3>
+            <p>จะเชื่อมรายงานเดิมหลังจากโมดูลข้อมูลหลักพร้อมใช้งาน</p>
+          </div>
+        </div>
+      </section>
+
+      <section
+        id="view-settings"
+        class="view"
+      >
+        <div class="module-header">
+          <div>
+            <h2>ตั้งค่า</h2>
+            <p>ปีการศึกษา ภาคเรียน และการตั้งค่าระบบ</p>
+          </div>
+        </div>
+
+        <div class="module-placeholder">
+          <div>
+            <i class="fa-solid fa-gear"></i>
+            <h3>กำลังเตรียมการตั้งค่า</h3>
+            <p>ยังไม่มีการแก้ไขค่าของระบบเดิมในขั้นตอนนี้</p>
+          </div>
+        </div>
+      </section>
+
+    </div>
+
+  </main>
+
+  <nav class="bottom-nav">
+
+    <button
+      class="bottom-item active"
+      data-view="dashboard"
+      onclick="navigate('dashboard')"
     >
-      ยังไม่ได้เปิดกล้อง
-    </div>
+      <i class="fa-solid fa-house"></i>
+      <span>หน้าหลัก</span>
+    </button>
 
-    <div class="buttons">
+    <button
+      class="bottom-item"
+      data-view="attendance"
+      onclick="navigate('attendance')"
+    >
+      <i class="fa-solid fa-user-check"></i>
+      <span>เช็กชื่อ</span>
+    </button>
 
-      <button
-        id="startBtn"
-        class="primary"
-        type="button"
-      >
-        เปิดกล้องหลัง
-      </button>
+    <button
+      class="bottom-item"
+      data-view="scores"
+      onclick="navigate('scores')"
+    >
+      <i class="fa-solid fa-chart-column"></i>
+      <span>คะแนน</span>
+    </button>
 
-      <button
-        id="stopBtn"
-        class="secondary"
-        type="button"
-        disabled
-      >
-        ปิดกล้อง
-      </button>
+    <button
+      class="bottom-item"
+      data-view="scanner"
+      onclick="navigate('scanner')"
+    >
+      <i class="fa-solid fa-camera"></i>
+      <span>ตรวจข้อสอบ</span>
+    </button>
 
-    </div>
+    <button
+      class="bottom-item"
+      onclick="openSidebar()"
+    >
+      <i class="fa-solid fa-grip"></i>
+      <span>เพิ่มเติม</span>
+    </button>
 
-    <div
-      id="errorBox"
-      class="error-box"
-    ></div>
-
-  </div>
-
-  <div class="info">
-
-    <h2>สถานะระบบ</h2>
-
-    <div class="row">
-      <div class="label">HTTPS</div>
-      <div id="secureValue" class="value"></div>
-    </div>
-
-    <div class="row">
-      <div class="label">Camera API</div>
-      <div id="mediaValue" class="value"></div>
-    </div>
-
-    <div class="row">
-      <div class="label">เว็บไซต์</div>
-      <div id="originValue" class="value"></div>
-    </div>
-
-    <div class="row">
-      <div class="label">กล้อง</div>
-      <div id="cameraValue" class="value">-</div>
-    </div>
-
-    <div class="row">
-      <div class="label">ความละเอียด</div>
-      <div id="resolutionValue" class="value">-</div>
-    </div>
-
-  </div>
+  </nav>
 
 </div>
 
 <script>
-let stream=null;
-
-const video=document.getElementById('video');
-const startBtn=document.getElementById('startBtn');
-const stopBtn=document.getElementById('stopBtn');
-const placeholder=document.getElementById('placeholder');
-const statusBox=document.getElementById('status');
-const errorBox=document.getElementById('errorBox');
-
-function setStatus(text,type=''){
-  statusBox.textContent=text;
-  statusBox.className='status'+(type?' '+type:'');
-}
-
-function showError(error){
-  const name=error?.name||'Error';
-  const message=error?.message||String(error);
-
-  errorBox.innerHTML=
-    '<strong>'+escapeHtml(name)+'</strong><br>'+
-    escapeHtml(message);
-
-  errorBox.classList.add('show');
-}
-
-function clearError(){
-  errorBox.innerHTML='';
-  errorBox.classList.remove('show');
-}
-
-function escapeHtml(value){
-  return String(value??'')
-    .replace(/&/g,'&amp;')
-    .replace(/</g,'&lt;')
-    .replace(/>/g,'&gt;')
-    .replace(/"/g,'&quot;')
-    .replace(/'/g,'&#039;');
-}
-
-function stopCamera(){
-  if(stream){
-    stream.getTracks().forEach(track=>track.stop());
+const VIEW_META={
+  dashboard:{
+    title:'หน้าหลัก',
+    subtitle:'ภาพรวมการจัดการชั้นเรียน'
+  },
+  classrooms:{
+    title:'ห้องเรียน',
+    subtitle:'จัดการห้องเรียนและรายชื่อนักเรียน'
+  },
+  schedule:{
+    title:'ตารางสอน',
+    subtitle:'รายวิชาและตารางประจำสัปดาห์'
+  },
+  attendance:{
+    title:'เช็กชื่อ',
+    subtitle:'บันทึกการมาเรียนของนักเรียน'
+  },
+  scores:{
+    title:'คะแนน',
+    subtitle:'บันทึกและสรุปคะแนน'
+  },
+  scanner:{
+    title:'ตรวจข้อสอบ',
+    subtitle:'สแกนกระดาษคำตอบและตรวจคะแนน'
+  },
+  lab:{
+    title:'ห้องปฏิบัติการคอมพิวเตอร์',
+    subtitle:'บันทึกการใช้งานห้องปฏิบัติการ'
+  },
+  reports:{
+    title:'รายงาน',
+    subtitle:'สรุปและพิมพ์รายงาน'
+  },
+  settings:{
+    title:'ตั้งค่า',
+    subtitle:'การตั้งค่าระบบ'
   }
+};
 
-  stream=null;
-  video.srcObject=null;
+let currentView='dashboard';
+let cameraStream=null;
 
-  placeholder.classList.remove('hidden');
-
-  startBtn.disabled=false;
-  stopBtn.disabled=true;
-
-  document.getElementById('cameraValue').textContent='-';
-  document.getElementById('resolutionValue').textContent='-';
-
-  setStatus('ปิดกล้องแล้ว');
-}
-
-async function startCamera(){
-  clearError();
-
-  if(!window.isSecureContext){
-    setStatus('หน้าเว็บไม่ได้เปิดผ่าน HTTPS','error');
-    showError(new Error('ต้องเปิดผ่าน HTTPS'));
+function navigate(view){
+  if(!VIEW_META[view]){
     return;
   }
 
-  if(!navigator.mediaDevices?.getUserMedia){
-    setStatus('เบราว์เซอร์ไม่รองรับ Camera API','error');
-    showError(new Error('ไม่พบ navigator.mediaDevices.getUserMedia'));
-    return;
-  }
-
-  if(stream){
+  if(
+    currentView==='scanner' &&
+    view!=='scanner'
+  ){
     stopCamera();
   }
 
-  setStatus('กำลังขอสิทธิ์กล้อง...');
+  currentView=view;
+
+  document
+    .querySelectorAll('.view')
+    .forEach(el=>{
+      el.classList.remove('active');
+    });
+
+  document
+    .getElementById('view-'+view)
+    ?.classList
+    .add('active');
+
+  document
+    .querySelectorAll('.nav-item[data-view]')
+    .forEach(el=>{
+      el.classList.toggle(
+        'active',
+        el.dataset.view===view
+      );
+    });
+
+  document
+    .querySelectorAll('.bottom-item[data-view]')
+    .forEach(el=>{
+      el.classList.toggle(
+        'active',
+        el.dataset.view===view
+      );
+    });
+
+  document.getElementById('page-title').textContent=
+    VIEW_META[view].title;
+
+  document.getElementById('page-subtitle').textContent=
+    VIEW_META[view].subtitle;
+
+  closeSidebar();
+
+  window.scrollTo({
+    top:0,
+    behavior:'smooth'
+  });
+}
+
+function openSidebar(){
+  document
+    .getElementById('sidebar')
+    .classList
+    .add('open');
+
+  document
+    .getElementById('backdrop')
+    .classList
+    .add('show');
+}
+
+function closeSidebar(){
+  document
+    .getElementById('sidebar')
+    .classList
+    .remove('open');
+
+  document
+    .getElementById('backdrop')
+    .classList
+    .remove('show');
+}
+
+function refreshCurrentView(){
+  if(currentView==='scanner'){
+    setCameraStatus(
+      cameraStream
+        ? 'กล้องพร้อมใช้งาน'
+        : 'ยังไม่ได้เปิดกล้อง',
+      !!cameraStream
+    );
+  }
+}
+
+async function startCamera(){
+  clearCameraError();
+
+  if(!navigator.mediaDevices?.getUserMedia){
+    showCameraError(
+      'เบราว์เซอร์นี้ไม่รองรับการเปิดกล้อง'
+    );
+    return;
+  }
+
+  stopCamera();
+
+  setCameraStatus(
+    'กำลังขอสิทธิ์กล้อง...'
+  );
+
+  const startBtn=
+    document.getElementById('camera-start');
+
   startBtn.disabled=true;
 
   try{
     try{
-      stream=await navigator.mediaDevices.getUserMedia({
-        audio:false,
-        video:{
-          facingMode:{ideal:'environment'},
-          width:{ideal:1920},
-          height:{ideal:1080}
-        }
-      });
+      cameraStream=
+        await navigator.mediaDevices.getUserMedia({
+          audio:false,
+          video:{
+            facingMode:{
+              ideal:'environment'
+            },
+            width:{
+              ideal:1920
+            },
+            height:{
+              ideal:1080
+            }
+          }
+        });
     }catch(firstError){
-      stream=await navigator.mediaDevices.getUserMedia({
-        audio:false,
-        video:true
-      });
+      cameraStream=
+        await navigator.mediaDevices.getUserMedia({
+          audio:false,
+          video:true
+        });
     }
 
-    video.srcObject=stream;
+    const video=
+      document.getElementById('camera-video');
+
+    video.srcObject=cameraStream;
+
     await video.play();
 
-    placeholder.classList.add('hidden');
+    document
+      .getElementById('camera-placeholder')
+      .classList
+      .add('hidden');
 
-    stopBtn.disabled=false;
+    document
+      .getElementById('camera-stop')
+      .disabled=false;
 
-    const track=stream.getVideoTracks()[0];
-    const settings=track.getSettings();
-
-    document.getElementById('cameraValue').textContent=
-      track.label||'Camera';
-
-    document.getElementById('resolutionValue').textContent=
-      (settings.width||video.videoWidth||'-')+
-      ' × '+
-      (settings.height||video.videoHeight||'-');
-
-    setStatus('เปิดกล้องสำเร็จ','success');
+    setCameraStatus(
+      'กล้องพร้อมสแกน',
+      true
+    );
 
   }catch(error){
-    stream=null;
+    cameraStream=null;
 
     startBtn.disabled=false;
-    stopBtn.disabled=true;
 
-    setStatus('เปิดกล้องไม่สำเร็จ','error');
-    showError(error);
+    showCameraError(
+      (error?.name||'Error')+
+      ': '+
+      (error?.message||String(error))
+    );
+
+    setCameraStatus(
+      'เปิดกล้องไม่สำเร็จ'
+    );
   }
 }
 
-startBtn.addEventListener('click',startCamera);
-stopBtn.addEventListener('click',stopCamera);
+function stopCamera(){
+  if(cameraStream){
+    cameraStream
+      .getTracks()
+      .forEach(track=>{
+        track.stop();
+      });
+  }
 
-document.getElementById('secureValue').textContent=
-  window.isSecureContext?'ผ่าน':'ไม่ผ่าน';
+  cameraStream=null;
 
-document.getElementById('mediaValue').textContent=
-  navigator.mediaDevices?.getUserMedia?'รองรับ':'ไม่รองรับ';
+  const video=
+    document.getElementById('camera-video');
 
-document.getElementById('originValue').textContent=
-  location.origin;
+  if(video){
+    video.srcObject=null;
+  }
 
-window.addEventListener('pagehide',stopCamera);
+  document
+    .getElementById('camera-placeholder')
+    ?.classList
+    .remove('hidden');
+
+  const startBtn=
+    document.getElementById('camera-start');
+
+  const stopBtn=
+    document.getElementById('camera-stop');
+
+  if(startBtn){
+    startBtn.disabled=false;
+  }
+
+  if(stopBtn){
+    stopBtn.disabled=true;
+  }
+
+  setCameraStatus(
+    'ยังไม่ได้เปิดกล้อง'
+  );
+}
+
+function setCameraStatus(text,success=false){
+  const el=
+    document.getElementById('camera-status');
+
+  if(!el){
+    return;
+  }
+
+  el.textContent=text;
+
+  el.classList.toggle(
+    'success',
+    !!success
+  );
+}
+
+function showCameraError(message){
+  const box=
+    document.getElementById('camera-error');
+
+  if(!box){
+    return;
+  }
+
+  box.textContent=message;
+  box.classList.add('show');
+}
+
+function clearCameraError(){
+  const box=
+    document.getElementById('camera-error');
+
+  if(!box){
+    return;
+  }
+
+  box.textContent='';
+  box.classList.remove('show');
+}
+
+window.addEventListener(
+  'pagehide',
+  stopCamera
+);
 </script>
 
 </body>
